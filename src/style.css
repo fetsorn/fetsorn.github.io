@@ -77,3 +77,33 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+h1 {
+  font-family: verdana;
+  font-size: 300%;
+}
+p {
+  font-family: courier;
+  font-size: 160%;
+}
+.grade {
+  display: grid;
+  grid-template: auto / 1fr 1fr 1fr;
+}
+.picture {
+  max-width: 100%;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  width: 150px;
+}
+
+.links {
+  display: flex;
+  justify-content: space-evenly;
+}
