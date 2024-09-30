@@ -1,5 +1,5 @@
 {
-  "name": "whale-mission",
+  "name": "vlg_line",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,13 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@indoorequal/vue-maplibre-gl": "^7.6.1",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "maplibre-gl": "^4.7.1",
+    "turf": "^3.0.14",
     "vue": "^3.4.21",
     "vue-router": "^4.3.2",
     "vue-tg": "^0.6.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "prettier": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vue-tsc": "^2.0.6"
