@@ -10,6 +10,8 @@ mdbook build
 
 cp theme/robots.txt ./pages/
 
+cp theme/.domains ./pages/
+
 git --git-dir ./.git/worktrees/pages --work-tree ./pages add .
 
 git --git-dir ./.git/worktrees/pages --work-tree ./pages commit --file - < version.md
