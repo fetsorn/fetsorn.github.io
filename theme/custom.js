@@ -16,6 +16,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const links = [
     {
+      title: "Source",
+      url: 'https://codeberg.org/norcivilianlabs'
+    },
+    {
       title: "Blog",
       url: 'https://norcivilianlabs.substack.com'
     }

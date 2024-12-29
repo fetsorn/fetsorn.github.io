@@ -50,7 +50,7 @@ user interface consists of
 - overview with a list of records and a search bar
 - profile with a single record
 ### overview
-overview consists of a navigation bar, a serach bar, and a set of paragraphs
+overview consists of a navigation bar, a search bar, and a set of paragraphs
 
 overview updates on every change to the search bar
 
@@ -234,6 +234,7 @@ The project directory is versioned by git. In the root there's configs for nix, 
      - `task`: optional, what special data type this branch holds
      - `description_en`: optional, description of the branch in English
      - `description_ru`: optional, description of the branch in Russian
+
 ## adr
 - user must store i18n description of schema entities
 
