@@ -1,0 +1,1448 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>API - Norcivilian Labs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/overrides.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../getting_started.html">Getting started</a></li><li class="chapter-item expanded "><a href="../projects.html">Projects</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/index.html">csvs</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/format/index.html">Format</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/format/getting_started.html">Getting started</a></li><li class="chapter-item "><a href="../csvs/format/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../csvs/format/user_guides.html">User guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/format/01_nested_records.html">Nested Records</a></li><li class="chapter-item "><a href="../csvs/format/02_lists_of_values.html">Lists of Values</a></li><li class="chapter-item "><a href="../csvs/format/03_dataset_settings.html">Dataset Settings</a></li><li class="chapter-item "><a href="../csvs/format/04_asset_storage.html">Asset Storage</a></li><li class="chapter-item "><a href="../csvs/format/05_branch_metadata.html">Branch Metadata</a></li><li class="chapter-item "><a href="../csvs/format/06_writing_a_client.html">Writing a Client</a></li></ol></li><li class="chapter-item "><a href="../csvs/format/design.html">Design</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/format/0.1.0.html">Specification 0.1.0</a></li></ol></li><li class="chapter-item "><a href="../csvs/format/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../csvs/library/index.html">Library</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/library/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../csvs/library/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../csvs/library/user_guides.html">User Guides</a></li><li class="chapter-item "><a href="../csvs/library/design.html">Design</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/library/record_object_notation.html">Record Object Notation</a></li><li class="chapter-item "><a href="../csvs/library/update.html">Update</a></li><li class="chapter-item "><a href="../csvs/library/insert.html">Insert</a></li><li class="chapter-item "><a href="../csvs/library/query_object_notation.html">Query Object Notation</a></li><li class="chapter-item "><a href="../csvs/library/select_core.html">Select Core</a></li><li class="chapter-item "><a href="../csvs/library/select_store.html">Select Store</a></li><li class="chapter-item "><a href="../csvs/library/delete.html">Delete</a></li></ol></li><li class="chapter-item "><a href="../csvs/library/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../csvs/cli/index.html">CLI</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/cli/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../csvs/cli/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../csvs/cli/user_guides.html">User Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/cli/01_import_from_filesystem.html">Import from Filesystem</a></li><li class="chapter-item "><a href="../csvs/cli/02_import_from_telegram.html">Import from Telegram</a></li><li class="chapter-item "><a href="../csvs/cli/03_import_from_vkontakte.html">Import from VKontakte</a></li><li class="chapter-item "><a href="../csvs/cli/04_merge_csvs_datasets.html">Merge CSVS Datasets</a></li><li class="chapter-item "><a href="../csvs/cli/05_edit_csvs_schema.html">Edit CSVS Schema</a></li><li class="chapter-item "><a href="../csvs/cli/06_map_csvs_schemas.html">Map CSVS schemas</a></li></ol></li><li class="chapter-item "><a href="../csvs/cli/reference.html">Reference</a></li><li class="chapter-item "><a href="../csvs/cli/design.html">Design</a></li><li class="chapter-item "><a href="../csvs/cli/requirements.html">Requirements</a></li></ol></li></ol></li><li class="chapter-item "><a href="../evenor/index.html">evenor</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../evenor/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../evenor/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../evenor/user_guides.html">User Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../evenor/01_running_search_queries.html">Running search queries</a></li><li class="chapter-item "><a href="../evenor/02_cloning_from_git.html">Cloning from git</a></li><li class="chapter-item "><a href="../evenor/03_editing_dataset_schema.html">Editing dataset schema</a></li><li class="chapter-item "><a href="../evenor/04_adding_a_family_tree.html">Adding a family tree</a></li><li class="chapter-item "><a href="../evenor/05_caching_a_hard_drive.html">Caching a hard drive</a></li><li class="chapter-item "><a href="../evenor/06_publishing_to_social_media.html">Publishing to social media</a></li><li class="chapter-item "><a href="../evenor/07_merging_datasets.html">Merging datasets</a></li></ol></li><li class="chapter-item "><a href="../evenor/privacy.html">Privacy</a></li><li class="chapter-item "><a href="../evenor/design.html">Design</a></li><li class="chapter-item "><a href="../evenor/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../guanbo/index.html">guanbo</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../guanbo/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../guanbo/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../guanbo/user_guides.html">User Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../guanbo/01_playing_song_chords.html">Playing song chords</a></li></ol></li><li class="chapter-item "><a href="../guanbo/design.html">Design</a></li><li class="chapter-item "><a href="../guanbo/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../morio/index.html">morio</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../morio/design.html">Design</a></li><li class="chapter-item "><a href="../morio/requirements.html">Requirements</a></li></ol></li><li class="chapter-item expanded "><a href="../retina/index.html">retina</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../retina/design.html">Design</a></li><li class="chapter-item expanded "><a href="../retina/api.html" class="active">API</a></li><li class="chapter-item "><a href="../retina/privacy.html">Privacy</a></li><li class="chapter-item "><a href="../retina/requirements.html">Requirements</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../design.html">Design</a></li><li class="chapter-item expanded "><a href="../requirements.html">Requirements</a></li><li class="chapter-item expanded "><a href="../license.html">License</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Norcivilian Labs</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://codeberg.org/norcivilianlabs/pages" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-code-fork"></i>
+                        </a>
+                        <a href="https://codeberg.org/norcivilianlabs/pages/_edit/main/src/retina/api.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="api"><a class="header" href="#api">API</a></h1>
+<p>All contours have the same representation as a list of lists with integers and have the following form:</p>
+<h2 id="processing-of-fundus-photos"><a class="header" href="#processing-of-fundus-photos">Processing of FUNDUS photos</a></h2>
+<pre><code class="language-rest">
+POST https://functions.yandexcloud.net/d4e5t0njkd4f1mb9kh5l
+
+Content-Type: text/plain
+
+Accept: */*
+
+
+
+{
+
+  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZldHNvcm5AZ21haWwuY29tIiwiaWF0IjoxNjI3MTMxMzgyfQ.CGQgvWOCcNBeo-AxTC1ApaJZZs1OKKEsM1ublnW679y4l78qjsebAtM1hD7Or5NrckZ29DwA8qmvZoJzjSfGrMJ3NrmnTHBVIx1EIx44IwZdJNPW6zXVrpTbyVL1gNyGrLS5FKVDh48lLANojMlg8zvOkQEMrgv440GG4LZubyj1APJ8m51Qm2uC_Nn0mgv-ooKoJHAQI8YCLDpCkXv2WMOVpMxgKOBX7iKknM8IYlh3oMNtIfxG5F4VeL_nYzIwIbbAZhtnvWJm-0bTbRhBk0FGDYYd2s8e2AZGPl5S7ZDU-RFU1Jau4czpUxt2dMuhve2acsVWnNxcKStU_M7bRZ6XJL9Nebme5-7iuejF8lpd2c1wBsecbTiF75b0GSagUJx3saeOumDlnGhQ-Y6Mo4dshfkPeAcMRhgo8l0-PJrh8LfbsrSjw2ywfpIE_k-kqV9PczIemFegMEcV_yHwN9iBqkD5900tXPA2nVpTQ_zeHb8rUkXf3jXh9WzUGHjkM1NMKv5L0SlQmcnLghv0qLCrqfGWrG0MJ6ZkTXZvi12kOcKCd88nJ8Li1RKVXE0pDNg7Mm5FoqIHDai_pO_bQjDusGMbp4PFamAHMgzuxqMD6tbs-oWhINID8ywnECMTnzHVzkegPz373x02dS0eMvf435YE_tT877M7fOy8L68",
+
+    "image": ""
+
+}
+
+</code></pre>
+<pre><code class="language-js">
+// POST https://functions.yandexcloud.net/d4e5t0njkd4f1mb9kh5l
+
+// HTTP/1.1 401 Unauthorized
+
+// Date: Fri, 23 Jun 2023 17:11:37 GMT
+
+// Content-Length: 0
+
+// Connection: keep-alive
+
+// Access-Control-Allow-Origin: *
+
+// Server: Yandex-Cloud-Functions/1.0
+
+// X-Content-Type-Options: nosniff
+
+// X-Function-Id: d4e5t0njkd4f1mb9kh5l
+
+// X-Function-Version-Id: d4etbadc9vbndqjq61f8
+
+// X-Request-Id: 4db12798-d24e-4062-9418-8777bdd7345a
+
+// Request duration: 3.204405s
+
+</code></pre>
+<p>URL: https://functions.yandexcloud.net/d4e5t0njkd4f1mb9kh5l</p>
+<p>Request headers:</p>
+<p>Accept: <em>/</em></p>
+<p>Content-Type: text/plain</p>
+<p>Request fields:</p>
+<p>token — string — user token;</p>
+<p>image — string - data URL images в webp format</p>
+<h3 id="status-500--server-error"><a class="header" href="#status-500--server-error">Status 500 — server error</a></h3>
+<p>Response fields:</p>
+<p>info — string — contains error description</p>
+<h3 id="status-401--authorization-error"><a class="header" href="#status-401--authorization-error">Status 401 — authorization error</a></h3>
+<h3 id="status-200--request-processed-successfully"><a class="header" href="#status-200--request-processed-successfully">Status 200 — request processed successfully</a></h3>
+<p>Response fields:</p>
+<p><code>exudates_in_macula</code> — boolean — true — if there are exudates in the macula;</p>
+<p><code>exudates_in_fovea</code> — boolean — true — if there are hard exudates within a radius of 500 microns from the center of the macula (clinically significant macular edema);</p>
+<p><code>height</code> — int32 — image height;</p>
+<p><code>width</code> — int32 — image width;</p>
+<p><code>image</code> — string - data URL of image with preprocessing;</p>
+<p><code>macula</code> — list of float32 — list of macula parameters [x center, y center, diameter 500 microns from center in pixels, macula diameter in pixels, µm per pixel scale];</p>
+<p><code>hard_exudates</code> — list of int32 lists — outlines of hard exudates;</p>
+<p><code>intraretinal_hemorrhages</code> — list of int32 lists — contours of intraretinal hemorrhages;</p>
+<p><code>soft_exudates</code> — list of int32 lists — contours of soft exudates;</p>
+<p><code>fibrose</code> — list of int32 lists — fibrosis contours;</p>
+<p><code>laser</code> — list of int32 lists — contours of laser coagulates;</p>
+<p><code>microaneurysms</code> — list of int32 lists — contours of microaneurysms;</p>
+<p><code>neovascularization</code> — list of int32 lists — contours of neovascularization;</p>
+<p><code>preretinal</code> — list of int32 lists — contours of preretinal hemorrhages;</p>
+<p><code>va</code> — list of int32 lists — contours of venous anomalies.</p>
+<h2 id="processing-of-oct"><a class="header" href="#processing-of-oct">Processing of OCT</a></h2>
+<pre><code class="language-rest">
+POST https://functions.yandexcloud.net/d4e7i7f8odqn50mirlrm
+
+Content-Type: text/plain
+
+Accept: */*
+
+
+
+{
+
+  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZldHNvcm5AZ21haWwuY29tIiwiaWF0IjoxNjI3MTMxMzgyfQ.CGQgvWOCcNBeo-AxTC1ApaJZZs1OKKEsM1ublnW679y4l78qjsebAtM1hD7Or5NrckZ29DwA8qmvZoJzjSfGrMJ3NrmnTHBVIx1EIx44IwZdJNPW6zXVrpTbyVL1gNyGrLS5FKVDh48lLANojMlg8zvOkQEMrgv440GG4LZubyj1APJ8m51Qm2uC_Nn0mgv-ooKoJHAQI8YCLDpCkXv2WMOVpMxgKOBX7iKknM8IYlh3oMNtIfxG5F4VeL_nYzIwIbbAZhtnvWJm-0bTbRhBk0FGDYYd2s8e2AZGPl5S7ZDU-RFU1Jau4czpUxt2dMuhve2acsVWnNxcKStU_M7bRZ6XJL9Nebme5-7iuejF8lpd2c1wBsecbTiF75b0GSagUJx3saeOumDlnGhQ-Y6Mo4dshfkPeAcMRhgo8l0-PJrh8LfbsrSjw2ywfpIE_k-kqV9PczIemFegMEcV_yHwN9iBqkD5900tXPA2nVpTQ_zeHb8rUkXf3jXh9WzUGHjkM1NMKv5L0SlQmcnLghv0qLCrqfGWrG0MJ6ZkTXZvi12kOcKCd88nJ8Li1RKVXE0pDNg7Mm5FoqIHDai_pO_bQjDusGMbp4PFamAHMgzuxqMD6tbs-oWhINID8ywnECMTnzHVzkegPz373x02dS0eMvf435YE_tT877M7fOy8L68",
+
+    "image": "a",
+
+   "type": "image/png"
+
+}
+
+</code></pre>
+<pre><code class="language-js">
+// POST https://functions.yandexcloud.net/d4e7i7f8odqn50mirlrm
+
+// HTTP/1.1 401 Unauthorized
+
+// Date: Fri, 23 Jun 2023 16:13:46 GMT
+
+// Content-Length: 0
+
+// Connection: keep-alive
+
+// Access-Control-Allow-Origin: *
+
+// Server: Yandex-Cloud-Functions/1.0
+
+// X-Content-Type-Options: nosniff
+
+// X-Function-Id: d4e7i7f8odqn50mirlrm
+
+// X-Function-Version-Id: d4eo02fuiulg7pqichhs
+
+// X-Request-Id: cc93593e-6331-4698-bd79-ebd53c3d3306
+
+// Request duration: 2.938829s
+
+</code></pre>
+<p>URL: https://functions.yandexcloud.net/d4e7i7f8odqn50mirlrm</p>
+<p>Request headers:</p>
+<p>Accept: <em>/</em></p>
+<p>Content-Type: text/plain</p>
+<p>Request fields:</p>
+<p>token — string — user token;</p>
+<p>image — string - data URL of image in webp format;</p>
+<p>type — string - image MIME type, e.g image/png, image/jpeg</p>
+<h3 id="status-500--server-error-1"><a class="header" href="#status-500--server-error-1">Status 500 — server error</a></h3>
+<p>Response fields:</p>
+<p>info — string — contains error description</p>
+<h3 id="status-401--authorization-error-1"><a class="header" href="#status-401--authorization-error-1">Status 401 — authorization error</a></h3>
+<h3 id="status-200--request-processed-successfully-1"><a class="header" href="#status-200--request-processed-successfully-1">Status 200 — request processed successfully</a></h3>
+<p>Response fields:</p>
+<p><code>Druzen</code> — list of int32 lists — contours of retinal drusen;</p>
+<p><code>Layer_Bruchs_membrane</code> — list of int32 lists — not used;</p>
+<p><code>Layer_Henle_fibers_outer_nuclear</code> — list of int32 lists — not used;</p>
+<p><code>Layer_RPE</code> — list of int32 lists — not used;</p>
+<p><code>Layer_RPE_and_Bruchs_membrane</code> — list of int32 lists — not used;</p>
+<p><code>Layer_ellipsoidal_zone_photoreceptors</code> — list of int32 lists — not used;</p>
+<p><code>Layer_ganglion_cells_internal_plexieforms</code> — list of int32 lists — not used;</p>
+<p><code>Layer_inner_nuclear</code> — list of int32 lists — not used;</p>
+<p><code>Layer_myoid_zone_photoreceptors</code> — list of int32 lists — not used;</p>
+<p><code>Layer_nerve_fibers</code> — list of int32 lists — not used;</p>
+<p><code>Layer_outer_boundary_membrane</code> — list of int32 lists — not used;</p>
+<p><code>Layer_outer_plexiform</code> — list of int32 lists — not used;</p>
+<p><code>Layer_outer_segments_photoreceptors</code> — list of int32 lists — not used;</p>
+<p><code>RPE_detachment</code> — list of int32 lists — contours of retinal pigment epithelium detachment;</p>
+<p><code>SHRM</code> — list of int32 lists — contours of subretinal hyperreflective material;</p>
+<p><code>epiretinal_fibrosis</code> — list of int32 lists — not used;</p>
+<p><code>full_macular_hole</code> — list of int32 lists — contours of a through macular hole;</p>
+<p><code>height</code> — int32 — image height;</p>
+<p><code>intraretinal_cyst</code> — list of int32 lists — contours of intraretinal cysts;</p>
+<p><code>lamellar_macular_hole</code> -  list of int32 lists — contours of lamellar macular hole;</p>
+<p><code>subretinal_fluid</code> — list of int32 lists — subretinal fluid contours;</p>
+<p><code>vmt</code> — list of int32 lists — vitreomacular traction contours;</p>
+<p><code>width</code> — int32 — image width;</p>
+<h2 id="sign-up"><a class="header" href="#sign-up">Sign up</a></h2>
+<pre><code class="language-rest">
+POST https://functions.yandexcloud.net/d4esr6ie5khkuno72hib
+
+Content-Type: text/plain
+
+
+
+{
+
+    "op": "register",
+
+    "email": "",
+
+    "password": "",
+
+    "first_name": "",
+
+    "last_name": "",
+
+    "middle_name": "",
+
+    "country": "",
+
+    "city": "",
+
+    "organization": "",
+
+    "profession": "Researcher",
+
+    "promocode": "",
+
+    "language": "en",
+
+    "domain": "com",
+
+    "name": "",
+
+    "real_name": ""
+
+}
+
+</code></pre>
+<pre><code class="language-js">
+{
+
+  "ok": true
+
+}
+
+// POST https://functions.yandexcloud.net/d4esr6ie5khkuno72hib
+
+// HTTP/1.1 200 OK
+
+// Date: Fri, 23 Jun 2023 17:09:49 GMT
+
+// Content-Type: application/json
+
+// Content-Length: 11
+
+// Connection: keep-alive
+
+// Access-Control-Allow-Origin: *
+
+// Server: Yandex-Cloud-Functions/1.0
+
+// X-Content-Type-Options: nosniff
+
+// X-Function-Id: d4esr6ie5khkuno72hib
+
+// X-Function-Version-Id: d4eh53g2gb4s7m9ugdqj
+
+// X-Request-Id: 7da71136-efbb-47fb-9dd6-614e2ccfd5b9
+
+// Request duration: 3.835323s
+
+</code></pre>
+<p>URL: https://functions.yandexcloud.net/d4esr6ie5khkuno72hib</p>
+<p>Request headers:</p>
+<p>Accept: <em>/</em></p>
+<p>Content-Type: text/plain</p>
+<p>Request fields:</p>
+<p><code>op</code> — string - always equals "register";</p>
+<p><code>email</code> — string - must be not empty, user email;</p>
+<p><code>password</code> — string - must be not empty, password;</p>
+<p><code>first_name</code> — string - must be not empty, name;</p>
+<p><code>last_name</code> — string - must be not empty, surname;</p>
+<p><code>middle_name</code> — string - may be empty, middle name;</p>
+<p><code>country</code> — string - must be not empty, country, always in English, from the Countries list;</p>
+<p><code>city</code> — string - must be not empty, city;</p>
+<p><code>organization</code> — string - must be not empty, organization name;</p>
+<p><code>profession</code> — string - must be not empty, profession, always in english, from the Professions list;</p>
+<p><code>promocode</code> — string - promocode input by the user or an empty string;</p>
+<p><code>language</code> — string - two-letter language code, e.g. "ru", "en";</p>
+<p><code>domain</code> — string - always "com";</p>
+<p><code>name</code> — string - always empty string;</p>
+<p><code>real_name</code> — string — always empty string.</p>
+<h3 id="status-500--server-error-2"><a class="header" href="#status-500--server-error-2">Status 500 — server error</a></h3>
+<p>Response fields:</p>
+<p>info — string — contains error description</p>
+<h3 id="status-200--request-processed-successfully-2"><a class="header" href="#status-200--request-processed-successfully-2">Status 200 — request processed successfully</a></h3>
+<p>Response fields:</p>
+<p>ok — boolean — true — if registration is successful, false — if user already exists.</p>
+<h2 id="log-in"><a class="header" href="#log-in">Log in</a></h2>
+<pre><code class="language-rest">
+POST https://functions.yandexcloud.net/d4esr6ie5khkuno72hib
+
+Content-Type: text/plain
+
+
+
+{
+
+    "op": "login",
+
+    "email": "",
+
+    "password": ""
+
+}
+
+</code></pre>
+<pre><code class="language-js">
+{
+
+  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZldHNvcm5AZ21haWwuY29tIiwiaWF0IjoxNjI3MTMxMzgyfQ.CGQgvWOCcNBeo-AxTC1ApaJZZs1OKKEsM1ublnW679y4l78qjsebAtM1hD7Or5NrckZ29DwA8qmvZoJzjSfGrMJ3NrmnTHBVIx1EIx44IwZdJNPW6zXVrpTbyVL1gNyGrLS5FKVDh48lLANojMlg8zvOkQEMrgv440GG4LZubyj1APJ8m51Qm2uC_Nn0mgv-ooKoJHAQI8YCLDpCkXv2WMOVpMxgKOBX7iKknM8IYlh3oMNtIfxG5F4VeL_nYzIwIbbAZhtnvWJm-0bTbRhBk0FGDYYd2s8e2AZGPl5S7ZDU-RFU1Jau4czpUxt2dMuhve2acsVWnNxcKStU_M7bRZ6XJL9Nebme5-7iuejF8lpd2c1wBsecbTiF75b0GSagUJx3saeOumDlnGhQ-Y6Mo4dshfkPeAcMRhgo8l0-PJrh8LfbsrSjw2ywfpIE_k-kqV9PczIemFegMEcV_yHwN9iBqkD5900tXPA2nVpTQ_zeHb8rUkXf3jXh9WzUGHjkM1NMKv5L0SlQmcnLghv0qLCrqfGWrG0MJ6ZkTXZvi12kOcKCd88nJ8Li1RKVXE0pDNg7Mm5FoqIHDai_pO_bQjDusGMbp4PFamAHMgzuxqMD6tbs-oWhINID8ywnECMTnzHVzkegPz373x02dS0eMvf435YE_tT877M7fOy8L68",
+
+  "confirmed": true
+
+}
+
+// POST https://functions.yandexcloud.net/d4esr6ie5khkuno72hib
+
+// HTTP/1.1 200 OK
+
+// Date: Fri, 23 Jun 2023 17:13:36 GMT
+
+// Content-Type: application/json
+
+// Content-Length: 812
+
+// Connection: keep-alive
+
+// Vary: Accept-Encoding
+
+// Access-Control-Allow-Origin: *
+
+// Server: Yandex-Cloud-Functions/1.0
+
+// X-Content-Type-Options: nosniff
+
+// X-Function-Id: d4esr6ie5khkuno72hib
+
+// X-Function-Version-Id: d4eh53g2gb4s7m9ugdqj
+
+// X-Request-Id: a5e8352a-427e-4edb-b431-c2eed849804d
+
+// Request duration: 1.201843s
+
+</code></pre>
+<pre><code>"password": "G3jbME5UTjmPRV"
+
+"password": "we28*3sjUBG!uB"
+</code></pre>
+<pre><code class="language-js">
+{
+
+  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZldHNvcm5AZ21haWwuY29tIiwiaWF0IjoxNjI3MTMxMzgyfQ.CGQgvWOCcNBeo-AxTC1ApaJZZs1OKKEsM1ublnW679y4l78qjsebAtM1hD7Or5NrckZ29DwA8qmvZoJzjSfGrMJ3NrmnTHBVIx1EIx44IwZdJNPW6zXVrpTbyVL1gNyGrLS5FKVDh48lLANojMlg8zvOkQEMrgv440GG4LZubyj1APJ8m51Qm2uC_Nn0mgv-ooKoJHAQI8YCLDpCkXv2WMOVpMxgKOBX7iKknM8IYlh3oMNtIfxG5F4VeL_nYzIwIbbAZhtnvWJm-0bTbRhBk0FGDYYd2s8e2AZGPl5S7ZDU-RFU1Jau4czpUxt2dMuhve2acsVWnNxcKStU_M7bRZ6XJL9Nebme5-7iuejF8lpd2c1wBsecbTiF75b0GSagUJx3saeOumDlnGhQ-Y6Mo4dshfkPeAcMRhgo8l0-PJrh8LfbsrSjw2ywfpIE_k-kqV9PczIemFegMEcV_yHwN9iBqkD5900tXPA2nVpTQ_zeHb8rUkXf3jXh9WzUGHjkM1NMKv5L0SlQmcnLghv0qLCrqfGWrG0MJ6ZkTXZvi12kOcKCd88nJ8Li1RKVXE0pDNg7Mm5FoqIHDai_pO_bQjDusGMbp4PFamAHMgzuxqMD6tbs-oWhINID8ywnECMTnzHVzkegPz373x02dS0eMvf435YE_tT877M7fOy8L68",
+
+  "confirmed": true
+
+}
+
+// POST https://functions.yandexcloud.net/d4esr6ie5khkuno72hib
+
+// HTTP/1.1 200 OK
+
+// Date: Fri, 23 Jun 2023 16:10:50 GMT
+
+// Content-Type: application/json
+
+// Content-Length: 812
+
+// Connection: keep-alive
+
+// Vary: Accept-Encoding
+
+// Access-Control-Allow-Origin: *
+
+// Server: Yandex-Cloud-Functions/1.0
+
+// X-Content-Type-Options: nosniff
+
+// X-Function-Id: d4esr6ie5khkuno72hib
+
+// X-Function-Version-Id: d4eh53g2gb4s7m9ugdqj
+
+// X-Request-Id: 30e14784-ed10-43d5-b08e-dded2bfba63f
+
+// Request duration: 0.923204s
+
+</code></pre>
+<p>URL: https://functions.yandexcloud.net/d4esr6ie5khkuno72hib</p>
+<p>Request headers:</p>
+<p>Accept: <em>/</em></p>
+<p>Content-Type: text/plain</p>
+<p>Request fields:</p>
+<p>op — string - always equals "login";</p>
+<p>email — string - must be not empty;</p>
+<p>password — string - must be not empty;</p>
+<h3 id="status-500--server-error-3"><a class="header" href="#status-500--server-error-3">Status 500 — server error</a></h3>
+<p>Response fields:</p>
+<p>info — string — contains error description</p>
+<h3 id="status-401--authorization-error-2"><a class="header" href="#status-401--authorization-error-2">Status 401 — authorization error</a></h3>
+<h3 id="status-200--request-processed-successfully-3"><a class="header" href="#status-200--request-processed-successfully-3">Status 200 — request processed successfully</a></h3>
+<p>Response fields:</p>
+<p>token — string — user token</p>
+<p>confirmed — boolean — true — if user confirmed email, false - if user did not confirm email</p>
+<p>and when we send an empty <code>login</code> and <code>password</code>, we also get a status of 200 and <code>confirmed</code> will be false with <code>token</code>.</p>
+<h2 id="get-user-information"><a class="header" href="#get-user-information">Get user information</a></h2>
+<pre><code class="language-rest">
+POST https://functions.yandexcloud.net/d4esr6ie5khkuno72hib
+
+Content-Type: text/plain
+
+
+
+{
+
+    "op": "get_info",
+
+  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZldHNvcm5AZ21haWwuY29tIiwiaWF0IjoxNjI3MTMxMzgyfQ.CGQgvWOCcNBeo-AxTC1ApaJZZs1OKKEsM1ublnW679y4l78qjsebAtM1hD7Or5NrckZ29DwA8qmvZoJzjSfGrMJ3NrmnTHBVIx1EIx44IwZdJNPW6zXVrpTbyVL1gNyGrLS5FKVDh48lLANojMlg8zvOkQEMrgv440GG4LZubyj1APJ8m51Qm2uC_Nn0mgv-ooKoJHAQI8YCLDpCkXv2WMOVpMxgKOBX7iKknM8IYlh3oMNtIfxG5F4VeL_nYzIwIbbAZhtnvWJm-0bTbRhBk0FGDYYd2s8e2AZGPl5S7ZDU-RFU1Jau4czpUxt2dMuhve2acsVWnNxcKStU_M7bRZ6XJL9Nebme5-7iuejF8lpd2c1wBsecbTiF75b0GSagUJx3saeOumDlnGhQ-Y6Mo4dshfkPeAcMRhgo8l0-PJrh8LfbsrSjw2ywfpIE_k-kqV9PczIemFegMEcV_yHwN9iBqkD5900tXPA2nVpTQ_zeHb8rUkXf3jXh9WzUGHjkM1NMKv5L0SlQmcnLghv0qLCrqfGWrG0MJ6ZkTXZvi12kOcKCd88nJ8Li1RKVXE0pDNg7Mm5FoqIHDai_pO_bQjDusGMbp4PFamAHMgzuxqMD6tbs-oWhINID8ywnECMTnzHVzkegPz373x02dS0eMvf435YE_tT877M7fOy8L68"
+
+}
+
+</code></pre>
+<pre><code class="language-text">
+{"accepted_license":true,"accepted_oct_license":false,"access_level_fundus":null,"access_level_oct":null,"can_use_admin":false,"can_use_amd_dry_form_trainer":null,"can_use_clinical_classification_amd_trainer":null,"can_use_cnv_trainer":null,"can_use_dme_trainer":null,"can_use_fundus":false,"can_use_fundus_dynamic_monitoring":true,"can_use_fundus_self_test":null,"can_use_oct":false,"can_use_oct_dynamic_monitoring":true,"can_use_oct_self_test":null,"can_use_trainer":true,"city":"","confirmed":true,"country":"Russia","domain":null,"email":"fetsorn@gmail.com","first_name":"Anton","fundus_processed_per_day":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"fundus_processed_per_month":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"fundus_processed_per_year":[0],"fundus_visits_per_day":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"fundus_visits_per_month":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"fundus_visits_per_year":[0],"id":"1630146849qgUUo","language":"ru","last_activity":"2023-06-23","last_name":"Davydov","middle_name":"","name":"","oct_processed_per_day":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"oct_processed_per_month":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"oct_processed_per_year":[0],"oct_visits_per_day":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"oct_visits_per_month":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"oct_visits_per_year":[0],"organization":"fetsorn","profession":"Researcher","promocodes":[],"real_name":"Anton Davydov","reg_date":"2021-07-24","tele_token":null,"trainer_visits_per_day":[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"trainer_visits_per_month":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],"trainer_visits_per_year":[1],"reviews_per_day":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"reviews_per_month":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"reviews_per_year":[0],"uploaded_per_day":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"uploaded_per_month":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"uploaded_per_year":[0],"reported_per_day":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"reported_per_month":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"reported_per_year":[0]}
+
+POST https://functions.yandexcloud.net/d4esr6ie5khkuno72hib
+
+HTTP/1.1 200 OK
+
+Date: Fri, 23 Jun 2023 16:13:01 GMT
+
+Content-Type: text/plain; charset=utf-8
+
+Content-Length: 2320
+
+Connection: keep-alive
+
+Vary: Accept-Encoding
+
+Access-Control-Allow-Origin: *
+
+Server: Yandex-Cloud-Functions/1.0
+
+X-Content-Type-Options: nosniff
+
+X-Function-Id: d4esr6ie5khkuno72hib
+
+X-Function-Version-Id: d4eh53g2gb4s7m9ugdqj
+
+X-Request-Id: 504b0a3d-6556-4217-b4ad-3173d259944f
+
+Request duration: 1.312458s
+
+</code></pre>
+<p>URL: https://functions.yandexcloud.net/d4esr6ie5khkuno72hib</p>
+<p>Request headers:</p>
+<p>Accept: <em>/</em></p>
+<p>Content-Type: text/plain</p>
+<p>Request fields:</p>
+<p>op — string - always equals "get_info";</p>
+<p>token — string — user token.</p>
+<h3 id="status-500--server-error-4"><a class="header" href="#status-500--server-error-4">Status 500 — server error</a></h3>
+<p>Response fields:</p>
+<p>info — string — contains error description</p>
+<h3 id="status-401--authorization-error-3"><a class="header" href="#status-401--authorization-error-3">Status 401 — authorization error</a></h3>
+<h3 id="status-200--request-processed-successfully-4"><a class="header" href="#status-200--request-processed-successfully-4">Status 200 — request processed successfully</a></h3>
+<p>Response fields:</p>
+<p><code>accepted_license</code> - boolean - true - if the user accepted the agreement to use fundus photo processing;</p>
+<p><code>accepted_oct_license</code> - boolean - true - if the user accepted the agreement to use OCT processing;</p>
+<p><code>can_use_admin</code> - boolean - true - if the user is an administrator;</p>
+<p><code>can_use_fundus</code> - boolean - true - can use fundus photo processing;</p>
+<p><code>can_use_oct</code> - boolean - true - can use OCT processing;</p>
+<p><code>can_use_trainer</code> - boolean - true - can use the trainer;</p>
+<p><code>city</code> — string - name of the user’s city;</p>
+<p><code>confirmed</code> - boolean - true - if the user confirmed the email, false - if he did not;</p>
+<p><code>country</code> — string - country name;</p>
+<p><code>domain</code> — string - the domain from which the user registered;</p>
+<p><code>email</code> - string - user email;</p>
+<p><code>first_name</code> — string - user name;</p>
+<p><code>fundus_processed_per_day</code> - int32 list - number of processed fundus photos by day;</p>
+<p><code>fundus_processed_per_month</code> - int32 list - number of processed fundus photos by month;</p>
+<p><code>fundus_processed_per_year</code> - int32 list - number of processed fundus photos by year;</p>
+<p><code>fundus_visits_per_day</code> - int32 list - number of visits to the fundus photo processing page by day;</p>
+<p><code>fundus_visits_per_month</code> - list int32 - number of visits to the fundus photo processing page by month;</p>
+<p><code>fundus_visits_per_year</code> - int32 list - number of visits to the fundus photo processing page by year;</p>
+<p><code>id</code> — string - user id in the database;</p>
+<p><code>last_activity</code> — string - date of last activity;</p>
+<p><code>last_name</code> — string - user’s last name;</p>
+<p><code>middle_name</code> — string - user’s middle name;</p>
+<p><code>name</code> — string - user name (not used);</p>
+<p><code>oct_processed_per_day</code> — int32 list — number of processed OCT scans by day;</p>
+<p><code>oct_processed_per_month</code> - int32 list - number of processed OCT scans by month;</p>
+<p><code>oct_processed_per_year</code> — int32 list - number of processed OCT scans by year;</p>
+<p><code>oct_visits_per_day</code> - int32 list - number of visits to the OCT processing page by day;</p>
+<p><code>oct_visits_per_month</code> — int32 list - number of visits to the OCT processing page by month;</p>
+<p><code>oct_visits_per_year</code> - int32 list - number of visits to the OCT processing page by year;</p>
+<p><code>organization</code> - string - name of the user's organization;</p>
+<p><code>profession</code> — string - user’s profession;</p>
+<p><code>promocodes</code> - list of strings - list of user promotional codes;</p>
+<p><code>real_name</code> — string - full user name (not used);</p>
+<p><code>reg_date</code> — string - registration date;</p>
+<p><code>reported_per_day</code> — int32 list — number of error messages by day;</p>
+<p><code>reported_per_month</code> - int32 list - number of error messages by month;</p>
+<p><code>reported_per_year</code> - int32 list - number of error messages by year;</p>
+<p><code>reviews_per_day</code> - int32 list - number of reviews sent by day;</p>
+<p><code>reviews_per_month</code> - int32 list - number of reviews sent by month;</p>
+<p><code>reviews_per_year</code> - int32 list - number of reviews sent by year;</p>
+<p><code>trainer_visits_per_day</code> - int32 list - number of visits to the simulator by day;</p>
+<p><code>trainer_visits_per_month</code> - int32 list - number of visits to the simulator by month;</p>
+<p><code>trainer_visits_per_year</code> - int32 list - number of visits to the simulator by year;</p>
+<p><code>uploaded_per_day</code> - int32 list - number of donated photos by day;</p>
+<p><code>uploaded_per_month</code> - int32 list - number of donated photos by month;</p>
+<p><code>uploaded_per_year</code> - int32 list - number of donated photos by year.</p>
+<h2 id="sending-feedback"><a class="header" href="#sending-feedback">Sending feedback</a></h2>
+<p>URL: https://functions.yandexcloud.net/d4esr6ie5khkuno72hib</p>
+<p>Request headers:</p>
+<p>Accept: <em>/</em></p>
+<p>Content-Type: text/plain</p>
+<p>Request fields:</p>
+<p>op — string - always "problem";</p>
+<p>token — string — user token;</p>
+<p>text — string - error message;</p>
+<p>language — string - two-letter language code, e.g. "ru", "en";</p>
+<p>domain — string - always "com".</p>
+<h3 id="status-500--server-error-5"><a class="header" href="#status-500--server-error-5">Status 500 — server error</a></h3>
+<p>Response fields:</p>
+<p>info — string — contains error description</p>
+<h3 id="status-401--authorization-error-4"><a class="header" href="#status-401--authorization-error-4">Status 401 — authorization error</a></h3>
+<h3 id="status-200--request-processed-successfully-5"><a class="header" href="#status-200--request-processed-successfully-5">Status 200 — request processed successfully</a></h3>
+<h2 id="sending-a-review"><a class="header" href="#sending-a-review">Sending a review</a></h2>
+<p>URL: https://functions.yandexcloud.net/d4esr6ie5khkuno72hib</p>
+<p>Request headers:</p>
+<p>Accept: <em>/</em></p>
+<p>Content-Type: text/plain</p>
+<p>Request fields:</p>
+<p>op — string - always "add_review";</p>
+<p>token — string — user token;</p>
+<p>text — string - error message;</p>
+<p>grade — int32 — amount of stars in review, 0 to 5.</p>
+<h3 id="status-500--server-error-6"><a class="header" href="#status-500--server-error-6">Status 500 — server error</a></h3>
+<p>Response fields:</p>
+<p>info — string — contains error description</p>
+<h3 id="status-401--authorization-error-5"><a class="header" href="#status-401--authorization-error-5">Status 401 — authorization error</a></h3>
+<h3 id="status-200--request-processed-successfully-6"><a class="header" href="#status-200--request-processed-successfully-6">Status 200 — request processed successfully</a></h3>
+<h2 id="getting-list-of-reviews"><a class="header" href="#getting-list-of-reviews">Getting list of reviews</a></h2>
+<p>URL: https://functions.yandexcloud.net/d4esr6ie5khkuno72hib</p>
+<p>Request headers:</p>
+<p>Accept: <em>/</em></p>
+<p>Content-Type: text/plain</p>
+<p>Request fields:</p>
+<p>op — string - always "get_visible_review_list";</p>
+<p>token — string — user token;</p>
+<h3 id="status-500--server-error-7"><a class="header" href="#status-500--server-error-7">Status 500 — server error</a></h3>
+<p>Response fields:</p>
+<p>info — string — contains error description</p>
+<h3 id="status-401--authorization-error-6"><a class="header" href="#status-401--authorization-error-6">Status 401 — authorization error</a></h3>
+<h3 id="status-200--request-processed-successfully-7"><a class="header" href="#status-200--request-processed-successfully-7">Status 200 — request processed successfully</a></h3>
+<p>Response fields:</p>
+<p><code>city</code> — string - city of user that gave the review;</p>
+<p><code>country</code> — string - country of user that gave the review;</p>
+<p><code>first_name</code> — string - name;</p>
+<p><code>grade</code> — amount of stars in review, 0 to 5;</p>
+<p><code>id</code> — string -  id of review in the database;</p>
+<p><code>last_name</code> — string - surname;</p>
+<p><code>middle_name</code> — string - middle naame (may be empty);</p>
+<p><code>organization</code> — string - organization name;</p>
+<p><code>profession</code> — string - profession, always in english, from the Professions list;</p>
+<p><code>send_date</code> — string - date when the review was sent;</p>
+<p><code>show</code> — boolean — true — whether to show the review on screen;</p>
+<p><code>text</code> — string - text of the review;</p>
+<h2 id="countries-list"><a class="header" href="#countries-list">Countries list</a></h2>
+<ul>
+<li>
+<p>Abkhazia</p>
+</li>
+<li>
+<p>Afghanistan</p>
+</li>
+<li>
+<p>Albania</p>
+</li>
+<li>
+<p>Algeria</p>
+</li>
+<li>
+<p>Andorra</p>
+</li>
+<li>
+<p>Angola</p>
+</li>
+<li>
+<p>Anguilla</p>
+</li>
+<li>
+<p>Antigua and Barbuda</p>
+</li>
+<li>
+<p>Antilles</p>
+</li>
+<li>
+<p>Argentina</p>
+</li>
+<li>
+<p>Armenia</p>
+</li>
+<li>
+<p>Australia</p>
+</li>
+<li>
+<p>Austria</p>
+</li>
+<li>
+<p>Azerbaijan</p>
+</li>
+<li>
+<p>Bahamas</p>
+</li>
+<li>
+<p>Bahrain</p>
+</li>
+<li>
+<p>Bangladesh</p>
+</li>
+<li>
+<p>Barbados</p>
+</li>
+<li>
+<p>Belarus</p>
+</li>
+<li>
+<p>Belgium</p>
+</li>
+<li>
+<p>Belize</p>
+</li>
+<li>
+<p>Benin</p>
+</li>
+<li>
+<p>Bermuda</p>
+</li>
+<li>
+<p>Bolivia</p>
+</li>
+<li>
+<p>Bosnia and Herzegovina</p>
+</li>
+<li>
+<p>Botswana</p>
+</li>
+<li>
+<p>Brazil</p>
+</li>
+<li>
+<p>British virgin islands</p>
+</li>
+<li>
+<p>Brunei</p>
+</li>
+<li>
+<p>Bulgaria</p>
+</li>
+<li>
+<p>Burkina Faso</p>
+</li>
+<li>
+<p>Burundi</p>
+</li>
+<li>
+<p>Butane</p>
+</li>
+<li>
+<p>Cambodia</p>
+</li>
+<li>
+<p>Cameroon</p>
+</li>
+<li>
+<p>Canada</p>
+</li>
+<li>
+<p>Cape Verde</p>
+</li>
+<li>
+<p>Chad</p>
+</li>
+<li>
+<p>Chile</p>
+</li>
+<li>
+<p>China</p>
+</li>
+<li>
+<p>Colombia</p>
+</li>
+<li>
+<p>Congo, Democratic Republic</p>
+</li>
+<li>
+<p>Congo</p>
+</li>
+<li>
+<p>Cook Islands</p>
+</li>
+<li>
+<p>Costa Rica</p>
+</li>
+<li>
+<p>Croatia</p>
+</li>
+<li>
+<p>Cuba</p>
+</li>
+<li>
+<p>Cyprus</p>
+</li>
+<li>
+<p>Czech</p>
+</li>
+<li>
+<p>Denmark</p>
+</li>
+<li>
+<p>Djibouti</p>
+</li>
+<li>
+<p>Dominican Republic</p>
+</li>
+<li>
+<p>Ecuador</p>
+</li>
+<li>
+<p>Egypt</p>
+</li>
+<li>
+<p>Equatorial Guinea</p>
+</li>
+<li>
+<p>Eritrea</p>
+</li>
+<li>
+<p>Estonia</p>
+</li>
+<li>
+<p>Ethiopia</p>
+</li>
+<li>
+<p>Faroe Island</p>
+</li>
+<li>
+<p>Fiji</p>
+</li>
+<li>
+<p>Finland</p>
+</li>
+<li>
+<p>France</p>
+</li>
+<li>
+<p>French Polynesia</p>
+</li>
+<li>
+<p>Gabon</p>
+</li>
+<li>
+<p>Gambia</p>
+</li>
+<li>
+<p>Georgia</p>
+</li>
+<li>
+<p>Germany</p>
+</li>
+<li>
+<p>Ghana</p>
+</li>
+<li>
+<p>Gibraltar</p>
+</li>
+<li>
+<p>Greece</p>
+</li>
+<li>
+<p>Greenland</p>
+</li>
+<li>
+<p>Grenada</p>
+</li>
+<li>
+<p>Guadeloupe</p>
+</li>
+<li>
+<p>Guatemala</p>
+</li>
+<li>
+<p>Guernesey</p>
+</li>
+<li>
+<p>Guinea-Bissau</p>
+</li>
+<li>
+<p>Guinea</p>
+</li>
+<li>
+<p>Guyana</p>
+</li>
+<li>
+<p>Haiti</p>
+</li>
+<li>
+<p>Honduras</p>
+</li>
+<li>
+<p>Hong Kong</p>
+</li>
+<li>
+<p>Hungary</p>
+</li>
+<li>
+<p>Iceland</p>
+</li>
+<li>
+<p>India</p>
+</li>
+<li>
+<p>Indonesia</p>
+</li>
+<li>
+<p>Iran</p>
+</li>
+<li>
+<p>Iraq</p>
+</li>
+<li>
+<p>Ireland</p>
+</li>
+<li>
+<p>Isle of Man</p>
+</li>
+<li>
+<p>Israel</p>
+</li>
+<li>
+<p>Italy</p>
+</li>
+<li>
+<p>Ivory Coast</p>
+</li>
+<li>
+<p>Jamaica</p>
+</li>
+<li>
+<p>Japan</p>
+</li>
+<li>
+<p>Jersey</p>
+</li>
+<li>
+<p>Jordan</p>
+</li>
+<li>
+<p>Kazakhstan</p>
+</li>
+<li>
+<p>Kenya</p>
+</li>
+<li>
+<p>Kuwait</p>
+</li>
+<li>
+<p>Kyrgyzstan</p>
+</li>
+<li>
+<p>Laos</p>
+</li>
+<li>
+<p>Latvia</p>
+</li>
+<li>
+<p>Lebanon</p>
+</li>
+<li>
+<p>Lesotho</p>
+</li>
+<li>
+<p>Liberia</p>
+</li>
+<li>
+<p>Libya</p>
+</li>
+<li>
+<p>Liechtenstein</p>
+</li>
+<li>
+<p>Lithuania</p>
+</li>
+<li>
+<p>Luxembourg</p>
+</li>
+<li>
+<p>Macedonia</p>
+</li>
+<li>
+<p>Madagascar</p>
+</li>
+<li>
+<p>Malawi</p>
+</li>
+<li>
+<p>Malaysia</p>
+</li>
+<li>
+<p>Maldives</p>
+</li>
+<li>
+<p>Mali</p>
+</li>
+<li>
+<p>Malta</p>
+</li>
+<li>
+<p>Mauritania</p>
+</li>
+<li>
+<p>Mauritius</p>
+</li>
+<li>
+<p>Mexico</p>
+</li>
+<li>
+<p>Moldova</p>
+</li>
+<li>
+<p>Monaco</p>
+</li>
+<li>
+<p>Mongolia</p>
+</li>
+<li>
+<p>Montenegro</p>
+</li>
+<li>
+<p>Morocco</p>
+</li>
+<li>
+<p>Mozambique</p>
+</li>
+<li>
+<p>Myanmar</p>
+</li>
+<li>
+<p>Namibia</p>
+</li>
+<li>
+<p>Nepal</p>
+</li>
+<li>
+<p>Netherlands</p>
+</li>
+<li>
+<p>New Caledonia</p>
+</li>
+<li>
+<p>New Zealand</p>
+</li>
+<li>
+<p>Nicaragua</p>
+</li>
+<li>
+<p>Niger</p>
+</li>
+<li>
+<p>Nigeria</p>
+</li>
+<li>
+<p>North Korea</p>
+</li>
+<li>
+<p>Norway</p>
+</li>
+<li>
+<p>Oman</p>
+</li>
+<li>
+<p>Pakistan</p>
+</li>
+<li>
+<p>Palau</p>
+</li>
+<li>
+<p>Panama</p>
+</li>
+<li>
+<p>Papua New Guinea</p>
+</li>
+<li>
+<p>Paraguay</p>
+</li>
+<li>
+<p>Peru</p>
+</li>
+<li>
+<p>Philippines</p>
+</li>
+<li>
+<p>Pitcairn Islands</p>
+</li>
+<li>
+<p>Poland</p>
+</li>
+<li>
+<p>Portugal</p>
+</li>
+<li>
+<p>Puerto Rico</p>
+</li>
+<li>
+<p>Qatar</p>
+</li>
+<li>
+<p>Romania</p>
+</li>
+<li>
+<p>Russia</p>
+</li>
+<li>
+<p>Rwanda</p>
+</li>
+<li>
+<p>Réunion</p>
+</li>
+<li>
+<p>Saint Kitts and Nevis</p>
+</li>
+<li>
+<p>Saint Lucia</p>
+</li>
+<li>
+<p>Saint Pierre and Miquelon</p>
+</li>
+<li>
+<p>Saint Vincent and the Grenadines</p>
+</li>
+<li>
+<p>Salvador</p>
+</li>
+<li>
+<p>Samoa</p>
+</li>
+<li>
+<p>San Marino</p>
+</li>
+<li>
+<p>Sao Tome and Principe</p>
+</li>
+<li>
+<p>Saudi Arabia</p>
+</li>
+<li>
+<p>Senegal</p>
+</li>
+<li>
+<p>Serbia</p>
+</li>
+<li>
+<p>Seychelles</p>
+</li>
+<li>
+<p>Sierra Leone</p>
+</li>
+<li>
+<p>Singapore</p>
+</li>
+<li>
+<p>Slovakia</p>
+</li>
+<li>
+<p>Slovenia</p>
+</li>
+<li>
+<p>Solomon Islands</p>
+</li>
+<li>
+<p>Somalia</p>
+</li>
+<li>
+<p>South Africa</p>
+</li>
+<li>
+<p>South Korea</p>
+</li>
+<li>
+<p>South Ossetia</p>
+</li>
+<li>
+<p>Spain</p>
+</li>
+<li>
+<p>Sri Lanka</p>
+</li>
+<li>
+<p>State of Palestine</p>
+</li>
+<li>
+<p>Sudan</p>
+</li>
+<li>
+<p>Suriname</p>
+</li>
+<li>
+<p>Swaziland</p>
+</li>
+<li>
+<p>Sweden</p>
+</li>
+<li>
+<p>Switzerland</p>
+</li>
+<li>
+<p>Syria</p>
+</li>
+<li>
+<p>Taiwan</p>
+</li>
+<li>
+<p>Tajikistan</p>
+</li>
+<li>
+<p>Tanzania</p>
+</li>
+<li>
+<p>Thailand</p>
+</li>
+<li>
+<p>Togo</p>
+</li>
+<li>
+<p>Tokelau</p>
+</li>
+<li>
+<p>Tonga</p>
+</li>
+<li>
+<p>Trinidad and Tobago</p>
+</li>
+<li>
+<p>Tunisia</p>
+</li>
+<li>
+<p>Turkey</p>
+</li>
+<li>
+<p>Turkmenistan</p>
+</li>
+<li>
+<p>Turks and Caicos Islands</p>
+</li>
+<li>
+<p>Tuvalu</p>
+</li>
+<li>
+<p>USA</p>
+</li>
+<li>
+<p>Uganda</p>
+</li>
+<li>
+<p>Ukraine</p>
+</li>
+<li>
+<p>United Arab Emirates</p>
+</li>
+<li>
+<p>United Kingdom</p>
+</li>
+<li>
+<p>Uruguay</p>
+</li>
+<li>
+<p>Uzbekistan</p>
+</li>
+<li>
+<p>Vanuatu</p>
+</li>
+<li>
+<p>Vatican</p>
+</li>
+<li>
+<p>Venezuela</p>
+</li>
+<li>
+<p>Vietnam</p>
+</li>
+<li>
+<p>Wallis and Futuna</p>
+</li>
+<li>
+<p>Western Sahara</p>
+</li>
+<li>
+<p>Yemen</p>
+</li>
+<li>
+<p>Zambia</p>
+</li>
+<li>
+<p>Zimbabwe</p>
+</li>
+</ul>
+<h2 id="professions-list"><a class="header" href="#professions-list">Professions list</a></h2>
+<ul>
+<li>
+<p>General Practitioner</p>
+</li>
+<li>
+<p>Ophthalmologist</p>
+</li>
+<li>
+<p>Endocrinologist</p>
+</li>
+<li>
+<p>Optometrist</p>
+</li>
+<li>
+<p>Another Doctor</p>
+</li>
+<li>
+<p>Medical Representative</p>
+</li>
+<li>
+<p>Healthcare Organizer</p>
+</li>
+<li>
+<p>Lecturer</p>
+</li>
+<li>
+<p>Student</p>
+</li>
+<li>
+<p>Researcher</p>
+</li>
+<li>
+<p>Other</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../retina/design.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../retina/privacy.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../retina/design.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../retina/privacy.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/custom.js"></script>
+
+
+    </div>
+    </body>
+</html>

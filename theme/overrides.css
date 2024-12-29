@@ -1,0 +1,15 @@
+#theme-toggle {
+  display: none;
+}
+
+.chapter li > a.toggle {
+  margin-inline-start: .25rem;
+  text-decoration: none;
+  visibility: hidden;
+}
+
+@media (-moz-touch-enabled: 1), (pointer: coarse) {
+  .chapter li > a.toggle{
+    padding: 5px 10px;
+  }
+}

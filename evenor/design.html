@@ -1,0 +1,544 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Design - Norcivilian Labs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/overrides.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../getting_started.html">Getting started</a></li><li class="chapter-item expanded "><a href="../projects.html">Projects</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/index.html">csvs</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/format/index.html">Format</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/format/getting_started.html">Getting started</a></li><li class="chapter-item "><a href="../csvs/format/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../csvs/format/user_guides.html">User guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/format/01_nested_records.html">Nested Records</a></li><li class="chapter-item "><a href="../csvs/format/02_lists_of_values.html">Lists of Values</a></li><li class="chapter-item "><a href="../csvs/format/03_dataset_settings.html">Dataset Settings</a></li><li class="chapter-item "><a href="../csvs/format/04_asset_storage.html">Asset Storage</a></li><li class="chapter-item "><a href="../csvs/format/05_branch_metadata.html">Branch Metadata</a></li><li class="chapter-item "><a href="../csvs/format/06_writing_a_client.html">Writing a Client</a></li></ol></li><li class="chapter-item "><a href="../csvs/format/design.html">Design</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/format/0.1.0.html">Specification 0.1.0</a></li></ol></li><li class="chapter-item "><a href="../csvs/format/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../csvs/library/index.html">Library</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/library/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../csvs/library/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../csvs/library/user_guides.html">User Guides</a></li><li class="chapter-item "><a href="../csvs/library/design.html">Design</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/library/record_object_notation.html">Record Object Notation</a></li><li class="chapter-item "><a href="../csvs/library/update.html">Update</a></li><li class="chapter-item "><a href="../csvs/library/insert.html">Insert</a></li><li class="chapter-item "><a href="../csvs/library/query_object_notation.html">Query Object Notation</a></li><li class="chapter-item "><a href="../csvs/library/select_core.html">Select Core</a></li><li class="chapter-item "><a href="../csvs/library/select_store.html">Select Store</a></li><li class="chapter-item "><a href="../csvs/library/delete.html">Delete</a></li></ol></li><li class="chapter-item "><a href="../csvs/library/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../csvs/cli/index.html">CLI</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/cli/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../csvs/cli/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../csvs/cli/user_guides.html">User Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/cli/01_import_from_filesystem.html">Import from Filesystem</a></li><li class="chapter-item "><a href="../csvs/cli/02_import_from_telegram.html">Import from Telegram</a></li><li class="chapter-item "><a href="../csvs/cli/03_import_from_vkontakte.html">Import from VKontakte</a></li><li class="chapter-item "><a href="../csvs/cli/04_merge_csvs_datasets.html">Merge CSVS Datasets</a></li><li class="chapter-item "><a href="../csvs/cli/05_edit_csvs_schema.html">Edit CSVS Schema</a></li><li class="chapter-item "><a href="../csvs/cli/06_map_csvs_schemas.html">Map CSVS schemas</a></li></ol></li><li class="chapter-item "><a href="../csvs/cli/reference.html">Reference</a></li><li class="chapter-item "><a href="../csvs/cli/design.html">Design</a></li><li class="chapter-item "><a href="../csvs/cli/requirements.html">Requirements</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../evenor/index.html">evenor</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../evenor/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../evenor/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../evenor/user_guides.html">User Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../evenor/01_running_search_queries.html">Running search queries</a></li><li class="chapter-item "><a href="../evenor/02_cloning_from_git.html">Cloning from git</a></li><li class="chapter-item "><a href="../evenor/03_editing_dataset_schema.html">Editing dataset schema</a></li><li class="chapter-item "><a href="../evenor/04_adding_a_family_tree.html">Adding a family tree</a></li><li class="chapter-item "><a href="../evenor/05_caching_a_hard_drive.html">Caching a hard drive</a></li><li class="chapter-item "><a href="../evenor/06_publishing_to_social_media.html">Publishing to social media</a></li><li class="chapter-item "><a href="../evenor/07_merging_datasets.html">Merging datasets</a></li></ol></li><li class="chapter-item "><a href="../evenor/privacy.html">Privacy</a></li><li class="chapter-item expanded "><a href="../evenor/design.html" class="active">Design</a></li><li class="chapter-item "><a href="../evenor/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../guanbo/index.html">guanbo</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../guanbo/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../guanbo/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../guanbo/user_guides.html">User Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../guanbo/01_playing_song_chords.html">Playing song chords</a></li></ol></li><li class="chapter-item "><a href="../guanbo/design.html">Design</a></li><li class="chapter-item "><a href="../guanbo/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../morio/index.html">morio</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../morio/design.html">Design</a></li><li class="chapter-item "><a href="../morio/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../retina/index.html">retina</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../retina/design.html">Design</a></li><li class="chapter-item "><a href="../retina/api.html">API</a></li><li class="chapter-item "><a href="../retina/privacy.html">Privacy</a></li><li class="chapter-item "><a href="../retina/requirements.html">Requirements</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../design.html">Design</a></li><li class="chapter-item expanded "><a href="../requirements.html">Requirements</a></li><li class="chapter-item expanded "><a href="../license.html">License</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Norcivilian Labs</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://codeberg.org/norcivilianlabs/pages" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-code-fork"></i>
+                        </a>
+                        <a href="https://codeberg.org/norcivilianlabs/pages/_edit/main/src/evenor/design.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="design"><a class="header" href="#design">Design</a></h1>
+<p>GUI client for csvs, personal information manager, note-taking manager, digital brain, database manager</p>
+<p>competes: notion, OneNote, obsidian, org-journal, iNotes, atom https://www.accesstomemory.org, perkeep https://perkeep.org</p>
+<p>interacts: with local storage, git hosting providers, social media API</p>
+<p>constitutes: local and public a web application, mobile application for iOS and Android, desktop application for Linux, MacOS and Windows</p>
+<p>includes: UI, UI state storage, overview components, import/export controllers; a class that interacts with filesystem, csvs, git</p>
+<p>patterns: MVC</p>
+<p>resembles: matrix.ai, genea.app, pgAdmin</p>
+<p>stakeholders: fetsorn, 15 customers</p>
+<p>target audiences: superusers, genealogy clients</p>
+<h2 id="stack"><a class="header" href="#stack">stack</a></h2>
+<p>The current stack is</p>
+<ul>
+<li>tauri: desktop and mobile distribution</li>
+<li>react: easy to read for contributors</li>
+<li>vite: state of the art bundler</li>
+<li>csvs: for data interchange that is plain and naive</li>
+<li>isogit + lightningfs: for emulating the git filesystem in browser memory</li>
+<li>zustand: light and sane</li>
+<li>javascript: straightforward, easy to read for contributors</li>
+<li>nix: state of the art packager</li>
+<li>yarn: works well with nix</li>
+<li>prettier: state of the art formatter</li>
+<li>eslint: state of the art linter</li>
+<li>git: state of the art version control system</li>
+</ul>
+<p>Among legacy stack is</p>
+<ul>
+<li>electron, electron-forge for desktop distribution, lacks mobile, currently being replaced by tauri</li>
+<li>typescript, excessive</li>
+</ul>
+<p>The future stack could be</p>
+<ul>
+<li>solidjs, if it measures significantly faster than react on benchmarks</li>
+<li>zenfs, if it's better maintained than lightningfs and is equivalent</li>
+<li>flow, if contributors insist on type checking</li>
+<li>pijul, if it improves conflict resolution and releases to browsers</li>
+</ul>
+<h2 id="ui"><a class="header" href="#ui">ui</a></h2>
+<p>Wireframes are at <a href="https://design.penpot.app/#/view/af8aaf7c-05e6-8124-8003-b6d16df3e6e2?page-id=427ab418-76d5-8026-8004-ce42d5c3054d&amp;section=interactions&amp;index=0&amp;interactions-mode=show&amp;share-id=c0ee57fd-603e-804a-8004-ce43a30d4c57">Penpot</a></p>
+<p>user interface consists of</p>
+<ul>
+<li>overview with a list of records and a search bar</li>
+<li>profile with a single record</li>
+</ul>
+<h3 id="overview"><a class="header" href="#overview">overview</a></h3>
+<p>overview consists of a navigation bar, a serach bar, and a set of paragraphs</p>
+<p>overview updates on every change to the search bar</p>
+<p>a paragpraph provides short information about a record</p>
+<p>confirm "Select?" at the end of the paragraph to open the profile with the given record</p>
+<p>press "plus" to add a new record</p>
+<p>chosen card must be higlighted</p>
+<p>chosen record value should synchronize with the browser url</p>
+<p>confirm "Delete?" a paragraph to delete a record</p>
+<p>confirm "Search cognate?" to list cognate queries</p>
+<h3 id="search-bar"><a class="header" href="#search-bar">search bar</a></h3>
+<p>search bar appears above overview</p>
+<p>the search bar must synchronize with the browser url. when browser url changes, search bar changes. when search bar changes, browser url changes and browser history is appended</p>
+<p>click back navigation button to search previous query</p>
+<p>keywords: sortby, all branches in the folder</p>
+<h3 id="profile"><a class="header" href="#profile">profile</a></h3>
+<p>profile consists of a navigation bar and a set of paragraphs</p>
+<p>profile appears as a full screen on mobile and as a side screen on desktop</p>
+<h4 id="view"><a class="header" href="#view">view</a></h4>
+<p>press edit to change the record</p>
+<p>press back to close the profile and open the overview</p>
+<p>confirm <code>Select?</code> to open overview with records of a chosen base branch</p>
+<p>confirm <code>Push?</code> or <code>Pull</code> to synchronize with a git remote on a branch with <code>task: remote</code></p>
+<p>confirm "Search cognate?" to list cognate queries</p>
+<p>media files on each branch with <code>task: file</code> are shown beside the text</p>
+<h4 id="edit"><a class="header" href="#edit">edit</a></h4>
+<p>press save to update the record</p>
+<p>press back to revert changes and open the overview</p>
+<p>type in the input fieds to add data to the record</p>
+<p>confirm <code>Add?</code> to append new input fields. If a branch already has values, confirm <code>Add another?</code>.</p>
+<p>confirm <code>Add file?</code> to attach a media file to a branch with <code>task: file</code></p>
+<h2 id="code"><a class="header" href="#code">code</a></h2>
+<p>The project directory is versioned by git. In the root there's configs for nix, yarn, eslint, prettier, editorconfig and vite. The license is GPLv3 with an exception for apple store distribution. The README holds installation instructions and a link to these docs. The <code>src-electron</code>, <code>src-server</code> and <code>src-tauri</code> directories hold implementations of the interprocess communication necessary for interaction with the filesystem.</p>
+<ul>
+<li><code>src/main.jsx</code> and <code>src/index.html</code>, <code>src/index.css</code> files initialize React.</li>
+<li><code>src/i18n/</code>: localization strings for the interface</li>
+<li><code>src/layout/</code>: the main screens</li>
+<li><code>src/store/</code>: a zustand reducer with all the state variables and methods in the interface</li>
+<li><code>src/api/</code>: a facade for the interprocess communication calls, and implementations for various platforms</li>
+</ul>
+<h3 id="srclayout"><a class="header" href="#srclayout">src/layout</a></h3>
+<ul>
+<li><code>overview</code>: screen with a list of records
+<ul>
+<li><code>overview_item</code>: a short description of a single record</li>
+<li><code>overview_virtual_scroll</code>: renders a subset of records that are visible in the viewport</li>
+<li><code>overview_search_bar</code>: text input with keywords</li>
+</ul>
+</li>
+<li><code>profile_view</code>: screen for reading details about a record
+<ul>
+<li><code>view_field</code>: list of branch values</li>
+<li><code>view_record</code>: object value</li>
+<li><code>view_value</code>: string value</li>
+<li><code>view_remote</code>: git remote</li>
+<li><code>view_sync</code>: local sync setting</li>
+</ul>
+</li>
+<li><code>profile_edit</code>: screen for changing details of a record
+<ul>
+<li><code>edit_field</code>: list of branch values</li>
+<li><code>edit_record</code>: object value</li>
+<li><code>edit_input</code>: input for a value</li>
+<li><code>input_text</code>: string value</li>
+<li><code>input_textarea</code>: large string value</li>
+<li><code>input_date</code>: date picker</li>
+</ul>
+</li>
+<li><code>components</code>: interface elements that are reused across the application.
+<ul>
+<li><code>link</code>: navigate between screens</li>
+<li><code>title</code>: a heading text</li>
+<li><code>button</code>: perform actions</li>
+<li><code>paragraph</code>: a piece of text</li>
+<li><code>asset_view</code>: media file of any format</li>
+</ul>
+</li>
+</ul>
+<h3 id="srcstore"><a class="header" href="#srcstore">src/store/</a></h3>
+<ul>
+<li>
+<p><code>schema</code>: object, holds the structure of records in the current folder</p>
+</li>
+<li>
+<p><code>repo</code>: object, represents the currently viewed folder</p>
+</li>
+<li>
+<p><code>queries</code>: object, holds the state of the search bar</p>
+</li>
+<li>
+<p><code>records</code>: list of objects currently displayed in the overview</p>
+</li>
+<li>
+<p><code>abortPreviousStream()</code>: function, holds the handler to interrupt a search stream</p>
+</li>
+<li>
+<p><code>initialize()</code>: function, bootstraps the state and reads the URL on application launch</p>
+</li>
+<li>
+<p><code>setRepoUUID(repoUUID)</code>: function, changes the currently viewed folder</p>
+</li>
+<li>
+<p><code>setQuery(queryField, queryValue)</code>: function, changes the state of the search bar</p>
+</li>
+<li>
+<p><code>record</code>: object, represents the currently viewed record</p>
+</li>
+<li>
+<p><code>isEdit</code>: boolean, whether the record is being edited</p>
+</li>
+<li>
+<p><code>onRecordUpdate(recordOld, recordNew)</code>: function, writes a record to the folder</p>
+</li>
+<li>
+<p><code>onRecordSelect(recordNew)</code>: function, selects a record for viewing</p>
+</li>
+<li>
+<p><code>onRecordInput(recordNew)</code>: function, handles data input during editing</p>
+</li>
+<li>
+<p><code>onRecordDelete()</code>: function, removes a record from folder</p>
+</li>
+<li>
+<p><code>getDefaultBase(schema)</code>: function, determines a base branch in a folder</p>
+</li>
+<li>
+<p><code>getDefaultSortBy(schema, base, records)</code>: function, determines a sorting branch in a folder</p>
+</li>
+<li>
+<p><code>queriesToParams(queriesObject)</code>: function, converts state of the search bar to URLSearchParams</p>
+</li>
+<li>
+<p><code>setURL(queries, base, sortBy, repoUUID, reponame)</code>: function, changes the browser URL</p>
+</li>
+<li>
+<p><code>loadRepoRecord(record)</code>: function, loads the folder from storage</p>
+<ul>
+<li><code>readRemotes(api)</code>: function, detectes git remotes in a folder</li>
+<li><code>readLocals(api)</code>: function, detects local asset paths in a folder</li>
+</ul>
+</li>
+<li>
+<p><code>saveRepoRecord(record)</code>: function, writes the folder to storage</p>
+<ul>
+<li><code>writeRemotes(api, tags)</code>: function, writes git remotes to a folder</li>
+<li><code>writeLocals(api, tags)</code>: function, writes local asset paths to a folder</li>
+</ul>
+</li>
+</ul>
+<h3 id="srcapi"><a class="header" href="#srcapi">src/api/</a></h3>
+<ul>
+<li><code>api</code>: a class for interprocess communication
+<ul>
+<li><code>browser</code>: clientside implementation</li>
+<li><code>browser.worker</code>: a Web Worker to offload searching</li>
+<li><code>server</code>: a local server implementation, complements the browser class</li>
+<li><code>electron</code>: main thread implementation</li>
+<li><code>electron.worker</code>: a Node Worker to offload searching</li>
+</ul>
+</li>
+<li><code>schema</code>: helpers to interact with the schema
+<ul>
+<li><code>schemaRoot</code>: object, describes the root folder that holds other folders</li>
+<li><code>defaultRepoRecord</code>: object, describes a default folder structure</li>
+<li><code>newUUID()</code>: function, returns a hashsum of a unique identifier</li>
+<li><code>schemaToBranchRecords(schema)</code>: function, converts an evenor schema object to a list of csvs records</li>
+<li><code>branchRecordsToSchema(schemaRecord, branchRecords)</code>: function, converts a list of csvs records to an evenor schema object</li>
+</ul>
+</li>
+</ul>
+<h4 id="api"><a class="header" href="#api">api</a></h4>
+<ul>
+<li><code>uuid</code>: string, identifier of the current folder</li>
+<li><code>fetchAsset(filename)</code>: returns Uint8Array contents of a file</li>
+<li><code>putAsset(filename, content)</code>: writes Buffer content to a file</li>
+<li><code>downloadAsset(content, filename)</code>: shows a dialogue to save a file to the filesystem</li>
+<li><code>uploadFile()</code>: shows a dialogue to load a file to evenor</li>
+<li><code>select(searchParams)</code>: searches and returns a list of records</li>
+<li><code>selectStream(searchParams)</code>: begins a search, returns a handler to interrupt the stream</li>
+<li><code>updateRecord(record)</code>: writes a record to the csvs dataset</li>
+<li><code>deleteRecord(record)</code>: deletes a record from the csvs dataset</li>
+<li><code>ensure(schema, name)</code>: creates a csvs dataset</li>
+<li><code>commit()</code>: records changes to the git repository</li>
+<li><code>clone(remoteUrl, remoteToken, name)</code>: copies the folder from a remote git repository</li>
+<li><code>push(remote)</code>: sends changes to a remote git repository</li>
+<li><code>pull(remote)</code>: fetches changes from a remote git repository</li>
+<li><code>readSchema()</code>: finds the structure of the current folder</li>
+<li><code>zip()</code>: shows a dialogue to save the current folder as a ZIP archive</li>
+<li><code>listRemotes()</code>: detects a list of git remotes in the current folder</li>
+<li><code>addRemote(remoteName, remoteUrl, remoteToken)</code>: writes a git remote to the git config of the current folder</li>
+<li><code>getRemote(remote)</code>: detects the details of a git remote</li>
+<li><code>listAssetPaths()</code>: detects a list of local asset paths in the current folder</li>
+<li><code>addAssetPath(assetPath)</code>: writes a local asset path to the git config of the current folder</li>
+<li><code>uploadBlobsLFS(remote, files)</code>: sends a list of blobs to a Git Large File Storage remote</li>
+<li><code>downloadUrlFromPointer(url, token, pointerInfo)</code>: fetches a blob url for a Git Large File Storage pointer</li>
+</ul>
+<h4 id="root-schema"><a class="header" href="#root-schema">root schema</a></h4>
+<ul>
+<li><code>repo</code>: unique identifier of the current folder
+<ul>
+<li><code>reponame</code>: name of a folder</li>
+<li><code>category</code>: optional, kind of a folder</li>
+<li><code>branch</code>: a piece of structure of a record in a folder
+<ul>
+<li><code>trunk</code>: optional, what other branch this describes</li>
+<li><code>task</code>: optional, what special data type this branch holds</li>
+<li><code>description_en</code>: optional, description of the branch in English</li>
+<li><code>description_ru</code>: optional, description of the branch in Russian</li>
+</ul>
+</li>
+<li><code>local_tag</code>: local asset path</li>
+<li><code>remote_tag</code>: a git remote
+<ul>
+<li><code>remote_url</code>: address of the git remote</li>
+<li><code>remote_token</code>: access token for the git remote</li>
+</ul>
+</li>
+<li><code>sync_tag</code>: the name of a folder to merge with the current folder
+<ul>
+<li><code>sync_tag_search</code>: constraints for the subset of records to merge</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="default-folder-schema"><a class="header" href="#default-folder-schema">default folder schema</a></h4>
+<ul>
+<li><code>event</code>: unique identifier of an event
+<ul>
+<li><code>datum</code>: text, description of an event</li>
+<li><code>actdate</code>: date, date an event happened</li>
+<li><code>actname</code>: name of the person who experienced the event</li>
+<li><code>saydate</code>: date, date when a record was made</li>
+<li><code>sayname</code>: name of the person who made the record</li>
+<li><code>category</code>: kind of event</li>
+<li><code>privacy</code>: level of access to the record</li>
+<li><code>file</code>: file, unique identifier of a digital asset
+<ul>
+<li><code>filename</code>: filename, name of the file</li>
+<li><code>fileext</code>: fileext, extension of the file</li>
+<li><code>filehash</code>: filehash, hashsum of the file contents</li>
+</ul>
+</li>
+<li><code>branch</code>: a piece of structure of a record in the folder
+<ul>
+<li><code>trunk</code>: optional, what other branch this describes</li>
+<li><code>task</code>: optional, what special data type this branch holds</li>
+<li><code>description_en</code>: optional, description of the branch in English</li>
+<li><code>description_ru</code>: optional, description of the branch in Russian</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="adr"><a class="header" href="#adr">adr</a></h2>
+<ul>
+<li>
+<p>user must store i18n description of schema entities</p>
+</li>
+<li>
+<p>user must specify arbitrary entity purpose to render values in a specific way</p>
+</li>
+<li>
+<p>all values are stored in a csvs dataset. all keys are SHA-256 hashsum of some unique value, so that keys are of common form. we hash a UUIDv4 in <code>src/api/schema.js::newUUID</code> when a new object needs a unique identifier,  and we hash file contents in <code>src/api/browser.js::uploadFile</code>, <code>src/api/electron.js::uploadFile</code> and <code>src/api/server.mjs::uploadFile</code> for content-addressable asset storage.</p>
+</li>
+<li>
+<p>support oAuth</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../evenor/privacy.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../evenor/requirements.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../evenor/privacy.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../evenor/requirements.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/custom.js"></script>
+
+
+    </div>
+    </body>
+</html>
