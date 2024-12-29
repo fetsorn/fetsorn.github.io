@@ -14,7 +14,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const lastChapter = chapterItems[chapterItems.length - 1];
 
-  const links = [];
+  const links = [
+    {
+      title: "Blog",
+      url: 'https://norcivilianlabs.substack.com'
+    }
+  ];
 
   if (lastChapter) {
     const extraLinks = links
@@ -37,13 +42,13 @@ window.addEventListener("DOMContentLoaded", () => {
     wrapper_selector: ".gtranslate_wrapper",
   };
 
-  const wrapper = `<div class="gtranslate_wrapper"></div>`;
-
-  lastChapter.insertAdjacentHTML("afterend", wrapper);
+  // insert at the end of the list of chapters
+  lastChapter.parentElement.insertAdjacentHTML("beforeend", `<li class="chapter-item"><div class="gtranslate_wrapper"></div></li>`);
 
   const script = document.createElement("script");
 
-  script.setAttribute("src", "https://cdn.gtranslate.net/widgets/latest/ln.js");
+  // script.setAttribute("src", "https://cdn.gtranslate.net/widgets/latest/ln.js");
+  script.setAttribute("src", "https://cdn.gtranslate.net/widgets/latest/dropdown.js");
 
   document.head.appendChild(script);
 });
