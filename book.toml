@@ -1,0 +1,38 @@
+[book]
+title = "Norcivilian Labs"
+authors = ["fetsorn"]
+description = ""
+language = "en"
+multilingual = false
+src = "src"
+
+[build]
+build-dir = "pages"
+create-missing = false
+
+[output.html]
+# https://rust-lang.github.io/mdBook/format/configuration/renderers.html?highlight=section-label#html-renderer-options
+additional-css = ["theme/overrides.css"]
+additional-js = ["theme/custom.js"]
+no-section-label = true
+git-repository-url = "https://codeberg.org/norcivilianlabs/pages"
+git-repository-icon = "fa-code-fork"
+edit-url-template = "https://codeberg.org/norcivilianlabs/pages/_edit/main/{path}"
+site-url = "https://norcivilianlabs.org"
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.search]
+limit-results = 20
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 2
+
+[output.html.print]
+enable = false    # disable printable output
+page-break = true # insert page-break after each chapter
