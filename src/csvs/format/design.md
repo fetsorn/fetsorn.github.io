@@ -17,7 +17,6 @@ patterns:
 stakeholders: fetsorn
 
 Specification
-- [0.0.2](./0.0.2.md)
-- [0.0.1](./0.0.1.md) (deprecated)
+- [0.1.0](./0.1.0.md)
 
 Also see the [Requirements](./requirements.md).
