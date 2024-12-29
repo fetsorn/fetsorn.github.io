@@ -1,23 +1,5 @@
-# Design
+# Reference
 
-GUI client for csvs, personal information manager, note-taking manager, digital brain, database manager
-
-competes: notion, OneNote, obsidian, org-journal, iNotes, atom https://www.accesstomemory.org, perkeep https://perkeep.org
-
-interacts: with local storage, git hosting providers, social media API
-
-constitutes: local and public a web application, mobile application for iOS and Android, desktop application for Linux, MacOS and Windows
-
-includes: UI, UI state storage, overview components, import/export controllers; a class that interacts with filesystem, csvs, git
-
-patterns: MVC 
-
-resembles: matrix.ai, genea.app, pgAdmin
-
-stakeholders: fetsorn, 15 customers
- 
-target audiences: superusers, genealogy clients
-    
 ## stack
 The current stack is 
  - tauri: desktop and mobile distribution
@@ -235,11 +217,4 @@ The project directory is versioned by git. In the root there's configs for nix, 
      - `description_en`: optional, description of the branch in English
      - `description_ru`: optional, description of the branch in Russian
 
-## adr
-- user must store i18n description of schema entities
 
-- user must specify arbitrary entity purpose to render values in a specific way
-
-- all values are stored in a csvs dataset. all keys are SHA-256 hashsum of some unique value, so that keys are of common form. we hash a UUIDv4 in `src/api/schema.js::newUUID` when a new object needs a unique identifier,  and we hash file contents in `src/api/browser.js::uploadFile`, `src/api/electron.js::uploadFile` and `src/api/server.mjs::uploadFile` for content-addressable asset storage.
-
-- support oAuth

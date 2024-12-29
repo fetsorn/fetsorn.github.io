@@ -8,4 +8,4 @@
 - [Publishing to social media](./06_publishing_to_social_media.md)
 - [Merging datasets](./07_merging_datasets.md)
   
-To learn more about the architecture of evenor, see [Design](./design.md) and [Requirements](./requirements.md).
+To learn more about the architecture of evenor, see the [Reference](./reference.md) and the [Requirements](./requirements.md).

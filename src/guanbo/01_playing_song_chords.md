@@ -17,4 +17,4 @@ Chord.notes("maj4", "C4").map((note) => {
 
 ```
 
-To learn more, see the other [User guides](./user_guides.md) and [Design](./design.md).
+To learn more, see other [User guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).

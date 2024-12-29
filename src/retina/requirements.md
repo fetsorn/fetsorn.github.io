@@ -1,4 +1,32 @@
-# Requirements
+# Product
+
+client for visual recognition of medical reports using artificial intelligence
+
+competes: 
+
+resembles: haut.ai
+
+interacts: with users, AI API
+
+constitutes: a web application and a mobile application for iOS
+
+includes: database for pictures and reports, UI, UI database
+
+target audience: patients, members of hospitals, students
+
+mission: make expertise accessible and affordable
+
+competitive analysis
+existing products: 
+- https://www.eyenuk.com/en/products/eyeart/
+- https://www.digitaldiagnostics.com/products/eye-disease/idx-dr-eu/
+- https://ocuscreen.ru
+
+stakeholder: Digital Vision Solutions LLC, Norcivilian Labs
+
+patterns: MVC
+
+# Technical
 
 ## main screen logged out
 ### 辩 元 乡

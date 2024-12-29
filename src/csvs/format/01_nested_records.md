@@ -123,4 +123,4 @@ Hauwa,Rabi
 Hauwa,Louis
 ```
 
-To learn more about csvs, see [Design](./design.md) and [Requirements](./requirements.md).
+To learn more about csvs, see other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).

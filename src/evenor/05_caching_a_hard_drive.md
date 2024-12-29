@@ -4,4 +4,4 @@
 
 First, run the csvs-cli to collect metadata for all files in a given archive directory. Then, import the resulting csvs dataset in Evenor. Now you can find "All university text files from May 2006" and "all photos from each of my birthdays".
 
-To learn more about evenor, see other [User Guides](./user_guides.md).
+To learn more about evenor, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).

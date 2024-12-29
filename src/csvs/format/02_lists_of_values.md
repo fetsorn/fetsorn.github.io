@@ -36,4 +36,4 @@ empty value is a value, one comma is empty key to an empty value
 
 empty line is not a value
 
-To learn more about csvs, see [Design](./design.md) and [Requirements](./requirements.md).
+To learn more about csvs, see other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).

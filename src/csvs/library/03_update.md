@@ -469,4 +469,4 @@ photo-everest,0x0000
 photo-xray,0x4444
 ```
 
-To learn more about the architecture of evenor, see [Design](./design.md) and [Requirements](./requirements.md).
+To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).

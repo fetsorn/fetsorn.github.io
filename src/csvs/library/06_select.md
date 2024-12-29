@@ -177,3 +177,5 @@ filepath4,filehash4
   },
 ]
 ```
+
+To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).

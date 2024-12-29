@@ -286,4 +286,4 @@ what is the semantics of a field value with a base branch different than the key
 
 how to differentiate names of fields between `_: amount` and `amount: "1"`? one is base branch name, another is base branch value.
 
-To learn more about the architecture of evenor, see [Design](./design.md) and [Requirements](./requirements.md).
+To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).

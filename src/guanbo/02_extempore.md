@@ -185,4 +185,4 @@ Is this loop supposed to work?
 
 For more examples of Extempore code, see [Michele Pasin](https://github.com/lambdamusic), [fetsorn](https://github.com/tempos).
 
-To learn more, see the other [User guides](./user_guides.md) and [Design](./design.md).
+To learn more, see other [User guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).

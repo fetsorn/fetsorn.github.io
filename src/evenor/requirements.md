@@ -1,3 +1,31 @@
+# Product
+
+GUI client for csvs, personal information manager, note-taking manager, digital brain, database manager
+
+competes: notion, OneNote, obsidian, org-journal, iNotes, atom https://www.accesstomemory.org, perkeep https://perkeep.org, trilium
+
+interacts: with local storage, git hosting providers, social media API
+
+constitutes: local and public a web application, mobile application for iOS and Android, desktop application for Linux, MacOS and Windows
+
+includes: UI, UI state storage, overview components, import/export controllers; a class that interacts with filesystem, csvs, git
+
+patterns: MVC 
+
+resembles: matrix.ai, genea.app, pgAdmin
+
+stakeholders: fetsorn
+ 
+target audiences: superusers, genealogy clients
+    
+## adr
+- user must store i18n description of schema entities
+
+- user must specify arbitrary entity purpose to render values in a specific way
+
+- all values are stored in a csvs dataset. all keys are SHA-256 hashsum of some unique value, so that keys are of common form. we hash a UUIDv4 in `src/api/schema.js::newUUID` when a new object needs a unique identifier,  and we hash file contents in `src/api/browser.js::uploadFile`, `src/api/electron.js::uploadFile` and `src/api/server.mjs::uploadFile` for content-addressable asset storage.
+
+- support oAuth
 # Requirements
 
 ## 长 寒 项

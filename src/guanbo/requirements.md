@@ -1,3 +1,23 @@
+# Product
+
+algorithmic music broadcast
+
+interacts: version control services, listener browsers
+
+constitutes: audio broadcast of music written in programming languages
+
+includes: composer, arranger, broadcaster
+
+competes: algoraves
+
+resembles: wikifunctions
+
+target audiences: coders, musicians, students, listeners
+
+patterns: infrastructure-as-code
+
+stakeholders: Algorithmic Music Research Institute, Algorithmic Music Radio, Norcivilian Records
+
 # Requirements
 
 ## 辩 息 女

@@ -1,4 +1,22 @@
-# Requirements
+# Product
+
+library for interacting with csvs datasets
+
+competes: libraries for SQL, MongoDB
+
+interacts: with arbitrary dataset storage that implements FS
+
+constitutes: a library, a WASM reactor module
+
+includes: a facade interface, query controller, record update controller, record delete controller, schema controller, dataset cache
+
+patterns: facade
+
+resembles: 
+
+stakeholders: fetsorn
+
+# Technical
 
 ## 龄 摸 律
 - user must search records in a csvs dataset

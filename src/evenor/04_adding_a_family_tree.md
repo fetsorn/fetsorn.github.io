@@ -10,4 +10,4 @@ A graph of parents and children drawn from GEDCOM is visually clear, but doesn't
 
 You can see an example of the family tree in the `tutorial` dataset. Select `parent` branch in the root profile to open the record overview of all available people. Confirm a `Search cognate?` dialogue near any person to open a record overview of all people who have Ben as `parent`. You can continue to query children and parents of each person to navigate the family tree. 
 
-To learn more about evenor, see other [User Guides](./user_guides.md).
+To learn more about evenor, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).

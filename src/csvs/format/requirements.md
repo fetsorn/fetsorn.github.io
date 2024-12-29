@@ -1,4 +1,22 @@
-# Requirements
+# Product
+
+plain-text relational database
+
+competes: recutils, SQL, mongodb
+
+interacts: file system, clients, text editors
+
+constitutes: a set of CSV files
+
+includes: config, schema, data
+
+resembles: recutils
+
+patterns: 
+
+stakeholders: fetsorn
+
+# Technical
 ## 宣 胞 闹 
 - user must view dataset in a text editor
 ## 众 脱 幻

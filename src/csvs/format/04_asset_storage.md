@@ -64,4 +64,4 @@ git add img/IMG_0890.jpeg
 git commit -m "add picture of Japan"
 ```
 
-To learn more about csvs, see [Design](./design.md) and [Requirements](./requirements.md).
+To learn more about csvs, see other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).

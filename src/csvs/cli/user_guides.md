@@ -7,4 +7,4 @@
 - [Edit CSVS schema](./05_edit_csvs_schema.md)
 - [Map CSVS schemas](./06_map_csvs_schemas.md)
 
-To learn more about the csvs cli, see [Design](./design.md) and [Requirements](./requirements.md).
+To learn more about the csvs cli, see the [Reference](./reference.md) and the [Requirements](./requirements.md).

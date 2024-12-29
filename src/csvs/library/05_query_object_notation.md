@@ -188,4 +188,4 @@ examples of data structure:
  - `_-_.csv`: `event,date`, `event,date`: `went to groceries,2024-01-01`, JSON: `{ "_": "event", "event": "went to groceries", "date": [ { "_": "date", "date": "2024-01-01" } ] }`
  - `[{"_":"event","event":"0bac","dateact":[{"_":"dateact","dateact":"02-01-2023"}],"datum":[{"_":"datum","datum":"went to groceries"}],"file":[{"_":"file","file":"0faa","filename":[{"_":"filename","filename":"image.gif"}]}]}]`
 
-To learn more about the architecture of evenor, see [Design](./design.md) and [Requirements](./requirements.md).
+To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).

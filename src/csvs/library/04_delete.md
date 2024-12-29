@@ -10,4 +10,4 @@ WON'T delete unxpected extra records that match constraint by accident
 
 should we only have literal match after query to avoid unexpected deletions?
 
-To learn more about the architecture of evenor, see [Design](./design.md) and [Requirements](./requirements.md).
+To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
