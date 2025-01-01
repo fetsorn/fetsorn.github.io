@@ -4,12 +4,12 @@ To export data, download the [Desktop Client](https://desktop.telegram.org), the
 
 Point the cli to one of the chat folders with a `result.json` file and you will see a printed set of message entries in JSON format.
 ```shell
-csvs -i "/path/to/Telegram backup/username"
+panrec -i "/path/to/Telegram backup/username"
 ```
 
 Specify an output path to write the entries to csvs.
 ```shell
-csvs -i "/path/to/Telegram backup/username" -o /path/to/target-dataset
+panrec -i "/path/to/Telegram backup/username" -o /path/to/target-dataset
 ```
 
-For a complete list of cli commands and flags, see [Reference](./reference.md). Learn more about csvs in other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).
+For a complete list of cli commands and flags, see [Reference](./reference.md). Learn more about panrec in other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).

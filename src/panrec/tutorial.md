@@ -2,25 +2,23 @@
 
 Let's fill a CSVS dataset with entries and search for them with a query.
 
-> See [Getting Started](./getting_started.md) on how to install csvs.
-
 To create a new csvs dataset
 ```shell
-csvs -o /path/to/csvs-dataset
+panrec -o /path/to/csvs-dataset
 ```
 
 It's a new dataset, so if we run a search on it, it will return only one empty entry.
 ```shell
-csvs -i /path/to/csvs-dataset
-# {"_": "datum, "UUID": "...", "datum": "", "actdate": 2001-01-01}
+panrec -i /path/to/csvs-dataset
+# {"_": "datum", "UUID": "...", "datum": "", "actdate": "2001-01-01"}
 
-csvs --stats -i /path/to/csvs-dataset
+panrec --stats -i /path/to/csvs-dataset
 number of entries: 1
 ```
 
 Let's print the dataset as text and add some entries to it.
 ```shell
-csvs -i /path/to/csvs-dataset -t biorg -o /path/to/dataset.biorg
+panrec -i /path/to/csvs-dataset -t biorg -o /path/to/dataset.biorg
 ```
 
 We specify an event for a given date.
@@ -40,22 +38,22 @@ won a championship
 
 Now let's write the new entry to the dataset. The program will detect that the file is in Biorg format and copy new entries over. 
 ```shell
-csvs -i /path/to/dataset.biorg -o /path/to/csvs-dataset
+panrec -i /path/to/dataset.biorg -o /path/to/csvs-dataset
 
-csvs --stats -i /path/to/csvs-dataset
+panrec --stats -i /path/to/csvs-dataset
 number of entries: 3
 
-csvs -i /path/to/csvs-dataset
-# {"_": "datum, "UUID": "...", "datum": "", "actdate": 2001-01-01}
-# {"_": "datum, "UUID": "...", "datum": "a walk in the park", "actdate": 2005-07-28}
-# {"_": "datum, "UUID": "...", "datum": "won a championship", "actdate": 2011-03-17}
+panrec -i /path/to/csvs-dataset
+# {"_": "datum", "UUID": "...", "datum": "", "actdate": "2001-01-01"}
+# {"_": "datum", "UUID": "...", "datum": "a walk in the park", "actdate": "2005-07-28"}
+# {"_": "datum", "UUID": "...", "datum": "won a championship", "actdate": "2011-03-17"}
 ```
 
 Let's search only for the entry that happened in 2011. A wildcard `.*` means "any number of arbitrary characters"
 ```shell
-csvs -i /path/to/csvs-dataset -q "?actdate=2011.*"
-# {"_": "datum, "UUID": "...", "datum": "won a championship", "actdate": 2011-03-17}
+panrec -i /path/to/csvs-dataset -q "?actdate=2011.*"
+# {"_": "datum", "UUID": "...", "datum": "won a championship", "actdate": "2011-03-17"}
 ```
 
-For a complete list of cli commands and flags, see [Reference](./reference.md). Learn more about csvs in the [User Guides](./user_guides.md).
+For a complete list of cli commands and flags, see [Reference](./reference.md). Learn more about panrec in the [User Guides](./user_guides.md).
 

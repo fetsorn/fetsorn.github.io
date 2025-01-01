@@ -4,12 +4,12 @@ To export data, open the [VK documentation](https://vk.com/data_protection?secti
 
 Point the cli to one of the backup folder you will see a printed set of message entries in JSON format.
 ```shell
-csvs -i "/path/to/VK_backup"
+panrec -i "/path/to/VK_backup"
 ```
 
 Specify an output path to write the entries to csvs.
 ```shell
-csvs -i "/path/to/Telegram backup/username" -o /path/to/target-dataset
+panrec -i "/path/to/Telegram backup/username" -o /path/to/target-dataset
 ```
 
-For a complete list of cli commands and flags, see [Reference](./reference.md). Learn more about csvs in other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).
+For a complete list of cli commands and flags, see [Reference](./reference.md). Learn more about panrec in other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).

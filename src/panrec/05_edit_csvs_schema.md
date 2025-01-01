@@ -3,7 +3,7 @@
 Each csvs dataset has a schema that describes what entry fields are allowed and how they relate to each other. 
 You can see the schema with a --stats flag
 ```shell
-csvs --stats -i /path/to/csvs-dataset
+panrec --stats -i /path/to/csvs-dataset
 schema:
 datum
  |---actdate
@@ -11,7 +11,7 @@ datum
 
 To change the schema, save it as json and open in a text editor.
 ```shell
-csvs -i /path/to/csvs-dataset -q "?_=schema" | jq > schema.json
+panrec -i /path/to/csvs-dataset -q "?_=schema" | jq > schema.json
 ```
 `schema.json`
 ```json
@@ -45,12 +45,12 @@ Let's add another field. The "trunk" field specifies that this is an attribute o
 
 Save the schema back to the dataset
 ```shell
-csvs -i schema.json -o /path/to/csvs-dataset
+panrec -i schema.json -o /path/to/csvs-dataset
 schema:
 datum
  |---actdate
  |---category
 ```
 
-For a complete list of cli commands and flags, see [Reference](./reference.md). Learn more about csvs in other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).
+For a complete list of cli commands and flags, see [Reference](./reference.md). Learn more about panrec in other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).
 

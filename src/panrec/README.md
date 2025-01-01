@@ -1,4 +1,4 @@
-# CSVS cli
+# panrec
 
 This documentation describes the command-line utility for searching and updating record datasets.
 

@@ -1,9 +1,9 @@
 # Reference
 
 ```
-Usage: csvs [options]
+Usage: panrec [options]
 
-Manage csvs databases.
+Manage record datasets.
 
 Options:
   -v, --version               output the version number
