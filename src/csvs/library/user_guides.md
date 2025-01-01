@@ -18,5 +18,3 @@ Ways to parse csvs datasets
 
 - [Select](./06_select.md)
 
-To learn more about the architecture of csvs-lib, see the [Requirements](./requirements.md).
-

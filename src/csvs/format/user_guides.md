@@ -6,5 +6,3 @@
  - [Asset Storage](./04_asset_storage.md)
  - [Branch Metadata](./05_branch_metadata.md)
  - [Writing a Client](./06_writing_a_client.md)
-
-To learn more about csvs, see the [Requirements](./requirements.md).

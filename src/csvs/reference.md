@@ -1,5 +1,27 @@
 # Select Core
 
+## old
+ - function signatures
+ - steps in pdl
+ - memory efficiency
+ - process efficiency
+ - data structures
+
+yeah. so right now I have four record streams, four tablet streams and four pure line functions. four strategies.
+low level design in program design language for every component
+
+today's thought is that the lines are also a strategy of sorts. every level kind of forms the collection and then iterates on it with the transformer of the next level, and does other io. there's three iterations, queries, tablets and lines, with the step being a reducer function that is the only one that acts on just values, just a key value pair and state. so i'd put all extra state in to a strategy step, not just the tablet, and have one general recursive function. what if I could describe that?
+
+so csvs-lib is the library for playing with csvs datasets. It currently provides four methods - select, update, insert and delete, each with the same API of a transform web stream factory asking for fs and dir. each method is currently implemented in the same style of constant memory and nested streams. A top-level record stream accepts a query record and returns a record. It builds a list of tablets from each query - a strategy, - and builds a pipeline of tablet streams. A tablet stream accepts a query record and returns a record. It streams lines from the tablet and optionally calls a reducer on each line to transform state and form records for output. A reducer function accepts the strategy step, the record and some state to step through each line. During reduce multiple records are queued in the tablet stream, passed to record stream and queued there for consumption.
+
+the select record stream asks for select strategy and pipes it through select tablet streams. select tablet stream calls the select reducer which searches the record for values that match the line, signals a match and transforms the record.
+
+the update record stream asks for update strategy and pipes it through update tablet streams. update tablet stream calls the update reducer which searches the record for values that match the line, signals a match and passes novel records to a stream that writes them as lines.
+
+the insert record stream asks for insert strategy and pipes it through insert tablet streams. insert tablet stream writes the records as lines at the end of the tablet. at the end of the record stream the tablet content is grouped to a valid form by sorting.
+
+the delete record stream asks for delete strategy and pipes it through delete tablet streams. delete tablet stream calls the delete reducer to match the record and prune lines that are written to the file.
+
 walk the tablets one line at a time in parallel
 
 this describes an algorithm to query csvs datasets that does not cache the dataset into memory but keeps search results in memory
@@ -64,15 +86,11 @@ Computationally it's O(n)
 
 Core can implement boyer-moore variant and direct shell to skip lines for O(n)
 
-Core is in js, shell is in js
-
-Core will be in rust wasm, shell in rust and js
-
 query syntax now is js regex, will be rust regex
 
 Update and delete algos are naive shell code now, can use core to edit sorted too.
 
-# Strategy
+### Strategy
 
 strategy is a function that accepts schema, record, and returns the list of tablets.
 
@@ -90,11 +108,6 @@ Tablet
 - eager: bool
 - passthrough: bool
 - querying: bool
-- enumerator
-  - 1 select
-  - 2 update
-  - 3 delete
-  - 4 insert
 
 ```pdl
 search schema for base
@@ -165,7 +178,7 @@ else
    panic
 ```
 
-# Core
+### Core
 
 core is a function that accepts the record, tablet, key, value and returns the record.
 
@@ -211,7 +224,7 @@ or insert
 else 
     panic
 ```
-# Shell
+### Shell
 
 tablet is a function that accepts the record, tablet, fs, dir and returns the record and IO.
 
@@ -308,3 +321,25 @@ for each tablet of strategy
 ```
 
 To learn more about the architecture of csvs, see the [Requirements](./requirements.md).
+
+
+## new
+selectRecordStream
+selectRecord
+selectSchema
+updateRecord
+updateRecordStream
+insertRecord
+insertRecordStream
+deleteRecord
+deleteRecordStream
+condense
+expand
+isTwig
+enrichBranchRecords
+extractSchemaRecords
+searchParamsToQuery
+findCrown
+toSchema
+mow
+sow

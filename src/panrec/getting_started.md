@@ -1,6 +1,6 @@
 # Getting Started
 
-To create a new csvs dataset
+To create a new [CSVS](https://csvs-format.docs.norcivilianlabs.org/) dataset
 ```shell
 csvs -o /path/to/csvs-dataset
 ```
