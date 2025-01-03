@@ -1,0 +1,351 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Requirements - Norcivilian Labs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/overrides.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../getting_started.html">Getting Started</a></li><li class="chapter-item expanded "><a href="../projects.html">Projects</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/index.html">Plain Text Database</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../csvs/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../csvs/user_guides/index.html">User Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/user_guides/01_nested_records.html">Nested Records</a></li><li class="chapter-item "><a href="../csvs/user_guides/02_lists_of_values.html">Lists of Values</a></li><li class="chapter-item "><a href="../csvs/user_guides/03_dataset_settings.html">Dataset Settings</a></li><li class="chapter-item "><a href="../csvs/user_guides/04_asset_storage.html">Asset Storage</a></li><li class="chapter-item "><a href="../csvs/user_guides/05_branch_metadata.html">Branch Metadata</a></li><li class="chapter-item "><a href="../csvs/user_guides/06_writing_a_client.html">Writing a Client</a></li><li class="chapter-item "><a href="../csvs/user_guides/07_deleting_values.html">Deleting Values</a></li><li class="chapter-item "><a href="../csvs/user_guides/08_version_control.html">Version Control</a></li><li class="chapter-item "><a href="../csvs/user_guides/09_unique_keys.html">Unique Keys</a></li></ol></li><li class="chapter-item "><a href="../csvs/specs/index.html">Specifications</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/specs/01_file_format.html">File Format</a></li><li class="chapter-item "><a href="../csvs/specs/02_dataset_format.html">Dataset Format</a></li><li class="chapter-item "><a href="../csvs/specs/03_entry_object_notation.html">Entry Object Notation</a></li><li class="chapter-item "><a href="../csvs/specs/04_query_object_notation.html">Query Object Notation</a></li></ol></li><li class="chapter-item "><a href="../csvs/reference/index.html">Reference</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../csvs/reference/01_sow_and_mow.html">Sow & Mow</a></li><li class="chapter-item "><a href="../csvs/reference/02_schema.html">Schema</a></li><li class="chapter-item "><a href="../csvs/reference/03_insert.html">Insert</a></li><li class="chapter-item "><a href="../csvs/reference/04_update.html">Update</a></li><li class="chapter-item "><a href="../csvs/reference/05_delete.html">Delete</a></li><li class="chapter-item "><a href="../csvs/reference/06_select.html">Select</a></li></ol></li><li class="chapter-item "><a href="../csvs/scenarios.html">Scenarios</a></li><li class="chapter-item "><a href="../csvs/requirements.html">Requirements</a></li></ol></li><li class="chapter-item expanded "><a href="../panrec/index.html">Record utility</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../panrec/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../panrec/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../panrec/user_guides.html">User Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../panrec/01_import_from_filesystem.html">Import from File System</a></li><li class="chapter-item "><a href="../panrec/02_import_from_telegram.html">Import from Telegram</a></li><li class="chapter-item "><a href="../panrec/03_import_from_vk.html">Import from VK</a></li><li class="chapter-item "><a href="../panrec/04_merge_csvs_datasets.html">Merge CSVS Datasets</a></li><li class="chapter-item "><a href="../panrec/05_edit_csvs_schema.html">Edit CSVS Schema</a></li><li class="chapter-item "><a href="../panrec/06_map_csvs_schemas.html">Map CSVS Schemas</a></li></ol></li><li class="chapter-item "><a href="../panrec/reference.html">Reference</a></li><li class="chapter-item expanded "><a href="../panrec/requirements.html" class="active">Requirements</a></li></ol></li><li class="chapter-item "><a href="../evenor/index.html">Event Editor</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../evenor/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../evenor/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../evenor/user_guides.html">User Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../evenor/01_running_search_queries.html">Running Search Queries</a></li><li class="chapter-item "><a href="../evenor/02_cloning_from_git.html">Cloning from Git</a></li><li class="chapter-item "><a href="../evenor/03_editing_dataset_schema.html">Editing Dataset Schema</a></li><li class="chapter-item "><a href="../evenor/04_adding_a_family_tree.html">Adding a Family Tree</a></li><li class="chapter-item "><a href="../evenor/05_caching_a_hard_drive.html">Caching a Hard Drive</a></li><li class="chapter-item "><a href="../evenor/06_publishing_to_social_media.html">Publishing to Social Media</a></li><li class="chapter-item "><a href="../evenor/07_merging_datasets.html">Merging Datasets</a></li></ol></li><li class="chapter-item "><a href="../evenor/privacy.html">Privacy</a></li><li class="chapter-item "><a href="../evenor/reference.html">Reference</a></li><li class="chapter-item "><a href="../evenor/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../guanbo/index.html">Programming Music</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../guanbo/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../guanbo/tutorial.html">Tutorial</a></li><li class="chapter-item "><a href="../guanbo/user_guides.html">User Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../guanbo/01_playing_song_chords.html">Playing song chords</a></li></ol></li><li class="chapter-item "><a href="../guanbo/reference.html">Reference</a></li><li class="chapter-item "><a href="../guanbo/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../morio/index.html">Syndication Viewer</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../morio/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../morio/requirements.html">Requirements</a></li></ol></li><li class="chapter-item "><a href="../retina/index.html">Retina Detector</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../retina/getting_started.html">Getting Started</a></li><li class="chapter-item "><a href="../retina/api.html">API</a></li><li class="chapter-item "><a href="../retina/privacy.html">Privacy</a></li><li class="chapter-item "><a href="../retina/reference.html">Reference</a></li><li class="chapter-item "><a href="../retina/requirements.html">Requirements</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../requirements.html">Requirements</a></li><li class="chapter-item expanded "><a href="../license.html">License</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Norcivilian Labs</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://codeberg.org/norcivilianlabs/pages/src/branch/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-code-fork"></i>
+                        </a>
+                        <a href="https://codeberg.org/norcivilianlabs/pages/_edit/main/src/panrec/requirements.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="product"><a class="header" href="#product">Product</a></h1>
+<p>client for csvs, data converter</p>
+<p>competes: prsql, sqlite</p>
+<p>interacts: with filesystem</p>
+<p>constitutes: a cli shell application, spawned system processes</p>
+<p>includes: cli scaffold, stream pipe, import streams for csvs, jsonlines, vk, tg; export streams for csvs, biorg, tex, jsonlines</p>
+<p>patterns:</p>
+<p>resembles: jq</p>
+<p>stakeholders: fetsorn</p>
+<ul>
+<li>replace <code>--stats</code> flag with <code>-t stats</code> output type</li>
+</ul>
+<h1 id="technical"><a class="header" href="#technical">Technical</a></h1>
+<h2 id="过-钙-回"><a class="header" href="#过-钙-回">过 钙 回</a></h2>
+<ul>
+<li>user must import csvs dataset from filesystem</li>
+</ul>
+<h2 id="杆-雕-破"><a class="header" href="#杆-雕-破">杆 雕 破</a></h2>
+<ul>
+<li>user can import a VKontakte backup</li>
+</ul>
+<h2 id="壤-辨-若"><a class="header" href="#壤-辨-若">壤 辨 若</a></h2>
+<ul>
+<li>user can import a Telegram backup</li>
+</ul>
+<h2 id="训-残-书"><a class="header" href="#训-残-书">训 残 书</a></h2>
+<ul>
+<li>user must query JSONLines from stdin</li>
+</ul>
+<h2 id="渠-诗-牲"><a class="header" href="#渠-诗-牲">渠 诗 牲</a></h2>
+<ul>
+<li>user must query JSONLines from file</li>
+</ul>
+<h2 id="泉-避-妇"><a class="header" href="#泉-避-妇">泉 避 妇</a></h2>
+<ul>
+<li>user must query after import</li>
+</ul>
+<h2 id="景-浩-家"><a class="header" href="#景-浩-家">景 浩 家</a></h2>
+<ul>
+<li>user must query before export</li>
+</ul>
+<h2 id="弓-乃-块"><a class="header" href="#弓-乃-块">弓 乃 块</a></h2>
+<ul>
+<li>user must export entries to csvs dataset on the filesystem</li>
+</ul>
+<h2 id="览-售-盾"><a class="header" href="#览-售-盾">览 售 盾</a></h2>
+<ul>
+<li>user must export entries to JSONLines on stdout</li>
+</ul>
+<h2 id="竞-闪-彻"><a class="header" href="#竞-闪-彻">竞 闪 彻</a></h2>
+<ul>
+<li>user must export entries to JSONLines on filesystem</li>
+</ul>
+<h2 id="朱-约-夫"><a class="header" href="#朱-约-夫">朱 约 夫</a></h2>
+<ul>
+<li>user must export entries to biorg on filesystem</li>
+</ul>
+<h2 id="鼓-坑-岸"><a class="header" href="#鼓-坑-岸">鼓 坑 岸</a></h2>
+<ul>
+<li>user must export entries to biorg on stdout</li>
+</ul>
+<h2 id="迎-鸡-埋"><a class="header" href="#迎-鸡-埋">迎 鸡 埋</a></h2>
+<ul>
+<li>user can export entries to tex on stdout</li>
+</ul>
+<h2 id="圈-及-身"><a class="header" href="#圈-及-身">圈 及 身</a></h2>
+<ul>
+<li>user can export entries to tex on filesystem</li>
+</ul>
+<h2 id="锋-倡-薄"><a class="header" href="#锋-倡-薄">锋 倡 薄</a></h2>
+<ul>
+<li>user must import xattr entries from a listing of filepaths on stdin</li>
+</ul>
+<h2 id="扭-肌-库"><a class="header" href="#扭-肌-库">扭 肌 库</a></h2>
+<ul>
+<li>user must import xattr entries from a listing of filepaths on filesystem</li>
+</ul>
+<h2 id="托-李-板"><a class="header" href="#托-李-板">托 李 板</a></h2>
+<ul>
+<li>user should see number of entries in a dataset after import</li>
+</ul>
+<h2 id="滨-尖-抵"><a class="header" href="#滨-尖-抵">滨 尖 抵</a></h2>
+<ul>
+<li>user should see filesystem size of a dataset after import</li>
+</ul>
+<h2 id="期-衣-运"><a class="header" href="#期-衣-运">期 衣 运</a></h2>
+<ul>
+<li>user should see schema of a dataset after import</li>
+</ul>
+<h2 id="北-翻-蚀"><a class="header" href="#北-翻-蚀">北 翻 蚀</a></h2>
+<ul>
+<li>user can create an empty csvs dataset</li>
+</ul>
+<h2 id="局-吹-众"><a class="header" href="#局-吹-众">局 吹 众</a></h2>
+<ul>
+<li>user can add a new entry from an interactive prompt</li>
+</ul>
+<h2 id="姑-多-描"><a class="header" href="#姑-多-描">姑 多 描</a></h2>
+<ul>
+<li>user can edit entry from an interactive prompt</li>
+</ul>
+<h2 id="玩-矿-仓"><a class="header" href="#玩-矿-仓">玩 矿 仓</a></h2>
+<ul>
+<li>user must create an empty csvs dataset</li>
+</ul>
+<h2 id="薄-刺-内"><a class="header" href="#薄-刺-内">薄 刺 内</a></h2>
+<ul>
+<li>user must edit an empty csvs dataset</li>
+</ul>
+<h2 id="夹-轨-检"><a class="header" href="#夹-轨-检">夹 轨 检</a></h2>
+<ul>
+<li>user must edit schema of a csvs dataset</li>
+</ul>
+<h2 id="值-贴-姜"><a class="header" href="#值-贴-姜">值 贴 姜</a></h2>
+<ul>
+<li>user can see a progress bar during entry search</li>
+</ul>
+<h2 id="依-农-徙"><a class="header" href="#依-农-徙">依 农 徙</a></h2>
+<ul>
+<li>user must import biorg</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../panrec/reference.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../evenor/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../panrec/reference.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../evenor/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/custom.js"></script>
+
+
+    </div>
+    </body>
+</html>
