@@ -199,8 +199,7 @@
 </li>
 </ul>
 <p>To learn more about the architecture of csvs, see other <a href="./user_guides.html">User Guides</a>, the <a href="./reference.html">Reference</a> and the <a href="./requirements.html">Requirements</a>.</p>
-<h2 id="functions"><a class="header" href="#functions">functions</a></h2>
-<h3 id="delete-in-dataset"><a class="header" href="#delete-in-dataset">delete in dataset</a></h3>
+<h2 id="delete-in-dataset"><a class="header" href="#delete-in-dataset">delete in dataset</a></h2>
 <p>FS -&gt; Dir -&gt; List Query -&gt; IO List Entry</p>
 <p>FS is input output interface to the file system</p>
 <p>Dir is String of a path to open in FS</p>
@@ -210,7 +209,7 @@
   to delete stream 
   to return
 </code></pre>
-<h3 id="delete-stream"><a class="header" href="#delete-stream">delete stream</a></h3>
+<h2 id="delete-stream"><a class="header" href="#delete-stream">delete stream</a></h2>
 <p>FS -&gt; Dir -&gt; Query -&gt; IO List Entry</p>
 <p>FS is input output interface to the file system</p>
 <p>Dir is String of a path to open in FS</p>
@@ -223,7 +222,7 @@ for each query
     delete tablet with fs, dir, query
     return query
 </code></pre>
-<h3 id="delete-strategy"><a class="header" href="#delete-strategy">delete strategy</a></h3>
+<h2 id="delete-strategy"><a class="header" href="#delete-strategy">delete strategy</a></h2>
 <p>Schema -&gt; Entry -&gt; List Tablet</p>
 <p>This describes all tablets needed to delete an entry</p>
 <p>Schema is Map Branch Connection</p>
@@ -258,7 +257,7 @@ for each leaf of base
     trait is first: true 
   }
 </code></pre>
-<h3 id="delete-tablet"><a class="header" href="#delete-tablet">delete tablet</a></h3>
+<h2 id="delete-tablet"><a class="header" href="#delete-tablet">delete tablet</a></h2>
 <p>FS -&gt; Dir -&gt; Query -&gt; IO</p>
 <p>FS is input output interface to the file system</p>
 <p>Dir is String of a path to open in FS</p>
@@ -276,7 +275,7 @@ pipe filepath
   to append temporary file;
 move temporary file to filepath;
 </code></pre>
-<h3 id="delete-line-stream"><a class="header" href="#delete-line-stream">delete line stream</a></h3>
+<h2 id="delete-line-stream"><a class="header" href="#delete-line-stream">delete line stream</a></h2>
 <p>Tablet -&gt; Line -&gt; Line</p>
 <p>Tablet is</p>
 <pre><code class="language-js">{ 
