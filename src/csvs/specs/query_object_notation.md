@@ -1,6 +1,6 @@
 # Query Object Notation
 
-This document describes the object notation that represents queries in a [CSVS](https://csvs-format.docs.norcivilianlabs.org/) dataset.
+This document describes the object notation that represents queries in a [csvs](https://csvs-format.docs.norcivilianlabs.org/) dataset.
 
 Query object notation is a subset of [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259). In cases where this document contradicts the RFC, RFC takes precedence and this document should be corrected.
 

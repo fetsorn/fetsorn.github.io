@@ -1,6 +1,6 @@
 # Tutorial
 
-Here's an example of the simplest CSVS dataset that contains a record about visiting Japan in 2001.
+Here's an example of the simplest csvs dataset that contains a record about visiting Japan in 2001.
 
 > ``` csv
 > # .csvs.csv

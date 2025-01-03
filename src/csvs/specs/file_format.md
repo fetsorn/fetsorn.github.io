@@ -1,16 +1,16 @@
-# CSVS File Format
+# csvs File Format
 
 version 0.1.0
 
-This document specifies the CSVS file format.
+This document specifies the csvs file format.
 
 "CSVS" stands for "Comma-Separated Value Store"
 
-CSVS file format is a subset of [RFC 4180](https://www.rfc-editor.org/rfc/rfc4180). In cases where this document contradicts the RFC, RFC takes precedence and this document should be corrected.
+csvs file format is a subset of [RFC 4180](https://www.rfc-editor.org/rfc/rfc4180). In cases where this document contradicts the RFC, RFC takes precedence and this document should be corrected.
 
-A CSVS file MUST have UTF-8 encoding. 
+A csvs file MUST have UTF-8 encoding. 
 
-A CSVS file MUST have .csv file extension.
+A csvs file MUST have .csv file extension.
 
 ## grammar 
 

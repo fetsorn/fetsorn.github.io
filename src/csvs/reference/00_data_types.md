@@ -4,7 +4,7 @@
 FS is input output interface to the file system
 
 ## Dir
-Dir is String of a path to a directory in [CSVS dataset format](../specs/dataset_format.md)
+Dir is String of a path to a directory in [csvs dataset format](../specs/dataset_format.md)
 
 ## Branch
 Branch is a string name of a given branch
@@ -33,7 +33,7 @@ Entry is a JSON in [Entry Object Notation](../specs/entry_object_notation.md)
 Query is a JSON in [Query Object Notation](../specs/query_object_notation.md)
 
 ## Line
-Line is a String in [CSVS file format](../specs/file_format.md)
+Line is a String in [csvs file format](../specs/file_format.md)
 
 ## State
 State is 

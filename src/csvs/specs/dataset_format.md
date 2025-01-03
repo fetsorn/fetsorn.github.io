@@ -1,8 +1,8 @@
-# CSVS Dataset Format
+# csvs Dataset Format
 
 version 0.1.0
 
-This document specifies the CSVS dataset format.
+This document specifies the csvs dataset format.
 
 "CSVS" stands for "Comma-Separated Value Store"
 
