@@ -8,9 +8,15 @@ delete regular expression must take regular expression query object notation and
 
 should remove literal and only match on regular expression?
 
-WON'T delete unxpected extra records that match constraint by accident
+WON'T delete unexpected extra records that match constraint by accident
 
 should we only have literal match after query to avoid unexpected deletions?
+
+ - [delete in dataset](#delete-in-dataset)
+   - [delete stream](#delete-stream)
+     - [delete strategy](#delete-strategy)
+     - [delete tablet](#delete-tablet)
+       - [delete line stream](#delete-line-stream)
 
 To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
 

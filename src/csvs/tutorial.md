@@ -2,20 +2,20 @@
 
 Here's an example of the simplest CSVS dataset that contains a record about visiting Japan in 2001.
 
-> `.csvs.csv`
-``` csv
-csvs,0.0.2
-```
-
-> `_-_.csv`
-``` csv
-event,date
-```
-
-> `event-date.csv`
-``` csv
-visited Japan,2001-01-01
-```
+> ``` csv
+> # .csvs.csv
+> csvs,0.0.2
+> ```
+> 
+> ``` csv
+> # _-_.csv
+> event,date
+> ```
+> 
+> ``` csv
+> # event-date.csv
+> visited Japan,2001-01-01
+> ```
 
 Technically, this dataset represents three records:
  - `event` record that says `visited Japan in 2001-01-01`
@@ -24,21 +24,21 @@ Technically, this dataset represents three records:
 
 Let's add another event about climbing the Everest in 2003
 
-> `.csvs.csv`
-``` csv
-csvs,0.0.2
-```
-
-> `_-_.csv`
-``` csv
-event,date
-```
-
-> `event-date.csv`
-``` csv
-visited Japan,2001-01-01
-climbed Everest,2003-03-03
-```
+> ``` csv
+> # .csvs.csv
+> csvs,0.0.2
+> ```
+> 
+> ``` csv
+> # _-_.csv
+> event,date
+> ```
+> 
+> ``` csv
+> # event-date.csv
+> visited Japan,2001-01-01
+> climbed Everest,2003-03-03
+> ```
 
 Now, the dataset represents five records:
  - `event` record that says `visited Japan in 2001-01-01`
@@ -49,28 +49,28 @@ Now, the dataset represents five records:
  
 Let's add another value to the database to show that events happened to different people.
 
-> `.csvs.csv`
-``` csv
-csvs,0.0.2
-```
-
-> `_-_.csv`
-``` csv
-event,date
-event,name
-```
-
-> `event-date.csv`
-``` csv
-visited Japan,2001-01-01
-climbed Everest,2003-03-03
-```
-
-> `event-name.csv`
-``` csv
-visited Japan,Donell
-climbed Everest,Eva
-```
+> ``` csv
+> # .csvs.csv
+> csvs,0.0.2
+> ```
+> 
+> ``` csv
+> # _-_.csv
+> event,date
+> event,name
+> ```
+> 
+> ``` csv
+> # event-date.csv
+> visited Japan,2001-01-01
+> climbed Everest,2003-03-03
+> ```
+> 
+> ``` csv
+> # event-name.csv
+> visited Japan,Donell
+> climbed Everest,Eva
+> ```
 
 Finally, the dataset represents seven records:
  - `event` record that says `Donell visited Japan in 2001-01-01`

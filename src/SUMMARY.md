@@ -27,6 +27,7 @@
       - [Update](./csvs/reference/04_update.md)
       - [Delete](./csvs/reference/05_delete.md)
       - [Select](./csvs/reference/06_select.md)
+    - [Scenarios](./csvs/scenarios.md)
     - [Requirements](./csvs/requirements.md)
   - [Record utility](./panrec/README.md)
     - [Getting Started](./panrec/getting_started.md)

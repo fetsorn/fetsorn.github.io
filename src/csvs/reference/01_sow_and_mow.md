@@ -1,7 +1,11 @@
 # Common
 
-## functions
-### sow
+ - [sow](#sow)
+ - [mow](#mow)
+
+To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
+
+## sow
 Entry -> Grain -> Trait -> Thing -> Entry
 
 puts one field from Grain into Record
@@ -35,7 +39,7 @@ otherwise
       sow grain to item
 ```
 
-### mow
+## mow
 Entry -> Trait -> Thing -> List Grain
 
 Break Record down into grains of Trait and Thing

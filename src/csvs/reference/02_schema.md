@@ -1,7 +1,12 @@
 # Schema
 
-## functions
-### to schema
+ - [to schema](#to-schema)
+ - [is connected](#is-connected)
+ - [find crown](#find-crown)
+  
+To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
+
+## to schema
 Entry -> Schema
 
 Entry is a JSON in Entry Object Notation
@@ -30,7 +35,7 @@ for each trunk of entry except _
     append leaf to schema.trunk.leaves
 return schema
 ```
-### is connected
+## is connected
 Schema -> Base -> Branch -> Boolean
 
 This tells if a branch is connected to base branch.
@@ -65,7 +70,7 @@ otherwise
   return false
 ```
 
-### find crown
+## find crown
 Schema -> Base -> List Branch
 
 This finds all branches that are connected to the base branch.

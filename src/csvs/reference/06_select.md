@@ -4,10 +4,23 @@ select must take query object notation
 
 the select record stream asks for select strategy and pipes it through select tablet streams. select tablet stream pipes lines to the select line stream which searches the record for values that match the line, signals a match and transforms the record.
 
+- [select schema](#select-schema)
+- [select in dataset](#select-in-dataset)
+  - [select stream](#select-stream)
+    - [select strategy](#select-strategy)
+    - [leader stream](#leader-stream)
+    - [select tablet stream](#select-tablet-stream)
+      - [select schema stream](#select-schema-stream)
+      - [select line stream](#select-line-stream)
+        - [drop stream](#drop-stream)
+        - [forward stream](#forward-stream)
+        - [parse line stream](#parse-line-stream)
+          - [initial state](#initial-state)
+          - [line state](#line-state)
+
 To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
 
-## functions
-### select schema
+## select schema
 FS -> Dir -> Schema
 
 FS is input output interface to the file system
@@ -36,7 +49,7 @@ select in dataset { _: _ }
 first result to schema
 return schema
 ```
-### select in dataset
+## select in dataset
 FS -> Dir -> List Query -> List Entry
 
 FS is input output interface to the file system
@@ -53,7 +66,7 @@ pipe each query
   to select stream 
   to return
 ```
-### select stream
+## select stream
 FS -> Dir -> Query -> List Entry
 
 FS is input output interface to the file system
@@ -76,7 +89,7 @@ pipe query
   to leader stream
   to return
 ```
-### select strategy
+## select strategy
 Schema -> Query -> List Tablet
 
 This describes all tablets needed to update an entry
@@ -181,7 +194,7 @@ for each branch of crown
         eager: if trunk equals base then true,
       }
 ```
-### select tablet stream
+## select tablet stream
 FS -> Dir -> Tablet
 
 FS is input output interface to the file system
@@ -216,7 +229,7 @@ otherwise
     to select line stream
     to return
 ```
-### select schema stream
+## select schema stream
 State -> Line -> State
 
 State is 
@@ -249,7 +262,7 @@ enqueue {
   entry: state.entry,
 }
 ```
-### select line stream
+## select line stream
 State -> Tablet -> State
 
 State is 
@@ -294,7 +307,7 @@ if tablet.accumulating and no state.map
 otherwise
   return parse line stream
 ```
-### drop stream
+## drop stream
 State -> Line -> Void
 
 State is 
@@ -319,7 +332,7 @@ Line is a String in CSVS file format
 ```pdl
 do nothing
 ```
-### forward stream
+## forward stream
 State -> Line -> State
 
 State is 
@@ -349,7 +362,7 @@ at the start
   }
 do nothing
 ```
-### parse line stream
+## parse line stream
 State -> Tablet -> Line -> State
 
 State is 
@@ -426,7 +439,7 @@ else if tablet.passthrough and not state.has match
     entry: state.entry,
   }
 ```
-### initial state
+## initial state
 State -> Tablet -> State
 
 State is 
@@ -481,7 +494,7 @@ return {
   thing: initial thing,
 }
 ```
-### line state
+## line state
 State -> State -> Tablet -> List Grain -> Trait -> Thing -> State
 
 State is 
@@ -546,7 +559,7 @@ state.entry = reduce new grains to sow state.entry with grain, tablet.trait, tab
 state.query = reduce state.query to grain, tablet.trait, tablet.thing if tablet.querying
 return state
 ```
-### leader stream
+## leader stream
 Base -> Query -> State -> State
 
 State is 
@@ -574,178 +587,4 @@ if query.__
 otherwise
   entry = state.entry
 enqueue entry
-```
-## tests
-
-> .csvs.csv
-``` csv
-csvs,0.0.2
-```
-
-> _-_.csv
-``` csv
-datum, date
-datum, filepath
-filepath, filehash
-filepath, filetype
-filepath, filesize
-```
-
-> datum-date.csv
-```  csv
-datum1,date1Overwrite
-datum2,date2
-datum3,date3
-datum4,date4
-```
-
-> datum-filepath.csv
-``` csv
-datum4,filepath4
-datum5,filepath5a
-datum5,filepath5a
-```
-
-> filepath-filehash.csv
-``` csv
-filepath3,filehash3
-filepath4,filehash4
-```
-### query(queryDatum, fs)
-
-> queryDatum
-``` javascript
-{
-  _: "datum",
-  datum: "value1"
-}
-```
-
-> resultDatum
-``` javascript
-[
-  {
-    _: "datum",
-    datum: "datum1",
-    date: "date1Overwrite"
-  }
-]
-```
-
-### query(queryRegex, fs)
-
-> queryRegex
-``` javascript
-{
-  _: "datum",
-  datum: "value[12]"
-}
-```
-
-> resultRegex
-``` javascript
-[
-  {
-    _: "datum",
-    datum: "datum1",
-    date: "date1Overwrite"
-  },
-  {
-    _: "datum",
-    datum: "datum2",
-    date: "date2"
-  },
-]
-```
-
-### query(queryOptions, fs)
-
-> queryOptions
-``` javascript
-{
-  _: "datum",
-}
-```
-
-> resultOptions
-``` javascript
-[
-  {
-    _: "datum",
-    datum: "datum1",
-    date: "date1Overwrite"
-  },
-  {
-    _: "datum",
-    datum: "datum2",
-    date: "date2"
-  },
-  {
-    _: "datum",
-    datum: "datum3",
-    date: "date3"
-  },
-  {
-    _: "datum",
-    datum: "datum4",
-    date: "date4"
-    filepath: {
-      _: "filepath",
-      filepath: "filepath4",
-      filehash: "filehash4"
-    }
-  },
-]
-```
-
-### query(queryFilter, fs)
-
-> queryfilter
-``` javascript
-{
-  _: "datum",
-  filepath: "filepath4"
-}
-```
-
-> resultFilter
-``` javascript
-[
-  {
-    _: "datum",
-    datum: "datum4",
-    date: "date4"
-    filepath: {
-      _: "filepath",
-      filepath: "filepath4",
-      filehash: "filehash4"
-    }
-  },
-]
-```
-
-### query(queryFilterNested, fs)
-
-> queryfilterNested
-``` javascript
-{
-  _: "datum",
-  filehash: "filehash4"
-}
-```
-
-> resultFilterNested
-``` javascript
-[
-  {
-    _: "datum",
-    datum: "datum4",
-    date: "date4"
-    filepath: {
-      _: "filepath",
-      filepath: "filepath4",
-      filehash: "filehash4"
-    }
-  },
-]
 ```

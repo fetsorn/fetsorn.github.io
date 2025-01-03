@@ -4,19 +4,19 @@ A csvs dataset is a directory that contains plain text files in the "comma-separ
 
 Here's an example of the simplest CSVS dataset that contains a record about visiting Japan in 2001.
 
-> `.csvs.csv`
-``` csv
-csvs,0.0.2
-```
-
-> `_-_.csv`
-``` csv
-event,date
-```
-
-> `event-date.csv`
-``` csv
-visited-japan,2001-01-01
-```
+> ``` csv
+> # .csvs.csv
+> csvs,0.0.2
+> ```
+> 
+> ``` csv
+> # _-_.csv
+> event,date
+> ```
+> 
+> ``` csv
+> # event-date.csv
+> visited-japan,2001-01-01
+> ```
 
 To learn more about csvs, see the [Tutorial](./tutorial.md) and the [User guides](./user_guides.md).
