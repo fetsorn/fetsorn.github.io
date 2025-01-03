@@ -1,5 +1,6 @@
 # Reference
 
+ - [Data Types](./00_data_types.md)
  - [Sow & Mow](./01_sow_and_mow.md)
  - [Schema](./02_schema.md)
  - [Insert](./03_insert.md)

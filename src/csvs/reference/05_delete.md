@@ -21,15 +21,10 @@ should we only have literal match after query to avoid unexpected deletions?
 To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
 
 ## delete in dataset
-FS -> Dir -> List Query -> IO List Entry
 
-FS is input output interface to the file system
-
-Dir is String of a path to open in FS
-
-Query is a JSON in Query Object Notation
-
-Record is a JSON in Entry Object Notation
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> List 
+[Query](./00_data_types.md#query) -> IO List 
+[Entry](./00_data_types.md#entry)
 
 ```pdl
 pipe each query 
@@ -37,15 +32,10 @@ pipe each query
   to return
 ```
 ## delete stream
-FS -> Dir -> Query -> IO List Entry
 
-FS is input output interface to the file system
-
-Dir is String of a path to open in FS
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> 
+[Query](./00_data_types.md#query) -> IO List 
+[Entry](./00_data_types.md#entry)
 
 ```pdl
 schema = select schema
@@ -56,36 +46,11 @@ for each query
     return query
 ```
 ## delete strategy
-Schema -> Entry -> List Tablet
+
+[Schema](./00_data_types.md#schema) -> 
+[Entry](./00_data_types.md#entry) -> List [Tablet](./00_data_types.md#tablet)
 
 This describes all tablets needed to delete an entry
-
-Schema is Map Branch Connection 
-
-Branch is string name of a given branch
-
-Connection is 
-```js
-{ 
-  trunks: List Trunk, 
-  leaves: List Leaf 
-}
-```
-
-Leaf is string name of a leaf
-
-Trunk is string name of the trunk of Leaf
-
-Entry is a JSON in Entry Object Notation
-
-Tablet is 
-``` js
-{ 
-  filename: String, 
-  trait: String, 
-  trait is first: Boolean 
-}
-```
 
 ```pdl
 base = entry._
@@ -103,20 +68,9 @@ for each leaf of base
   }
 ```
 ## delete tablet
-FS -> Dir -> Query -> IO
 
-FS is input output interface to the file system
-
-Dir is String of a path to open in FS
-
-Tablet is 
-``` js
-{ 
-  filename: String, 
-  trait: String, 
-  trait is first: Boolean 
-}
-```
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> 
+[Query](./00_data_types.md#query) -> IO
 
 ```pdl
 filepath = dir/tablet.filename;
@@ -127,18 +81,9 @@ pipe filepath
 move temporary file to filepath;
 ```
 ## delete line stream
-Tablet -> Line -> Line
-
-Tablet is 
-```js
-{ 
-  filename: String, 
-  trait: string, 
-  trait is first: Boolean 
-}
-```
-
-Line is String in CSVS file format
+[Tablet](./00_data_types.md#tablet) -> 
+[Line](./00_data_types.md#line) -> 
+[Line](./00_data_types.md#line)
 
 ```pdl
 fst, snd = parse line

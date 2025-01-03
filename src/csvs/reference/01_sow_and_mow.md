@@ -1,4 +1,4 @@
-# Common
+# Sow & Mow
 
  - [sow](#sow)
  - [mow](#mow)
@@ -6,17 +6,9 @@
 To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
 
 ## sow
-Entry -> Grain -> Trait -> Thing -> Entry
+[Entry](./00_data_types.md#entry) -> [Grain](./00_data_types.md#grain) -> [Trait](./00_data_types.md#trait) -> [Thing](./00_data_types.md#thing) -> [Entry](./00_data_types.md#entry)
 
 puts one field from Grain into Record
-
-Entry is a JSON in Entry Object Notation
-
-grain is a record with only _ field, base field and leaf field.
-
-Trait and Thing are Strings
-
-Trait is the branch what we look for, Thing is the branch we insert
 
 sow will find a place in Record that has the same value of Trait as Grain, and insert a Thing nearby.
 
@@ -40,20 +32,11 @@ otherwise
 ```
 
 ## mow
-Entry -> Trait -> Thing -> List Grain
+[Entry](./00_data_types.md#entry) -> [Trait](./00_data_types.md#trait) -> [Thing](./00_data_types.md#thing) -> List [Grain](./00_data_types.md#grain)
 
 Break Record down into grains of Trait and Thing
 
-Entry is a JSON in Entry Object Notation
-
-grain is a record with only _ field, base field and leaf field.
-
-Trait and Thing are Strings
-
-Trait is the branch what we look for, Thing is the branch we insert
-
 mow will find all individual trait-thing relations in the record
-
 ```pdl
 base = record._
 

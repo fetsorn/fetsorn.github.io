@@ -7,25 +7,7 @@
 To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
 
 ## to schema
-Entry -> Schema
-
-Entry is a JSON in Entry Object Notation
-
-Schema is Map Branch Connection 
-
-Branch is string name of a given branch
-
-Connection is 
-```js
-{ 
-  trunks: List Trunk, 
-  leaves: List Leaf 
-}
-```
-
-Leaf is string name of a leaf
-
-Trunk is string name of the trunk of Leaf
+[Entry](./00_data_types.md#entry) -> [Schema](./00_data_types.md#schema)
 
 ```pdl
 validate that entry has `_:_` 
@@ -36,27 +18,9 @@ for each trunk of entry except _
 return schema
 ```
 ## is connected
-Schema -> Base -> Branch -> Boolean
+[Schema](./00_data_types.md#schema) -> [Base](./00_data_types.md#base) -> [Branch](./00_data_types.md#branch) -> Boolean
 
 This tells if a branch is connected to base branch.
-
-Schema is Map Branch Connection 
-
-Branch is string name of a given branch
-
-Connection is 
-```js
-{ 
-  trunks: List Trunk, 
-  leaves: List Leaf 
-}
-```
-
-Leaf is string name of a leaf
-
-Trunk is string name of the trunk of Leaf
-
-Base is string name of base branch
 
 ```pdl
 if branch equals base
@@ -71,25 +35,9 @@ otherwise
 ```
 
 ## find crown
-Schema -> Base -> List Branch
+[Schema](./00_data_types.md#schema) -> [Base](./00_data_types.md#base) -> List [Branch](./00_data_types.md#branch)
 
 This finds all branches that are connected to the base branch.
-
-Schema is Map Branch Connection 
-
-Branch is string name of a given branch
-
-Connection is 
-```js
-{ 
-  trunks: List Trunk, 
-  leaves: List Leaf 
-}
-```
-
-Leaf is string name of a leaf
-
-Trunk is string name of the trunk of Leaf
 
 ```pdl
 if leaf is connected to base

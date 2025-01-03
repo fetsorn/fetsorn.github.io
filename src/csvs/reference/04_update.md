@@ -16,15 +16,10 @@ Each step passes a record to `csvs.update` and changes the state of the dataset.
 To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
 
 ## update in dataset
-FS -> Dir -> List Entry -> List Entry
 
-FS is input output interface to the file system
-
-Dir is String of a path to open in FS
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> List 
+[Entry](./00_data_types.md#entry) -> List 
+[Entry](./00_data_types.md#entry)
 
 ```pdl
 pipe each query 
@@ -32,13 +27,10 @@ pipe each query
   to return
 ```
 ## update stream
-FS -> Dir -> Entry -> List Entry
 
-FS is input output interface to the file system
-
-Dir is String of a path to open in FS
-
-Entry is a JSON in Entry Object Notation
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> 
+[Entry](./00_data_types.md#entry) -> List 
+[Entry](./00_data_types.md#entry)
 
 ```pdl
 schema = select schema
@@ -50,36 +42,12 @@ pipe query
   to return
 ```
 ## update strategy
-Schema -> Entry -> List Tablet
+
+[Schema](./00_data_types.md#schema) -> 
+[Entry](./00_data_types.md#entry) -> List 
+[Tablet](./00_data_types.md#tablet)
 
 This describes all tablets needed to update an entry
-
-Schema is Map Branch Connection 
-
-Branch is string name of a given branch
-
-Connection is 
-```js
-{ 
-  trunks: List Trunk, 
-  leaves: List Leaf 
-}
-```
-
-Leaf is string name of a leaf
-
-Trunk is string name of the trunk of Leaf
-
-Entry is a JSON in Entry Object Notation
-
-Tablet is 
-```js
-{ 
-  filename: String, 
-  trunk: String, 
-  branch: String 
-}
-```
 
 ```pdl
 base = entry._
@@ -97,38 +65,13 @@ for each branch of crown
     }
 ```
 ## update tablet stream
-FS -> Dir -> Schema -> Tablet -> Entry -> IO Entry
 
-FS is input output interface to the file system
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> 
+[Schema](./00_data_types.md#schema) -> 
+[Tablet](./00_data_types.md#tablet) -> 
+[Entry](./00_data_types.md#entry) -> IO 
+[Entry](./00_data_types.md#entry)
 
-Dir is String of a path to open in FS
-
-Schema is Map Branch Connection 
-
-Branch is string name of a given branch
-
-Connection is 
-```js
-{ 
-  trunks: List Trunk, 
-  leaves: List Leaf 
-}
-```
-
-Leaf is string name of a leaf
-
-Trunk is string name of the trunk of Leaf
-
-Tablet is 
-```js
-{ 
-  filename: String, 
-  trunk: String, 
-  branch: String 
-}
-```
-
-Entry is a JSON in Entry Object Notation
 ```pdl
 filepath = dir/tablet.filename
 // in order to start other tablet streams
@@ -144,11 +87,8 @@ otherwise
 move temporary file to filepath
 ```
 ## update schema stream
-Entry -> Line
 
-Entry is a JSON in Entry Object Notation
-
-Line is a String in CSVS file format
+[Entry](./00_data_types.md#entry) -> [Line](./00_data_types.md#line)
 
 ```pdl
 for each field of entry
@@ -156,20 +96,9 @@ for each field of entry
     enqueue field,leaf
 ```
 ## update line stream
-Entry -> Tablet -> Line -> Line
 
-Entry is a JSON in Entry Object Notation
-
-Tablet is 
-```js
-{ 
-  filename: String, 
-  trunk: String, 
-  branch: String 
-}
-```
-
-Line is a String in CSVS file format
+[Entry](./00_data_types.md#entry) -> 
+[Tablet](./00_data_types.md#tablet) -> [Line](./00_data_types.md#line) -> [Line](./00_data_types.md#line)
 
 ```pdl
 grains = mow query with tablet.trunk, tablet.branch

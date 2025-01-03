@@ -21,27 +21,9 @@ the select record stream asks for select strategy and pipes it through select ta
 To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
 
 ## select schema
-FS -> Dir -> Schema
 
-FS is input output interface to the file system
-
-Dir is String of a path to open in FS
-
-Schema is Map Branch Connection 
-
-Branch is string name of a given branch
-
-Connection is 
-```js
-{ 
-  trunks: List Trunk, 
-  leaves: List Leaf 
-}
-```
-
-Leaf is string name of a leaf
-
-Trunk is string name of the trunk of Leaf
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> 
+[Schema](./00_data_types.md#schema)
 
 <!-- TODO rename schema to trunkToLeaf -->
 ```pdl
@@ -50,15 +32,9 @@ first result to schema
 return schema
 ```
 ## select in dataset
-FS -> Dir -> List Query -> List Entry
 
-FS is input output interface to the file system
-
-Dir is String of a path to open in FS
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> List [Query](./00_data_types.md#query) -> List 
+[Entry](./00_data_types.md#entry)
 
 <!-- TODO rename record object notation to entry object notation -->
 ```pdl
@@ -67,15 +43,10 @@ pipe each query
   to return
 ```
 ## select stream
-FS -> Dir -> Query -> List Entry
 
-FS is input output interface to the file system
-
-Dir is String of a path to open in FS
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> 
+[Query](./00_data_types.md#query) -> List 
+[Entry](./00_data_types.md#entry)
 
 ```pdl
 base = query._
@@ -90,44 +61,9 @@ pipe query
   to return
 ```
 ## select strategy
-Schema -> Query -> List Tablet
+[Schema](./00_data_types.md#schema) -> [Query](./00_data_types.md#query) -> List [Tablet](./00_data_types.md#tablet)
 
 This describes all tablets needed to update an entry
-
-Schema is Map Branch Connection 
-
-Branch is string name of a given branch
-
-Connection is 
-```js
-{ 
-  trunks: List Trunk, 
-  leaves: List Leaf 
-}
-```
-
-Leaf is string name of a leaf
-
-Trunk is string name of the trunk of Leaf
-
-Entry is a JSON in Entry Object Notation
-
-Tablet is 
-``` js
-{
-  filename: String, 
-  thing: String,
-  trait: String, 
-  thing is first: Boolean,
-  trait is first: Boolean,
-  base: String,
-  passthrough: Boolean,
-  eager: Boolean,
-  accumulating: Boolean,
-  trait is regex: Boolean,
-  querying: Boolean,
-}
-```
 
 ```pdl
 base = query._
@@ -195,28 +131,9 @@ for each branch of crown
       }
 ```
 ## select tablet stream
-FS -> Dir -> Tablet
 
-FS is input output interface to the file system
-
-Dir is String of a path to open in FS
-
-Tablet is 
-``` js
-{
-  filename: String, 
-  thing: String,
-  trait: String, 
-  thing is first: Boolean,
-  trait is first: Boolean,
-  base: String,
-  passthrough: Boolean,
-  eager: Boolean,
-  accumulating: Boolean,
-  trait is regex: Boolean,
-  querying: Boolean,
-}
-```
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> 
+[Tablet](./00_data_types.md#tablet)
 
 ```pdl
 filepath = dir/tablet.filename
@@ -230,24 +147,8 @@ otherwise
     to return
 ```
 ## select schema stream
-State -> Line -> State
-
-State is 
-```js 
-{
-  query: Query,
-  entry: Entry,
-  fst: String,
-  match: Boolean,
-  has match: Boolean,
-  map: Map String Boolean,
-  thing: String,
-}
-```
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
+[State](./00_data_types.md#state) -> 
+[Line](./00_data_types.md#line) -> [State](./00_data_types.md#state)
 
 ```pdl
 state.entry: { _: _ }
@@ -263,41 +164,9 @@ enqueue {
 }
 ```
 ## select line stream
-State -> Tablet -> State
-
-State is 
-```js 
-{
-  query: Query,
-  entry: Entry,
-  fst: String,
-  match: Boolean,
-  has match: Boolean,
-  map: Map String Boolean,
-  thing: String,
-}
-```
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
-
-Tablet is 
-``` js
-{
-  filename: String, 
-  thing: String,
-  trait: String, 
-  thing is first: Boolean,
-  trait is first: Boolean,
-  base: String,
-  passthrough: Boolean,
-  eager: Boolean,
-  accumulating: Boolean,
-  trait is regex: Boolean,
-  querying: Boolean,
-}
-```
+[State](./00_data_types.md#state) -> 
+[Tablet](./00_data_types.md#tablet) -> 
+[State](./00_data_types.md#state)
 
 ```pdl
 if tablet.passthrough and state.map
@@ -308,51 +177,16 @@ otherwise
   return parse line stream
 ```
 ## drop stream
-State -> Line -> Void
 
-State is 
-```js 
-{
-  query: Query,
-  entry: Entry,
-  fst: String,
-  match: Boolean,
-  has match: Boolean,
-  map: Map String Boolean,
-  thing: String,
-}
-```
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
-
-Line is a String in CSVS file format
+[State](./00_data_types.md#state) -> [Line](./00_data_types.md#line) -> Void
 
 ```pdl
 do nothing
 ```
 ## forward stream
-State -> Line -> State
 
-State is 
-```js 
-{
-  query: Query,
-  entry: Entry,
-  fst: String,
-  match: Boolean,
-  has match: Boolean,
-  map: Map String Boolean,
-  thing: String,
-}
-```
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
-
-Line is a String in CSVS file format
+[State](./00_data_types.md#state) -> [Line](./00_data_types.md#line) -> 
+[State](./00_data_types.md#state)
 
 ```pdl
 at the start
@@ -363,44 +197,11 @@ at the start
 do nothing
 ```
 ## parse line stream
-State -> Tablet -> Line -> State
 
-State is 
-```js 
-{
-  query: Query,
-  entry: Entry,
-  fst: String,
-  match: Boolean,
-  has match: Boolean,
-  map: Map String Boolean,
-  thing: String,
-}
-```
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
-
-Tablet is 
-``` js
-{
-  filename: String, 
-  thing: String,
-  trait: String, 
-  thing is first: Boolean,
-  trait is first: Boolean,
-  base: String,
-  passthrough: Boolean,
-  eager: Boolean,
-  accumulating: Boolean,
-  trait is regex: Boolean,
-  querying: Boolean,
-}
-```
-
-
-Line is a String in CSVS file format
+[State](./00_data_types.md#state) -> 
+[Tablet](./00_data_types.md#tablet) -> 
+[Line](./00_data_types.md#line) -> 
+[State](./00_data_types.md#state)
 
 ```pdl
 initial = initial state with state, tablet
@@ -440,41 +241,10 @@ else if tablet.passthrough and not state.has match
   }
 ```
 ## initial state
-State -> Tablet -> State
 
-State is 
-```js 
-{
-  query: Query,
-  entry: Entry,
-  fst: String,
-  match: Boolean,
-  has match: Boolean,
-  map: Map String Boolean,
-  thing: String,
-}
-```
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
-
-Tablet is 
-``` js
-{
-  filename: String, 
-  thing: String,
-  trait: String, 
-  thing is first: Boolean,
-  trait is first: Boolean,
-  base: String,
-  passthrough: Boolean,
-  eager: Boolean,
-  accumulating: Boolean,
-  trait is regex: Boolean,
-  querying: Boolean,
-}
-```
+[State](./00_data_types.md#state) -> 
+[Tablet](./00_data_types.md#tablet) -> 
+[State](./00_data_types.md#state)
 
 ```pdl
 same base = tablet.querying and tablet.base === query._
@@ -495,47 +265,11 @@ return {
 }
 ```
 ## line state
-State -> State -> Tablet -> List Grain -> Trait -> Thing -> State
 
-State is 
-```js 
-{
-  query: Query,
-  entry: Entry,
-  fst: String,
-  match: Boolean,
-  has match: Boolean,
-  map: Map String Boolean,
-  thing: String,
-}
-```
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
-
-Tablet is 
-``` js
-{
-  filename: String, 
-  thing: String,
-  trait: String, 
-  thing is first: Boolean,
-  trait is first: Boolean,
-  base: String,
-  passthrough: Boolean,
-  eager: Boolean,
-  accumulating: Boolean,
-  trait is regex: Boolean,
-  querying: Boolean,
-}
-```
-
-Grain is a record with only _ field, base field and leaf field.
-
-Trait is String that we look for
-
-Thing is String we insert
+[State](./00_data_types.md#state) -> 
+[State](./00_data_types.md#state) -> 
+[Tablet](./00_data_types.md#tablet) -> List [Grain](./00_data_types.md#grain) -> [Trait](./00_data_types.md#trait) -> [Thing](./00_data_types.md#thing) -> 
+[State](./00_data_types.md#state)
 
 ```pdl
 new grain = {
@@ -560,24 +294,9 @@ state.query = reduce state.query to grain, tablet.trait, tablet.thing if tablet.
 return state
 ```
 ## leader stream
-Base -> Query -> State -> State
-
-State is 
-```js 
-{
-  query: Query,
-  entry: Entry,
-  fst: String,
-  match: Boolean,
-  has match: Boolean,
-  map: Map String Boolean,
-  thing: String,
-}
-```
-
-Query is a JSON in Query Object Notation
-
-Entry is a JSON in Entry Object Notation
+[Base](./00_data_types.md#base) -> [Query](./00_data_types.md#query) -> 
+[State](./00_data_types.md#state) -> 
+[State](./00_data_types.md#state)
 
 ```pdl
 if state.entry._ equals base 
