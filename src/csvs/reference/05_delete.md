@@ -20,8 +20,7 @@ should we only have literal match after query to avoid unexpected deletions?
 
 To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
 
-## functions
-### delete in dataset
+## delete in dataset
 FS -> Dir -> List Query -> IO List Entry
 
 FS is input output interface to the file system
@@ -37,7 +36,7 @@ pipe each query
   to delete stream 
   to return
 ```
-### delete stream
+## delete stream
 FS -> Dir -> Query -> IO List Entry
 
 FS is input output interface to the file system
@@ -56,7 +55,7 @@ for each query
     delete tablet with fs, dir, query
     return query
 ```
-### delete strategy
+## delete strategy
 Schema -> Entry -> List Tablet
 
 This describes all tablets needed to delete an entry
@@ -103,7 +102,7 @@ for each leaf of base
     trait is first: true 
   }
 ```
-### delete tablet
+## delete tablet
 FS -> Dir -> Query -> IO
 
 FS is input output interface to the file system
@@ -127,7 +126,7 @@ pipe filepath
   to append temporary file;
 move temporary file to filepath;
 ```
-### delete line stream
+## delete line stream
 Tablet -> Line -> Line
 
 Tablet is 

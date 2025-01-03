@@ -1,4 +1,10 @@
 # Scenarios
+
+ - [Insert](#insert)
+ - [Update](#update)
+ - [Update](#update-2)
+ - [Select](#select)
+
 ## Insert
 ### step 1: beginning 
 > empty directory
@@ -534,7 +540,7 @@
 > photo-xray,0x4444
 > ```
 
-## Update
+## Update 2
 
  - update()
    - add relation between two data entities
