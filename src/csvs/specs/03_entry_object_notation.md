@@ -1,8 +1,8 @@
-# Record Object Notation
+# Entry Object Notation
 
 This document describes the object notation that represents records in a [CSVS](https://csvs-format.docs.norcivilianlabs.org/) dataset.
 
-Record object notation is a subset of [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259). In cases where this document contradicts the RFC, RFC takes precedence and this document should be corrected.
+Entry object notation is a subset of [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259). In cases where this document contradicts the RFC, RFC takes precedence and this document should be corrected.
 
 # grammar
 

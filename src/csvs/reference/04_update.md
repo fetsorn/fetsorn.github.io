@@ -2,6 +2,8 @@
 
 The update function takes a record object notation and mutates the dataset to add or overwrite lines.
 
+the update record stream asks for update strategy and pipes it through update tablet streams. update tablet stream pipes lines to the update line stream which searches the record for values that match the line, signals a match and passes novel lines to a stream that writes them to file.
+
  - update()
    - add relation between two data entities
      - { _: _, entity1: "entity2" }
@@ -25,10 +27,195 @@ The update function takes a record object notation and mutates the dataset to ad
 
 Each step passes a record to `csvs.update` and changes the state of the dataset.
 
-## step 1: beginning 
+To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
+
+## functions
+### update in dataset
+FS -> Dir -> List Entry -> List Entry
+
+FS is input output interface to the file system
+
+Dir is String of a path to open in FS
+
+Query is a JSON in Query Object Notation
+
+Entry is a JSON in Entry Object Notation
+
+```pdl
+pipe each query 
+  to update stream 
+  to return
+```
+### update stream
+FS -> Dir -> Entry -> List Entry
+
+FS is input output interface to the file system
+
+Dir is String of a path to open in FS
+
+Entry is a JSON in Entry Object Notation
+
+```pdl
+schema = select schema
+strategy = update strategy with schema, query
+for each tablet of strategy
+  append update tablet stream
+pipe query
+  to each update tablet stream
+  to return
+```
+### update strategy
+Schema -> Entry -> List Tablet
+
+This describes all tablets needed to update an entry
+
+Schema is Map Branch Connection 
+
+Branch is string name of a given branch
+
+Connection is 
+```js
+{ 
+  trunks: List Trunk, 
+  leaves: List Leaf 
+}
+```
+
+Leaf is string name of a leaf
+
+Trunk is string name of the trunk of Leaf
+
+Entry is a JSON in Entry Object Notation
+
+Tablet is 
+```js
+{ 
+  filename: String, 
+  trunk: String, 
+  branch: String 
+}
+```
+
+```pdl
+base = entry._
+crown = find crown with schema, base
+if base equals _
+  return [{
+    filename: _-_.csv
+  }]
+for each branch of crown
+  for each trunk of schema.branch.trunks
+    return {
+      filename: trunk-branch.csv,
+      trunk,
+      branch,
+    }
+```
+### update tablet stream
+FS -> Dir -> Schema -> Tablet -> Entry -> IO Entry
+
+FS is input output interface to the file system
+
+Dir is String of a path to open in FS
+
+Schema is Map Branch Connection 
+
+Branch is string name of a given branch
+
+Connection is 
+```js
+{ 
+  trunks: List Trunk, 
+  leaves: List Leaf 
+}
+```
+
+Leaf is string name of a leaf
+
+Trunk is string name of the trunk of Leaf
+
+Tablet is 
+```js
+{ 
+  filename: String, 
+  trunk: String, 
+  branch: String 
+}
+```
+
+Entry is a JSON in Entry Object Notation
+```pdl
+filepath = dir/tablet.filename
+// in order to start other tablet streams
+enqueue entry 
+if tablet.filename equals _-_.csv
+  pipe filepath
+    to update schema stream
+    to temporary file
+otherwise
+  pipe filepath
+    to update line stream
+    to temporary file
+move temporary file to filepath
+```
+### update schema stream
+Entry -> Line
+
+Entry is a JSON in Entry Object Notation
+
+Line is a String in CSVS file format
+
+```pdl
+for each field of entry
+  for each leaf of entry.field
+    enqueue field,leaf
+```
+### update line stream
+Entry -> Tablet -> Line -> Line
+
+Entry is a JSON in Entry Object Notation
+
+Tablet is 
+```js
+{ 
+  filename: String, 
+  trunk: String, 
+  branch: String 
+}
+```
+
+Line is a String in CSVS file format
+
+```pdl
+grains = mow query with tablet.trunk, tablet.branch
+keys = map grain to grain[tablet.trunk] sorted
+values = reduce grains to { grain[tablet.trunk]: grain[tablet.branch] }
+for each line
+  fst, snd = parse line
+  fst is new = state.fst is undefined or state.fst not equal fst
+  if fst is new and state.match
+    for each value of values[state.fst]
+      enqueue state.fst,value
+    keys = filter keys where key not equal state.fst
+  if fst is new
+    between = filter keys where key is after state.fst and before fst
+    for each key of between
+      for each value of values[key]
+        enqueue key,value
+      keys = filter keys where key not equal state.fst
+  if keys not include fst
+    enqueue line
+  state = { fst, match }
+for key of keys
+  for each value of values[key]
+    enqueue key,value
+  keys = filter keys where key not equal state.fst
+```
+## tests
+### step 1: beginning 
 > empty directory
 
-## step 2: add a schema
+### step 2: add a schema
 
 > a record with base `_` holds the schema
 ``` javascript
@@ -53,7 +240,7 @@ event, filepath
 filepath, filehash
 ```
 
-## step 3: add a branch to the schema
+### step 3: add a branch to the schema
 
 > a record holds a schema with new branch `filesize`
 ``` javascript
@@ -79,7 +266,7 @@ filepath, filehash
 filepath, filesize
 ```
 
-## step 4: add a record
+### step 4: add a record
 
 > a record about vising Japan in 2001
 ``` javascript
@@ -111,7 +298,7 @@ filepath, filesize
 visited-japan,2001-01-01
 ```
 
-## step 5: add another record
+### step 5: add another record
 
 > a record about cooking a lasagna in 2002
 ``` javascript
@@ -144,8 +331,8 @@ cooked-lasagna,2002-02-02
 visited-japan,2001-01-01
 ```
 
-## step 6: edit attribute of a record
-
+### step 6: edit attribute of a record
+    
 > a record that fixes the date for vising Japan to December 2001
 ``` javascript
 {
@@ -178,7 +365,7 @@ cooked-lasagna,2002-02-02
 visited-japan,2001-12-12
 ```
 
-## step 7: add another record
+### step 7: add another record
 
 > a record about climbing Everest in 2003, with a photo
 ``` javascript
@@ -219,7 +406,7 @@ visited-japan,2001-12-12
 climbed-everest,photo-everest
 ```
 
-## step 8: add an attribute
+### step 8: add an attribute
 
 > a record with a hashsum for the photo of Everest
 ``` javascript
@@ -265,7 +452,7 @@ climbed-everest,photo-everest
 photo-everest,0x0000
 ```
 
-## step 9: add a record with a nested attribute
+### step 9: add a record with a nested attribute
 
 > a record about breaking a leg in 2004, with an X-ray photo
 ``` javascript
@@ -319,7 +506,7 @@ photo-everest,0x0000
 photo-xray,0x4444
 ```
 
-## step 10: delete an attribute from a record
+### step 10: delete an attribute from a record
 
 > a record that removes the photo from the event about Everest
 ``` javascript
@@ -367,7 +554,7 @@ photo-everest,0x0000
 photo-xray,0x4444
 ```
 
-## step 11: add a record with an attribute list
+### step 11: add a record with an attribute list
 
 > a record about a wedding, with two photos
 ``` javascript
@@ -418,7 +605,7 @@ photo-everest,0x0000
 photo-xray,0x4444
 ```
 
-## step 12: edit an element of an attribute list
+### step 12: edit an element of an attribute list
 
 > a record that removes the photo of the groom, and duplicates the photo of the bride
 ``` javascript
@@ -468,5 +655,3 @@ married,photo-bride
 photo-everest,0x0000
 photo-xray,0x4444
 ```
-
-To learn more about the architecture of csvs, see other [User Guides](./user_guides.md), the [Reference](./reference.md) and the [Requirements](./requirements.md).
