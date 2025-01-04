@@ -184,7 +184,7 @@
 <p>To learn more about the architecture of csvs, see other <a href="./user_guides.html">User Guides</a>, the <a href="./reference.html">Reference</a> and the <a href="./requirements.html">Requirements</a>.</p>
 <h2 id="to-schema"><a class="header" href="#to-schema">to schema</a></h2>
 <p><a href="./00_data_types.html#entry">Entry</a> -&gt; <a href="./00_data_types.html#schema">Schema</a></p>
-<pre><code class="language-pdl">validate that entry has `_:_` 
+<pre><code class="language-pdl">if entry has no `_:_` return {}
 for each trunk of entry except _
   for each leaf of entry.trunk
     append trunk to schema.leaf.trunks
