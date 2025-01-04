@@ -10,7 +10,7 @@ To learn more about the architecture of csvs, see other [User Guides](./user_gui
 [Entry](./00_data_types.md#entry) -> [Schema](./00_data_types.md#schema)
 
 ```pdl
-validate that entry has `_:_` 
+if entry has no `_:_` return {}
 for each trunk of entry except _
   for each leaf of entry.trunk
     append trunk to schema.leaf.trunks

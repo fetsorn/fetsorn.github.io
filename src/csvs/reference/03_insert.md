@@ -52,7 +52,7 @@ for each branch of crown
 ```
 
 ## insert tablet stream
-[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> [Schema](./00_data_types.md#schema) -> [Tablet](./00_data_types.md#tablet) -> [Entry](./00_data_types.md#entry) -> IO 
+[FS](./00_data_types.md#fs) -> [Dir](./00_data_types.md#dir) -> [Tablet](./00_data_types.md#tablet) -> [Entry](./00_data_types.md#entry) -> IO 
 [Entry](./00_data_types.md#entry)
 
 ```pdl
