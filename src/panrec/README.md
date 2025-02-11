@@ -2,4 +2,6 @@
 
 This documentation describes the command-line utility for searching and updating record datasets.
 
+Source is at https://codeberg.org/norcivilianlabs/panrec.
+
 To learn about the utility see [Getting Started](./getting_started.md).

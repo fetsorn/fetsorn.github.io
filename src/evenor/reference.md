@@ -36,7 +36,7 @@ overview consists of a navigation bar, a search bar, and a set of paragraphs
 
 overview updates on every change to the search bar
 
-a paragpraph provides short information about a record
+a paragraph provides short information about a record
 
 confirm "Select?" at the end of the paragraph to open the profile with the given record
 
