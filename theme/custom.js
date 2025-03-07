@@ -20,6 +20,10 @@ window.addEventListener("DOMContentLoaded", () => {
       url: 'https://codeberg.org/norcivilianlabs'
     },
     {
+      title: "Chat",
+      url: 'https://chat.norcivilianlabs.org'
+    },
+    {
       title: "Blog",
       url: 'https://norcivilianlabs.substack.com'
     }
