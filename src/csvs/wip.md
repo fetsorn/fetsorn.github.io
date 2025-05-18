@@ -1,8 +1,48 @@
 # The Forest and The Garden
 
+## view
+### list of texts
+have some text
+
+```
+today went to the zoo, yesterday stayed home
+```
+
+### graph of tokens
+separate text into tokens that are connected to each other
+
+```
+today-went to the zoo
+yesterday-stayed home
+```
+
+### cluster of entities
+group some tokens into clusters and name each cluster as an entity
+
+```
+|day      |event
+|---------|----------------
+|today    |went to the zoo
+|yesterday|stayed home
+```
+
+### tree of entries
+choose one entity as a root and cut connections to it
+
+```
+.
+|
+|-- went to the zoo
+| |--- today
+|-- stayed at home
+  |--- yesterday
+```
+
 ## dataset
+data inside
 
 ### list of texts
+have some text
 
 ```js
 { _: "dataset", 
@@ -10,6 +50,7 @@
 ```
 
 ### graph of tokens
+separate text into tokens that are connected to each other
 
 ```js
 { _: "dataset", 
@@ -30,6 +71,7 @@
 ```
 
 ### cluster of entities
+group some tokens into clusters and name each cluster as an entity
 
 ```js
 { _: "dataset", 
@@ -51,8 +93,8 @@
    ] }
 ```
 
-
 ### tree of entries
+choose one entity as a root and cut connections to it
 
 ```js
 { _: "dataset", 
@@ -66,21 +108,125 @@
   ] }
 ```
 
+## branch
+structure of data inside
 
-## schema
+describe each level as a tree where a possible entity is called "branch", it connects to "leaves" and leaves connect to "trunk".
+
+```js
+{ _: "_", 
+  root: "branch", 
+  branch: ["trunk", "leaf"] }
+```
 
 ### list of texts
-  
-```js 
-{ _: "_", dataset: ["text"] }
-```
-### graph of tokens
+have some dataset with text
 
-```js 
-{ _: "_", dataset: ["token"], token: ["relation"] }
+```js
+{ _: "root", 
+  branch: [
+    { _: "branch",
+      branch: "dataset",
+      trunk: [],
+      leaf: ["text"] }
+    
+    { _: "branch",
+      branch: "text",
+      trunk: ["dataset"],
+      leaf: [] }
+  ] }
+```
+
+### graph of tokens
+separate text into tokens, each token has a relation to some other token
+
+```js
+{ _: "root", 
+  branch: [
+    { _: "branch",
+      branch: "dataset",
+      trunk: [],
+      leaf: ["token"] }
+    
+    { _: "branch",
+      branch: "token",
+      trunk: ["dataset"],
+      leaf: ["relation"] }
+    
+    { _: "branch",
+      branch: "relation",
+      trunk: ["token"],
+      leaf: [] }
+  ] } 
 ```
 
 ### cluster of entities
+group tokens into clusters "event" and "day"
+
+```js
+{ _: "root", 
+  branch: [
+    { _: "branch", 
+      branch: "dataset", 
+      trunk: [], 
+      leaf: ["event", "day"] }
+    
+    { _: "branch", 
+      branch: "event", 
+      trunk: ["dataset", "day"], 
+      leaf: ["day"] } 
+    
+    { _: "branch", 
+      branch: "day",
+      trunk: ["dataset", "event"], 
+      leaf: ["event"] }
+  ] }
+```
+
+### tree of entries
+choose the "event" entity as root and cut connection to it from "day"
+
+```js
+{ _: "root", 
+  branch: [
+    { _: "branch",
+      branch: "dataset",
+      trunk: [],
+      leaf: ["event"] }
+    
+    { _: "branch",
+      branch: "event",
+      trunk: ["dataset"],
+      leaf: ["day"] }
+    
+    { _: "branch",
+      branch: "day",
+      trunk: ["event"],
+      leaf: [] }
+  ] }
+```
+
+## schema
+shorthand structure of data inside
+
+write trunk as field name and its leaves as a list a values
+
+### list of texts
+have some text
+  
+```js 
+{ _: "_", dataset: ["text"], text: [] }
+```
+### graph of tokens
+separate text into tokens that are related to each other
+
+```js 
+{ _: "_", dataset: ["token"], token: ["relation"], relation: [] }
+```
+
+### cluster of entities
+group tokens into clusters "event" and "day"
+
 
 ```js
 { _: "_", 
@@ -90,102 +236,11 @@
 ```
 
 ### tree of entries
+choose the "event" entity as root and cut connection to it from day
 
 ```js 
-{ _: "_", dataset: ["event"], event: ["day"] }
+{ _: "_", dataset: ["event"], event: ["day"], day: [] }
 ```
-
-## god view
-
-this is used to describe the dataset at different levels
-
-### dataset
-```js
-{ _: "branch0", 
-  trunk0: ["dataset0"], 
-  leaf0: ["trunk0", "leaf0"] }
-```
-
-### schema
-```js
-{ _: "_", 
-  dataset0: "branch0", 
-  branch0: ["trunk0", "leaf0"] }
-```
-
-
-## god ?\_=branch0
-### list of texts
-
-```js
-{ _: "branch0",
-  branch0: "dataset",
-  trunk0: [],
-  leaf0: ["text"] }
-
-{ _: "branch0",
-  branch0: "text",
-  trunk0: ["dataset"],
-  leaf0: [] }
-```
-
-### graph of tokens
-
-```js
-{ _: "branch0",
-  branch0: "dataset",
-  trunk0: [],
-  leaf0: ["token"] }
-
-{ _: "branch0",
-  branch0: "token",
-  trunk0: ["dataset"],
-  leaf0: ["relation"] }
-
-{ _: "branch0",
-  branch0: "relation",
-  trunk0: ["token"],
-  leaf0: [] }
-```
-
-### cluster of entities
-
-```js
-{ _: "branch0", 
-  branch0: "dataset", 
-  trunk0: [], 
-  leaf0: ["event", "day"] }
-
-{ _: "branch0", 
-  branch0: "event", 
-  trunk0: ["dataset", "day"], 
-  leaf0: ["day"] } 
-
-{ _: "branch0", 
-  branch0: "day",
-  trunk0: ["dataset", "event"], 
-  leaf0: ["event"] }
-```
-
-### tree of entries
-
-```js
-{ _: "branch0",
-  branch0: "dataset",
-  trunk0: [],
-  leaf0: ["event"] }
-
-{ _: "branch0",
-  branch0: "event",
-  trunk0: ["dataset"],
-  leaf0: ["day"] }
-
-{ _: "branch0",
-  branch0: "day",
-  trunk0: ["event"],
-  leaf0: [] }
-```
-
 
 ## crud api
 
