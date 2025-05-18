@@ -218,3 +218,15 @@ The project directory is versioned by git. In the root there's configs for nix, 
      - `description_ru`: optional, description of the branch in Russian
 
 
+
+## questions
+
+what if i _want_ to clone a repo with a duplicate uuid in csvs.csv? well, i need to change the uuid locally then. can evenor do that? no. so any disambiguation based on uuids is bound eventually fail on clone. what happens if evenor clones a repo with existing uuid?
+
+what happens if evenor clones a non-csvs repo?
+
+ - default today ISO date in edit inputs with `default: today` in schema
+ - plain text query section
+ - dropdown in base query and sort query instead of a text input with options
+ - kill ring: deleting an entry goes to bin and can be undone
+ - show current commit of the repo in ui
