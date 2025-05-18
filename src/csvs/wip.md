@@ -1,15 +1,11 @@
 # The Forest and The Garden
 so the idea is to write a book in the style of Rust and org-mode manual use the terminology but make no reference to csvs and evenor. one can write the same with other tools, but still have leaves, queries, filters and overviews. the design of a consumer dataset is convergent.
 
-the story would speak of security, independence and control, discuss data models for common domains and low level methods like sow and mow. discuss big notation without mention of tools. talk of motivations and aspirations but make no mentions of competitors or status quo.
+speak of security, independence and control, discuss data models for common domains and low level methods like sow and mow. discuss big notation without mention of tools. talk of motivations and aspirations but make no mentions of competitors or status quo.
 
 talk as if the future is in the present and warrants a guide for the layman of the past
 
 guide for the qualitative self
-
-it is about empowerment. people can remember for longer, and think about memories stronger, remember more. it is about emancipation. people can tie away from alien narrators and tell the story of their own data.
-
-do not talk about status quo about how memories fall to oblivion, or trees without water.
 
 talk about how we all tend to our gardens together.
 
@@ -23,19 +19,15 @@ you wake up… you come to your senses… a root clings, a root sprouts, a branc
 
 tending to the garden of your awareness
 
-do not talk about status quo how we hold that garden in mind and in speech, and objects, and habits, and society, losing it to space and time
+it is about empowerment. people can remember for longer, and think about memories stronger, remember more. it is about emancipation. people can tie away from alien narrators and tell the story of their own data.
+it is about guidance. people can go forth into the forest, farther, light up the mystery, further, braver, and tend to the garden longer.
 
 tend to the garden with tools
 
-do not talk about other tools, do not talk about the market
 
 we map domains into schemas, we get the garden fully formed we read, mow, and we write, sow, we tend to the trees.
 
 the forest and the garden. out there, in the wild, is great mystery. we sense it, and make a garden in its image.
-
-talk of ways, do not talk of lands. obscure talking about the great mystery, just say “mystery”.
-
-it is about guidance. people can go forth into the forest, farther, light up the mystery, further, braver, and tend to the garden longer.
 
 talk about the withers, the weaknesses of a garden.
 
@@ -44,10 +36,6 @@ talk about the haunts, the perils of the forest.
 and how we find them, how we feel about them, how we fear them, and how we fight them.
 
 mapping a schema is the chief proposition of the whole thing.
-
-do not talk about schema-less garden of mind
-
-do not talk about forced schemas of corporate gardens, monoculture, rigid, narrow. but talk about keeping the garden wide and open.
 
 some time the schema will find a name in the spirit of trees.
 
@@ -71,52 +59,29 @@ my environment is in my awareness but i refuse to tend to that as a garden. i sa
 
 almost like a treatise on gardening. first we talk about a foreword to set the tone, then we give an example to get people started, then we talk about scheming, and making schemas for domains. then we talk about crud operations on various domains and we can organize that part organically
 
-do not talk about history. empower, don’t enlighten
-
-table of contents
-
-
-
-
-
-foreword
-
-
-
-introduction
-
-
-
-getting started
-
-
-
-scheming
-
-
-
-project
-
-
-
-tending
-
-
-
-project
-
-
-
-domains
-
-
-
-reference
-
 separate search from tending
+
+ table of contents
+ - foreword
+ - introduction
+ - getting started
+ - scheming
+ - project
+ - tending
+ - project
+ - domains
+ - reference
 
 navigation should go to the advanced reference
 
+## do not talk
+do not talk about status quo about how memories fall to oblivion, or trees without water.
+do not talk about status quo how we hold that garden in mind and in speech, and objects, and habits, and society, losing it to space and time
+do not talk about other tools, do not talk about the market
+talk of ways, do not talk of lands. obscure talking about the great mystery, just say “mystery”.
+do not talk about schema-less garden of mind
+do not talk about forced schemas of corporate gardens, monoculture, rigid, narrow. but talk about keeping the garden wide and open.
+do not talk about history. empower, don’t enlighten
 do not talk about similarities with the method of loci
 
 ## view
