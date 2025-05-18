@@ -1,4 +1,5 @@
 # The Forest and The Garden
+so the story goes
 
 ## view
 data inside
@@ -7,15 +8,15 @@ data inside
 have some text
 
 ```
-today went to the zoo, yesterday stayed home
+went to the zoo today, stayed home yesterday
 ```
 
 ### graph of tokens
 separate text into tokens that are connected to each other
 
 ```
-today-went to the zoo
-yesterday-stayed home
+went to the zoo-today
+stayed home-yesterday
 ```
 
 ### cluster of entities
@@ -48,7 +49,7 @@ have some text
 
 ```js
 { _: "dataset", 
-  text: ["today went to the zoo", "yesterday stayed home"] }
+  text: ["went to the zoo today", "stayed home yesterday"] }
 ```
 
 ### graph of tokens
@@ -211,7 +212,7 @@ choose the "event" entity as root and cut connection to it from "day"
 ## schema
 shorthand structure of data inside
 
-write trunk as field name and its leaves as a list a values
+write trunk as field name and its leaves as a list of values
 
 ### list of texts
 have some text
