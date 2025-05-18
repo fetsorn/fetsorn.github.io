@@ -1,29 +1,38 @@
 # The Forest and The Garden
 
-## levels
-
-### god view
+## god view
 
 this is used to describe the dataset at different levels
 
-god branch - `{ _: "branch0", trunk0: ["dataset0"], leaf0: ["trunk0", "leaf0"] }`
+### god branch
+```js
+{ _: "branch0", 
+  trunk0: ["dataset0"], 
+  leaf0: ["trunk0", "leaf0"] }
+```
 
-god schema - `{ _: "_", dataset0: "branch0", branch0: ["trunk0", "leaf0"] }`
+### god schema
+```js
+{ _: "_", 
+  dataset0: "branch0", 
+  branch0: ["trunk0", "leaf0"] }
+```
 
-### list of texts
+## list of texts
 
-dataset -
+### dataset
 
 ```js
 { _: "dataset", 
   text: ["today went to the zoo", "yesterday stayed home"] }
 ```
 
-??? - `{ _: "text" }`
+### schema 
+```js 
+{ _: "_", dataset: ["text"] }
+```
 
-schema - `{ _: "_", dataset: ["text"] }`
-
-god ?\_=branch0 -
+### god ?\_=branch0
 
 ```js
 { _: "branch0",
@@ -37,44 +46,55 @@ god ?\_=branch0 -
   leaf0: [] }
 ```
 
-### tokens and relations
+## graph of tokens
 
-### cluster of entities
-
-dataset -
+### dataset
 
 ```js
 { _: "dataset", 
-  day: ["today", "yesterday"], 
-  event: ["went to the zoo", "stayed at home"] }
+  token: [
+    { _: "token", 
+      token: "today", 
+      relation: "went to the zoo" }
+    { _: "token", 
+      token: "went to the zoo", 
+      relation: "today" }
+    { _: "token", 
+      token: "yesterday", 
+      relation: "stayed home" }
+    { _: "token", 
+      token: "stayed home", 
+      relation: "yesterday" }
+  ] }
 ```
 
-??? - `{ _: "event" }`, `{ _: "day" }`
+### schema
+```js 
+{ _: "_", dataset: ["token"], token: ["relation"] }
+```
 
-schema - `{ _: "_", dataset: ["event", "day"] }`
-
-god ?\_=branch0 -
+### god ?\_=branch0
 
 ```js
 { _: "branch0",
   branch0: "dataset",
   trunk0: [],
-  leaf0: ["event", "day"] }
+  leaf0: ["token"] }
 
 { _: "branch0",
-  branch0: "event",
+  branch0: "token",
   trunk0: ["dataset"],
-  leaf0: [] }
+  leaf0: ["relation"] }
 
 { _: "branch0",
-  branch0: "day",
-  trunk0: ["dataset"],
+  branch0: "relation",
+  trunk0: ["token"],
   leaf0: [] }
 ```
 
-### graph of nodes
+## cluster of entities
 
-dataset -
+### dataset
 
 ```js
 { _: "dataset", 
@@ -96,11 +116,16 @@ dataset -
    ] }
 ```
 
-??? - `{ _: "event", relation: ["day"] }`, `{ _: "day", relation: ["event"] }`
+### schema
 
-schema - `{ _: "_", dataset: ["branch"], branch: ["relation"] }`
+```js
+{ _: "_", 
+  dataset: ["event", "day"], 
+  event: ["day"], 
+  day: ["event"] }
+```
 
-god ?\_=branch0 -
+### god ?\_=branch0
 
 ```js
 { _: "branch0", 
@@ -119,9 +144,9 @@ god ?\_=branch0 -
   leaf0: ["event"] }
 ```
 
-### tree of entries
+## tree of entries
 
-dataset -
+### dataset 
 
 ```js
 { _: "dataset", 
@@ -135,11 +160,12 @@ dataset -
   ] }
 ```
 
-??? - `{ _: "event", trunk: [], leaf: ["day"] }` `{ _: "day", trunk: ["event"], leaf:[] }`
+### schema
+```js 
+{ _: "_", dataset: ["event"], event: ["day"] }
+```
 
-schema - `{ _: "_", dataset: ["branch"], branch: ["trunk", "leaf"] }`
-
-god ?\_=branch0 -
+### god ?\_=branch0
 
 ```js
 { _: "branch0",
