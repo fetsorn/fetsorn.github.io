@@ -1,6 +1,8 @@
 # The Forest and The Garden
 
 ## view
+data inside
+
 ### list of texts
 have some text
 
@@ -20,10 +22,10 @@ yesterday-stayed home
 group some tokens into clusters and name each cluster as an entity
 
 ```
-|day      |event
-|---------|----------------
-|today    |went to the zoo
-|yesterday|stayed home
+| event            | day       |
+| ---------------- | --------  |
+| went to the zoo  | today     |
+| stayed home      | yesterday |
 ```
 
 ### tree of entries
@@ -39,7 +41,7 @@ choose one entity as a root and cut connections to it
 ```
 
 ## dataset
-data inside
+shorthand data inside
 
 ### list of texts
 have some text
@@ -205,7 +207,7 @@ choose the "event" entity as root and cut connection to it from "day"
       leaf: [] }
   ] }
 ```
-
+  
 ## schema
 shorthand structure of data inside
 
