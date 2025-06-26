@@ -123,4 +123,4 @@ You can even define a recursive relation to specify the parent of each person
 > Hauwa,Louis
 > ```
 
-To learn more about csvs, see other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).
+To learn more about csvs, see other [User Guides](./README.md) and the [Requirements](../requirements.md).

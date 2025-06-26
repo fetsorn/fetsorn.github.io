@@ -2,7 +2,7 @@
 
 client for csvs, data converter
 
-competes: prsql, sqlite
+competes: 
 
 interacts: with filesystem
 
@@ -58,18 +58,10 @@ stakeholders: fetsorn
 - user should see filesystem size of a dataset after import
 ## 期 衣 运
 - user should see schema of a dataset after import
-## 北 翻 蚀
-- user can create an empty csvs dataset
 ## 局 吹 众
 - user can add a new entry from an interactive prompt
 ## 姑 多 描
 - user can edit entry from an interactive prompt
-## 玩 矿 仓
-- user must create an empty csvs dataset
-## 薄 刺 内
-- user must edit an empty csvs dataset
-## 夹 轨 检
-- user must edit schema of a csvs dataset
 ## 值 贴 姜
 - user can see a progress bar during entry search
 ## 依 农 徙

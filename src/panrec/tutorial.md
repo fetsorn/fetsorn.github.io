@@ -11,9 +11,12 @@ It's a new dataset, so if we run a search on it, it will return only one empty e
 ```shell
 panrec -i /path/to/csvs-dataset
 # {"_": "datum", "UUID": "...", "datum": "", "actdate": "2001-01-01"}
+```
 
+Let's see the stats
+```shell
 panrec --stats -i /path/to/csvs-dataset
-number of entries: 1
+# number of entries: 1
 ```
 
 Let's print the dataset as text and add some entries to it.
@@ -41,7 +44,7 @@ Now let's write the new entry to the dataset. The program will detect that the f
 panrec -i /path/to/dataset.biorg -o /path/to/csvs-dataset
 
 panrec --stats -i /path/to/csvs-dataset
-number of entries: 3
+# number of entries: 3
 
 panrec -i /path/to/csvs-dataset
 # {"_": "datum", "UUID": "...", "datum": "", "actdate": "2001-01-01"}
@@ -55,5 +58,5 @@ panrec -i /path/to/csvs-dataset -q "?actdate=2011.*"
 # {"_": "datum", "UUID": "...", "datum": "won a championship", "actdate": "2011-03-17"}
 ```
 
-For a complete list of cli commands and flags, see [Reference](./reference.md). Learn more about panrec in the [User Guides](./user_guides.md).
+Learn more about panrec in the [User Guides](./user_guides.md). For a complete list of CLI commands and flags, see [Reference](./reference.md). 
 

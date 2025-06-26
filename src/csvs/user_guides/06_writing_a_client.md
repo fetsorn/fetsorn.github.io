@@ -39,4 +39,4 @@ delete branch key =
 
 This can be implemented in an evening. A more carefully written client could be much more robust and efficient - try to write your own!
 
-To learn more about csvs, see other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).
+To learn more about csvs, see other [User Guides](./README.md) and the [Requirements](../requirements.md).

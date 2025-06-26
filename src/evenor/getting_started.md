@@ -7,3 +7,10 @@ Now, find the `Select folder?` dialogue and press `yes` to see the `profile` scr
 Do you see the overview screen again? Well done. This time the overview shows a list of `records`. This is a chain of events that happened to someone called Donell - the countries they visited, meals they ate and adventures that they've recorded using evenor. Feel free to play around in this folder, create new events and search through them with the search bar. When you feel ready, come back to the list of folders and press the plus button at the top right to start writing down your own story.
 
 To learn more about evenor, see the [Tutorial](./tutorial.md) and the [User Guides](./user_guides.md).
+
+# Notes
+- confirm expectations
+- screenshots
+- confirm the emotion or worry
+- should be gentle
+- the last paragraph is great but should be moved to a guide

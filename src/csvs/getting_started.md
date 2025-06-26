@@ -19,4 +19,12 @@ Here's an example of the simplest csvs dataset that contains a record about visi
 > visited-japan,2001-01-01
 > ```
 
-To learn more about csvs, see the [Tutorial](./tutorial.md) and the [User guides](./user_guides.md).
+To learn more about csvs, see the [Tutorial](./tutorial.md) and the [User guides](./user_guides/README.md).
+
+## Note:
+- too much information for getting started
+- the example is cryptic at this point
+- the example is evocative of what is to come, good
+- this text should somewhere technical-oriented
+- this page should have text oriented at non-technical consumers
+- this is for a curious consumer, not an engineer

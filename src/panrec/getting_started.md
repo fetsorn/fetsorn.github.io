@@ -5,7 +5,7 @@ To create a new [CSVS](https://csvs-format.docs.norcivilianlabs.org/) dataset
 panrec -o /path/to/csvs-dataset
 ```
 
-To print all entries in a dataset to stdout
+To print all entries in a dataset
 ```shell
 panrec -i /path/to/csvs-dataset
 ```
@@ -20,4 +20,4 @@ To search for entries with a date that starts in 2005
 panrec -i /path/to/csvs-dataset -q "?date=2005.*"
 ```
 
-For a complete list of cli commands and flags, see [Reference](./reference.md). Learn more about panrec in the [Tutorial](./tutorial.md) and [User Guides](./user_guides.md).
+Learn more about panrec in the [Tutorial](./tutorial.md) and [User Guides](./user_guides.md). For a complete list of CLI commands and flags, see [Reference](./reference.md). 

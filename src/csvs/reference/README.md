@@ -19,3 +19,14 @@ A tablet stream accepts a query record and returns a record. It streams tablet l
  - [Select](./06_select.md)
 
 To learn more about the architecture of csvs, see other [User Guides](../user_guides/README.md), the [Specifications](../specs/README.md) and the [Requirements](../requirements.md).
+
+
+# Notes:
+- remove "playing" from here
+- "library" is a term from code organization, this should talk about algorithms and data structures
+- "transform web stream" is too language-specific
+- there should be introductory text as to why we need to describe functions at all
+- "function" is a term from code organization, this should use more general terms like "step" or "stage"
+- the text about the stream pipeline should be moved elsewhere
+- the list should have explanation and sales pitch for each item
+- right now each page under this chapter is a design sketch, not documentation. 

@@ -33,3 +33,6 @@ To open the new folder, Donell locates the `View events?` dialogue and presses `
 > You have learned how to create, edit and delete records in an evenor folder.
 
 To learn more about evenor, see the [User Guides](./user_guides.md).
+
+## Notes:
+- should be moved to a guide or a quiz

@@ -3,34 +3,34 @@
 ## stack
 The current stack is 
  - tauri: desktop and mobile distribution
- - react: easy to read for contributors
+ - solidjs, more correct than react
  - vite: state of the art bundler
  - csvs: for data interchange that is plain and naive
  - isogit + lightningfs: for emulating the git filesystem in browser memory
- - zustand: light and sane
  - javascript: straightforward, easy to read for contributors
+ - rust: state of the art zero overhead implementations
  - nix: state of the art packager
  - yarn: works well with nix
  - prettier: state of the art formatter 
  - eslint: state of the art linter
  - git: state of the art version control system
+ - penpot: vector wireframes 
 
 Among legacy stack is 
  - electron, electron-forge for desktop distribution, lacks mobile, currently being replaced by tauri
  - typescript, excessive
+ - react: easy to read for contributors but slow and incorrect
+ - zustand: light and sane, replaced by solidjs stores
 
 The future stack could be 
- - solidjs, if it measures significantly faster than react on benchmarks
- - zenfs, if it's better maintained than lightningfs and is equivalent
- - flow, if contributors insist on type checking
  - pijul, if it improves conflict resolution and releases to browsers
 
 ## ui
-Wireframes are at [Penpot](https://design.penpot.app/#/view/af8aaf7c-05e6-8124-8003-b6d16df3e6e2?page-id=427ab418-76d5-8026-8004-ce42d5c3054d&section=interactions&index=0&interactions-mode=show&share-id=c0ee57fd-603e-804a-8004-ce43a30d4c57)
-
 user interface consists of
+
 - overview with a list of records and a search bar
 - profile with a single record
+
 ### overview
 overview consists of a navigation bar, a search bar, and a set of paragraphs
 
@@ -42,13 +42,14 @@ confirm "Select?" at the end of the paragraph to open the profile with the given
 
 press "plus" to add a new record
 
-chosen card must be higlighted
+chosen card must be highlighted
 
 chosen record value should synchronize with the browser url
 
 confirm "Delete?" a paragraph to delete a record
 
 confirm "Search cognate?" to list cognate queries
+
 ### search bar
 search bar appears above overview 
 
@@ -57,6 +58,7 @@ the search bar must synchronize with the browser url. when browser url changes, 
 click back navigation button to search previous query
 
 keywords: sortby, all branches in the folder
+
 ### profile
 profile consists of a navigation bar and a set of paragraphs
 
@@ -74,115 +76,127 @@ confirm `Push?` or `Pull` to synchronize with a git remote on a branch with `tas
 confirm "Search cognate?" to list cognate queries
 
 media files on each branch with `task: file` are shown beside the text
+
 #### edit
 press save to update the record
 
 press back to revert changes and open the overview
 
-type in the input fieds to add data to the record
+type in the input fields to add data to the record
 
 confirm `Add?` to append new input fields. If a branch already has values, confirm `Add another?`.
 
 confirm `Add file?` to attach a media file to a branch with `task: file`
+
 ## code
-The project directory is versioned by git. In the root there's configs for nix, yarn, eslint, prettier, editorconfig and vite. The license is GPLv3 with an exception for apple store distribution. The README holds installation instructions and a link to these docs. The `src-electron`, `src-server` and `src-tauri` directories hold implementations of the interprocess communication necessary for interaction with the filesystem. 
- - `src/main.jsx` and `src/index.html`, `src/index.css` files initialize React.
+The project directory is versioned by git. In the root there's configs for nix, yarn, eslint, prettier, editorconfig and vite. The license is GPLv3 with an exception for apple store distribution. The README holds installation instructions and a link to these docs. The `src/api/browser` and `src-tauri` directories hold implementations of the interprocess communication necessary for interaction with the filesystem. 
+
+ - `index.html`, `src/index.jsx` and `src/index.css` files initialize solid.js.
  - `src/i18n/`: localization strings for the interface 
  - `src/layout/`: the main screens
- - `src/store/`: a zustand reducer with all the state variables and methods in the interface
+ - `src/store/`: a solid.js store with all the state variables and methods in the interface
  - `src/api/`: a facade for the interprocess communication calls, and implementations for various platforms
  
 ### src/layout
  - `overview`: screen with a list of records
    - `overview_item`: a short description of a single record
-   - `overview_virtual_scroll`: renders a subset of records that are visible in the viewport
-   - `overview_search_bar`: text input with keywords
- - `profile_view`: screen for reading details about a record
-   - `view_field`: list of branch values
-   - `view_record`: object value
-   - `view_value`: string value
-   - `view_remote`: git remote
-   - `view_sync`: local sync setting
- - `profile_edit`: screen for changing details of a record
-   - `edit_field`: list of branch values
-   - `edit_record`: object value
-   - `edit_input`: input for a value
-   - `input_text`: string value
-   - `input_textarea`: large string value
-   - `input_date`: date picker
+   - `overview_field`: list of branch values
+   - `overview_field_item`: list of branch values
+   - `overview_record`: object value
+   - `overview_value`: string value
+ - `filter`: component with a search bar
+   - `filter_count`: a label with the number of search results
+   - `filter_direction`: a switch for sorting direction
+   - `filter_option`: a button with a search keyword
+   - `filter_query`: an input with a search query
+   - `filter_scroll`: a button to scroll to the top
+ - `profile`: screen for changing details of a record
+   - `profile_field`: list of branch values
+   - `profile_field_item`: list of branch values
+   - `profile_record`: object value
+   - `profile_value`: input for a value
  - `components`: interface elements that are reused across the application. 
-   - `link`: navigate between screens
-   - `title`: a heading text
-   - `button`: perform actions
-   - `paragraph`: a piece of text
    - `asset_view`: media file of any format
-### src/store/
- - `schema`: object, holds the structure of records in the current folder
- - `repo`: object, represents the currently viewed folder
- - `queries`: object, holds the state of the search bar
- - `records`: list of objects currently displayed in the overview
- - `abortPreviousStream()`: function, holds the handler to interrupt a search stream
- - `initialize()`: function, bootstraps the state and reads the URL on application launch
- - `setRepoUUID(repoUUID)`: function, changes the currently viewed folder
- - `setQuery(queryField, queryValue)`: function, changes the state of the search bar
- 
- - `record`: object, represents the currently viewed record
- - `isEdit`: boolean, whether the record is being edited
- - `onRecordUpdate(recordOld, recordNew)`: function, writes a record to the folder
- - `onRecordSelect(recordNew)`: function, selects a record for viewing
- - `onRecordInput(recordNew)`: function, handles data input during editing
- - `onRecordDelete()`: function, removes a record from folder
+   - `confirmation`: a dialogue for side-effects
+   - `navigation_back`: button to the home screen
+   - `navigation_new`: button to create
+   - `navigation_revert`: button to cancel changes
+   - `navigation_save`: button to save changes
+   - `spoiler`: a dialogue to unfold details
 
- - `getDefaultBase(schema)`: function, determines a base branch in a folder
- - `getDefaultSortBy(schema, base, records)`: function, determines a sorting branch in a folder
- - `queriesToParams(queriesObject)`: function, converts state of the search bar to URLSearchParams
- - `setURL(queries, base, sortBy, repoUUID, reponame)`: function, changes the browser URL
- - `loadRepoRecord(record)`: function, loads the folder from storage
-   - `readRemotes(api)`: function, detectes git remotes in a folder
-   - `readLocals(api)`: function, detects local asset paths in a folder
- - `saveRepoRecord(record)`: function, writes the folder to storage
-   - `writeRemotes(api, tags)`: function, writes git remotes to a folder
-   - `writeLocals(api, tags)`: function, writes local asset paths to a folder
-### src/api/
-- `api`: a class for interprocess communication
-  - `browser`: clientside implementation 
-  - `browser.worker`: a Web Worker to offload searching
-  - `server`: a local server implementation, complements the browser class
-  - `electron`: main thread implementation
-  - `electron.worker`: a Node Worker to offload searching
-- `schema`: helpers to interact with the schema
+### src/store/
+ - StoreContext: solid.js component to interact with the store
+ - store
+   - `schema`: object, holds the structure of records in the current folder
+   - `repo`: object, represents the currently viewed folder
+   - `searchParams`: object, holds the state of the search bar
+   - `records`: list of objects currently displayed in the overview
+   - `record`: object, represents the currently viewed record
+   - `spoilerMap`: a hash map with the state of unfolded spoilers
+   - `loading`: a switch for loader animation
+   - `abortPreviousStream()`: function, holds the handler to interrupt a search stream
+
+ - public API
+   - `onRecordEdit(path, value)`: function, handles data input during editing
+   - `onRecordSave(recordOld, recordNew)`: function, writes a record to the folder
+   - `onRecordWipe(record)`: function, removes a record from folder
+   - `onRecordCreate()`: function, creates a record
+   - `onRepoChange(pathname, search)`: function, changes the currently viewed folder
+   - `onSearch(field, value)`: function, changes the state of the search bar
+   - `setSpoilerOpen(index)`:
+   - `getSpoilerOpen(index, isOpen)`:
+   - `getFilterQueries()`:
+   - `getFilterOptions()`:
+   - `getSortedRecords()`:
+   - `onClone(repouuid, reponame, remoteUrl, remoteToken)`:
+   - `onPullRepo(repouuid, remoteName, remoteUrl, remoteToken)`:
+   - `onPushRepo(repouuid, remoteName, remoteUrl, remoteToken)`:
+   - `onZip(uuid)`:
+   - `searchParamsToQuery(schema, searchParams)`: function, returns a csvs query from a query string
+   
+ - private API
+   - `appendRecord(record)`:
+   - `leapfrog(branch, value, cognate)`:
+   - `backflip(branch, value, cognate)`:
+   - `sidestep(branch, value, cognate)`:
+   - `warp(branch, value, cognate)`:
+   - `saveRecord(repouuid, base, records, recordOld, recordNew)`:
+   - `wipeRecord(repo, base, records, record)`:
+   - `changeRepo(pathname, search)`: 
+ - `search(schema, searchParams, repo, reponame, field, value, appendRecord)`:
+   - `updateRecord(repo, base, recordNew)`:
+   - `createRecord(repo, base)`:
+   - `selectStream(schema, repo, appendRecord, searchParams)`:
+   - `onMergeRepo(schema, repo, reponame, search)`:
+   - `find(uuid, reponame)`: 
+   - `clone(repouuid, reponame, url, token)`:
+   - `queryToSearchParams(query)`: function, converts state of the search bar to URLSearchParams
+   - `ensureTrunk(schema, record, trunk, leaf)`: make sure record has trunk and all trunks of trunk until root
+   - `enrichBranchRecords(schemaRecord, metaRecords)`:
+   - `extractSchemaRecords(branchRecords)`:
+   - `schemaToBranchRecords(schema)`: function, converts an evenor schema object to a list of csvs records
+   - `recordsToSchema(schemaRecord, metaRecords)`: function, converts a list of csvs records to an evenor schema object
+   - `changeSearchParams(searchParams, field, value)`:
+   - `makeURL(searchParams, sortBy, repoUUID)`: prepare a new browser URL
+   - `pickDefaultBase(schema)`: function, picks default base from a root branch of schema
+   - `pickDefaultSortBy(schema, base)`: function, picks default sortBy from task === "date" of schema
+   - `findFirstSortBy(branch, value)`: function, finds first available string value for sorting
+   - `newUUID()`: function, returns a hashsum of a unique identifier
+   - `deleteRecord()`:
+   - `updateEntry()`:
+   - `readSchema(uuid)`:
+   - `createRoot()`:
+   - `loadRepoRecord(record)`: function, loads the folder from storage
+   - `saveRepoRecord(record)`: function, writes the folder to storage
+   - `pull(repouuid, remoteName, remoteUrl, remoteToken)`:
+   - `push(repouuid, remoteName, remoteUrl, remoteToken)`:
+   - `readRemoteTags(uuid)`: function, detects git remotes in a folder
+   - `readLocalTags(uuid)`: function, detects local asset paths in a folder
+   - `writeRemoteTags(uuid, tags)`: function, writes git remotes to a folder
+   - `writeLocalTags(uuid, tags)`: function, writes local asset paths to a folder
    - `schemaRoot`: object, describes the root folder that holds other folders
    - `defaultRepoRecord`: object, describes a default folder structure
-   - `newUUID()`: function, returns a hashsum of a unique identifier
-   - `schemaToBranchRecords(schema)`: function, converts an evenor schema object to a list of csvs records
-   - `branchRecordsToSchema(schemaRecord, branchRecords)`: function, converts a list of csvs records to an evenor schema object
-
-#### api
-- `uuid`: string, identifier of the current folder
-- `fetchAsset(filename)`: returns Uint8Array contents of a file
-- `putAsset(filename, content)`: writes Buffer content to a file
-- `downloadAsset(content, filename)`: shows a dialogue to save a file to the filesystem
-- `uploadFile()`: shows a dialogue to load a file to evenor
-- `select(searchParams)`: searches and returns a list of records
-- `selectStream(searchParams)`: begins a search, returns a handler to interrupt the stream
-- `updateRecord(record)`: writes a record to the csvs dataset
-- `deleteRecord(record)`: deletes a record from the csvs dataset
-- `ensure(schema, name)`: creates a csvs dataset
-- `commit()`: records changes to the git repository
-- `clone(remoteUrl, remoteToken, name)`: copies the folder from a remote git repository
-- `push(remote)`: sends changes to a remote git repository
-- `pull(remote)`: fetches changes from a remote git repository
-- `readSchema()`: finds the structure of the current folder
-- `zip()`: shows a dialogue to save the current folder as a ZIP archive
-- `listRemotes()`: detects a list of git remotes in the current folder
-- `addRemote(remoteName, remoteUrl, remoteToken)`: writes a git remote to the git config of the current folder
-- `getRemote(remote)`: detects the details of a git remote
-- `listAssetPaths()`: detects a list of local asset paths in the current folder
-- `addAssetPath(assetPath)`: writes a local asset path to the git config of the current folder
-- `uploadBlobsLFS(remote, files)`: sends a list of blobs to a Git Large File Storage remote
-- `downloadUrlFromPointer(url, token, pointerInfo)`: fetches a blob url for a Git Large File Storage pointer
-
-#### root schema
+#### default root schema
  - `repo`: unique identifier of the current folder
    - `reponame`: name of a folder
    - `category`: optional, kind of a folder
@@ -216,8 +230,65 @@ The project directory is versioned by git. In the root there's configs for nix, 
      - `task`: optional, what special data type this branch holds
      - `description_en`: optional, description of the branch in English
      - `description_ru`: optional, description of the branch in Russian
+   
+### src/api/
+- `api`: a class for interprocess communication
+  - `browser`: clientside implementation 
+  - `tauri`: desktop and mobile implementation
 
+#### public api
+- csvs
+  - `select(uuid, query)`: searches and returns a list of records
+  - `selectStream(uuid, query)`: begins a search, returns a handler to interrupt the stream
+  - `updateRecord(uuid, record)`: writes a record to the csvs dataset
+  - `deleteRecord(uuid, record)`: deletes a record from the csvs dataset
 
+- zip
+  - `zip(uuid)`: shows a dialogue to save the current folder as a ZIP archive
+
+- git
+  - `createRepo(uuid, name)`: creates a csvs dataset
+  - `commit(uuid)`: records changes to the git repository
+  - `clone(uuid, name, remoteUrl, remoteToken)`: copies the folder from a remote git repository
+  - `listRemotes(uuid)`: detects a list of git remotes in the current folder
+  - `addRemote(uuid, remoteName, remoteUrl, remoteToken)`: writes a git remote to the git config of the current folder
+  - `getRemote(uuid, remote)`: detects the details of a git remote
+  - `push(uuid, remoteName, remoteUrl, remoteToken)`: sends changes to a remote git repository
+  - `pull(uuid, remoteName, remoteUrl, remoteToken)`: fetches changes from a remote git repository
+
+- lfs
+  - `createLFS(uuid)`: 
+  - `fetchAsset(uuid, filename)`: returns Uint8Array contents of a file
+  - `putAsset(uuid, filename, content)`: writes Buffer content to a file
+  - `downloadAsset(content, filename)`: shows a dialogue to save a file to the filesystem
+  - `uploadFile(uuid)`: shows a dialogue to load a file to evenor
+  - `downloadUrlFromPointer(url, token, pointerInfo)`: fetches a blob url for a Git Large File Storage pointer
+  - `uploadBlobsLFS(uuid, remoteUrl, remoteToken, files)`: sends a list of blobs to a Git Large File Storage remote
+  - `listAssetPaths(uuid)`: detects a list of local asset paths in the current folder
+  - `addAssetPath(uuid, assetPath)`: writes a local asset path to the git config of the current folder
+  
+#### private API
+ - git 
+   - `nameDir(uuid, name)`:
+   
+ - io
+   - `findDir(uuid)`:
+   - `fetchFile(uuid, filepath)`:
+   - `readFile(uuid, filepath)`:
+   - `writeFile(uuid, filepath, content)`:
+   - `rimraf(rimrafpath)`:
+   - `ls(lspath)`:
+   - `pickFile()`:
+   
+ - lightningfs
+   - `fs`:
+   - `createReadStream(filepath)`:
+   - `createWriteStream(filepath)`:
+   - `mkdtemp(filepath)`:
+   - `appendFile(filepath, tail)`:
+   
+ - zip
+   - `addToZip(dir, zipDir)`:
 
 ## questions
 

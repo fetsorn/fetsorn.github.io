@@ -10,4 +10,4 @@ you can make a separate dataset for sensitive data with stricter security practi
 
 if you use git for version control, you can write sensitive key-value pairs to .git/config
 
-To learn more about csvs, see other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).
+To learn more about csvs, see other [User Guides](./README.md) and the [Requirements](../requirements.md).

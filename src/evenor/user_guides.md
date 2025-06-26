@@ -9,3 +9,6 @@
 - [Merging datasets](./07_merging_datasets.md)
   
 To learn more about the architecture of evenor, see the [Reference](./reference.md) and the [Requirements](./requirements.md).
+
+## Notes:
+- explanation and pitch for every list item

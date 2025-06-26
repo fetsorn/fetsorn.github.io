@@ -7,3 +7,7 @@ The goal of csvs is to be accessible and approachable. An engineer should be abl
 Source for implementation in [Rust](https://codeberg.org/norcivilianlabs/csvs-rs) and [JavaScript](https://codeberg.org/norcivilianlabs/csvs-js).
 
 To learn more about csvs, see [Getting Started](./getting_started.md).
+
+## Note: 
+ - complicated words: glean, naïvete
+ - text resembles requirements which should go elsewhere. this here should resemble a sales pitch.

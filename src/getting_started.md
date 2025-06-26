@@ -4,8 +4,6 @@ We write open source computer programs in areas of knowledge, healthcare and sel
 
 What we can do: build applications that run on mobile, desktop and web.
 
-For a consultation, [book a meeting](./consultation.md).
-
 ## Usage Notes
 
 - Press `s` keyboard button to search across all pages

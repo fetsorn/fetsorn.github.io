@@ -71,4 +71,4 @@ By default, a csvs dataset represents lists of objects of strings. You can defin
 > Eva,70
 > ```
 
-To learn more about csvs, see other [User Guides](./user_guides.md) and the [Requirements](./requirements.md).
+To learn more about csvs, see other [User Guides](./README.md) and the [Requirements](../requirements.md).
