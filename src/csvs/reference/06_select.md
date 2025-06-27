@@ -60,6 +60,52 @@ pipe query
   to leader stream
   to return
 ```
+
+### test cases
+ - first level
+   - initial: default
+   - query: 
+   - expected: record 2001
+ - first level
+   - initial: default
+   - query: 
+   - expected: record 2002
+ - first level
+   - initial: default
+   - query: 
+   - expected: record 2023 unedited
+ - unordered leaf
+   - initial: unordered
+   - query: 
+   - expected: record 2002
+ - array
+   - initial: array simple
+   - query: 
+   - expected: record array simple
+ - duplicate array item
+   - initial: array double
+   - query: 
+   - expected: record array double 1, record array double 2
+ - array item
+   - initial: array
+   - query: 
+   - expected: record array
+ - deep array item
+   - initial: array added
+   - query: 
+   - expected: record array
+ - regular expression
+   - initial: default
+   - query: 
+   - expected: record 2003 unedited, record 2001, record 2002
+ - failed regular expression
+   - initial: default
+   - query: 
+   - expected: 
+ - deep regular expression
+   - initial: default
+   - query: 
+   - expected: record 2001, record 2002
 ## select strategy
 [Schema](./00_data_types.md#schema) -> [Query](./00_data_types.md#query) -> List [Tablet](./00_data_types.md#tablet)
 

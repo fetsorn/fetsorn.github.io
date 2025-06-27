@@ -30,7 +30,25 @@ otherwise
     for each item of record.field
       sow grain to item
 ```
-
+### test cases
+ - 
+   - initial: record 2001
+   - grain: grain 2001
+   - trait: datum
+   - thing: actdate
+   - expected: record 2001 sow
+ - 
+   - initial: record array
+   - grain: grain array
+   - trait: export tags
+   - thing: export 1 tag
+   - expected: record array sow
+ - 
+   - initial: record sow base is trait
+   - grain: grain sow base is trait
+   - trait: datum
+   - thing: filepath
+   - expected: record sow base is trait
 ## mow
 [Entry](./00_data_types.md#entry) -> [Trait](./00_data_types.md#trait) -> [Thing](./00_data_types.md#thing) -> List [Grain](./00_data_types.md#grain)
 
@@ -57,3 +75,20 @@ otherwise
     mow each item of record.field
 ```
 
+
+### test cases
+ - first level
+   - initial: record 2001
+   - trait: datum
+   - thing: actdate
+   - expected: grain 2001
+ - second level
+   - initial: record array
+   - trait: export 1 tag
+   - thing: export 1 channel
+   - expected: grain channel 1, grain channel 2
+ - empty
+   - initial: record mow empty
+   - trait: export 1 tag
+   - thing: export 1 channel
+   - expected: grain empty

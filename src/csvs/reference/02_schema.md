@@ -43,3 +43,56 @@ This finds all branches that are connected to the base branch.
 if leaf is connected to base
   return leaf
 ```
+
+## get nesting level
+
+[Schema](./00_data_types.md#schema) -> [Branch](./00_data_types.md#branch)
+
+```pdl
+for each trunk of branch
+  get nesting level of trunk
+  increment level
+```
+
+### test cases
+- naught
+  - schema: record schema array
+  - branch: datum
+  - expected: 0
+- first
+  - schema: record schema array
+  - branch: export tags
+  - expected: 1
+- second
+  - schema: record schema array
+  - branch: export2 tag
+  - expected: 2
+- third
+  - schema: record schema array
+  - branch: export2 tag description
+  - expected: 3
+- fourth
+  - schema: record schema array
+  - branch: export 2 tag description text 1
+  - expected: 4
+
+## sort nesting ascending
+[Schema](./00_data_types.md#schema) -> ([Branch](./00_data_types.md#branch) -> [Branch](./00_data_types.md#branch) -> Ordering)
+
+sort by level of nesting, twigs and leaves come first
+
+### test cases
+ - 
+   - schema: record schema array
+   - initial: 
+   - expected: 
+## sort nesting descending
+[Schema](./00_data_types.md#schema) -> ([Branch](./00_data_types.md#branch) -> [Branch](./00_data_types.md#branch) -> Ordering)
+
+sort by level of nesting, trunks come first
+
+### test cases
+ - 
+   - schema: record schema array
+   - initial: 
+   - expected: 

@@ -34,6 +34,20 @@ pipe query
   to each insert tablet stream
   to return
 ```
+### test cases
+- duplicate
+  - query: record 2001
+  - initial: default
+  - expected: duplicate
+- duplicate leaf
+  - query: record 2001 edited
+  - initial: default
+  - expected: duplicate leaf
+- add
+  - query: record added
+  - initial: default
+  - expected: added
+
 ## insert strategy
 [Schema](./00_data_types.md#schema) -> [Entry](./00_data_types.md#entry) -> List [Tablet](./00_data_types.md#tablet)
 

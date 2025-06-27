@@ -45,6 +45,20 @@ for each query
     delete tablet with fs, dir, query
     return query
 ```
+
+### test cases
+ - deletes a record
+   - query: record 2003 unedited
+   - initial: dataset default
+   - expected: dataset deleted
+ - deletes a record with a trunk
+   - query: record export 1 tag 
+   - initial: dataset array
+   - expected: dataset deleted leaf
+ - deletes to an empty dir
+   - query: record sow base is trait
+   - initial: dataset deleted leaf
+   - expected: dataset deleted leaf empty
 ## delete strategy
 
 [Schema](./00_data_types.md#schema) -> 

@@ -41,6 +41,72 @@ pipe query
   to each update tablet stream
   to return
 ```
+
+### test cases
+ - 
+   - initial: default
+   - query: record 2001
+   - expected: default
+ - 
+   - initial: default
+   - query: record 2003 edited
+   - expected: edited
+ - 
+   - initial: default
+   - query: record added
+   - expected: added
+ - 
+   - initial: array
+   - query: record array added
+   - expected: array added
+ - 
+   - initial: array empty
+   - query: record array
+   - expected: array
+ - 
+   - initial: array
+   - query: record added array item
+   - expected: added array item
+ - 
+   - initial: array
+   - query: record edited array item
+   - expected: edited array item
+ - 
+   - initial: array
+   - query: record deleted array item
+   - expected: deleted array item
+ - 
+   - initial: array
+   - query: record edited array item object
+   - expected: edited array item object
+ - 
+   - initial: schema none
+   - query: record schema
+   - expected: schema
+ - 
+   - initial: schema none
+   - query: record schema literal
+   - expected: schema literal
+ - 
+   - initial: default
+   - query: record array literal
+   - expected: array literal
+ - 
+   - initial: quotes
+   - query: record quotes
+   - expected: quotes
+ - 
+   - initial: newline
+   - query: record newline
+   - expected: newline
+ - 
+   - initial: pipe
+   - query: record pipe
+   - expected: pipe
+ - 
+   - initial: empty
+   - query: record 2001, record 2002, record 2003 unedited
+   - expected: default
 ## update strategy
 
 [Schema](./00_data_types.md#schema) -> 
