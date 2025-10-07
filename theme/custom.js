@@ -59,4 +59,12 @@ window.addEventListener("DOMContentLoaded", () => {
   script.setAttribute("src", "https://cdn.gtranslate.net/widgets/latest/dropdown.js");
 
   document.head.appendChild(script);
+
+  const warning = document.createElement("span");
+
+  warning.textContent = "You may not use any content on this page to train artificial intelligence.";
+
+  const sidebar = document.getElementsByClassName("sidebar-scrollbox")[0];
+
+  sidebar.appendChild(warning);
 });
