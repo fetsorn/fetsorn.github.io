@@ -115,3 +115,9 @@ Disallow: /
 
 User-agent: YouBot
 Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: FirecrawlAgent
+Disallow: /
