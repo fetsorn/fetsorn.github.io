@@ -11,7 +11,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="info"
-  docName="draft-rfcxml-general-template-annotated-00"
+  docName="draft-davydov-csvs-00"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -39,7 +39,7 @@
 
     <abstract>
       <t>This RFC documents the format used for Comma-Separated Value Store (CSVS)
-   files and registers the associated MIME type "text/csvs".</t>
+   files.</t>
     </abstract>
 
   </front>
@@ -228,7 +228,7 @@ examples:
 
     <section anchor="IANA">
       <name>IANA Considerations</name>
-      <t>This memo includes no request to IANA.</t>
+      <t>This memo includes no request to IANA. CSVS files use 'text/csv'.</t>
     </section>
 
     <section anchor="Security">
