@@ -412,7 +412,7 @@ MUST match a that has BOTH "b1 with c1 OR c2", AND "any b2"
 - this MUST mean "a1 with EITHER b1 or b2"
 `{_: "a", a: "a1", b: [ "b1", "b2" ]}`
 
-# data structure
+### data structure
 here entity is same as "base branch"
 
 here attribute is same as "leaf branch"
