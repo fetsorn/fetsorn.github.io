@@ -89,11 +89,6 @@ For example, this dataset represents that John is 35 years old and Jane is 36:
 { "_": "name", "name": "jane", "age": "36" }
 ```
 
-NOTE: A record that has only one relation is called a "grain"
-```
-{ "_": "name", "name": "john", "age": "35" }
-```
-
 ### query record
 
 To find data records in the dataset, one can use query records. In a query record, the string can be a regular expression. And a record can have no base value, just a base field.
