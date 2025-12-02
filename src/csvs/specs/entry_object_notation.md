@@ -30,7 +30,7 @@ NOTE: Discard empty list [], empty object {}, object without a base, object with
 
 For example, this record represents that John is 35 years old: `{ "_": "name", "name": "John", "age": "35" }`.
 
-As you can see, DON is stricter than JSON in several regards:
+As you can see, SON is stricter than JSON in several regards:
 
 1. There are no numbers, booleans, or null - the only allowed literal is a string.
 2. Arrays must not contain other arrays - the only alowed items are records or strings. 
@@ -38,7 +38,7 @@ As you can see, DON is stricter than JSON in several regards:
 
 ## dataset format
 
-A DON dataset is a set of DON records. Together, records comprise a database based on the relational model of data. Some records are special and describe a dataset structure. Other records describe data.
+A SON dataset is a set of SON records. Together, records comprise a database based on the relational model of data. Some records are special and describe a dataset structure. Other records describe data.
 
 ### schema record
 
@@ -59,7 +59,7 @@ Other names describe collections of values. For example:
  - a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.
  - a collection name can include any of the following: `[azAZ09_%+@]`, white-space and other Unicode characters
 
-NOTE: As you can see a DON collection only exists in a relationship with another, there can be no independent collections.
+NOTE: As you can see a SON collection only exists in a relationship with another, there can be no independent collections.
 
 NOTE: For a field that has multiple connections, use a list
 ```
@@ -91,13 +91,13 @@ NOTE: A record that has only one relation is called a "grain"
 
 ## schema
 
-One can use several vocabularies to describe the schema of a DON dataset. 
+One can use several vocabularies to describe the schema of a SON dataset. 
 
 As a relational database, the schema can be described in terms of collections and attributes. For example, all names are in a collection called "name", and all ages are in a collection called "age", which is an attribute of "name".
 
 Seen as an abstract data type, the schema can be described in terms of tree nodes. For example, all names are in a node "name", all ages are in a node "age". Nodes "name" and "age" are connected. "name" is a parent node of "age", and "age" is a child node of "name". "name" is a root node because it does not have parents. "age" is an external node, because it does not have children.
 
-We use special terminology to describe the DON dataset schema in terms of "branches". For example, all names are in the branch "name", all ages are in the branch "age". "name" is a trunk of "age", and "age" is a leaf of "name". "name" is a root because it does not have trunks. "age" is a twig because it does not have leaves. 
+We use special terminology to describe the SON dataset schema in terms of "branches". For example, all names are in the branch "name", all ages are in the branch "age". "name" is a trunk of "age", and "age" is a leaf of "name". "name" is a root because it does not have trunks. "age" is a twig because it does not have leaves. 
 
 A typical schema has several levels of nesting. For example,
 ```
@@ -115,7 +115,7 @@ The terms are also listed below in the "Terminology" section.
 
 ## Form
 
-DON is meant to be both machine- and human- readable, so it can have several equivalent forms. Use concise form for human readability and less repetition. Use verbose form for easier parsing. When in doubt, consider the record to be in mixed, loose form.
+SON is meant to be both machine- and human- readable, so it can have several equivalent forms. Use concise form for human readability and less repetition. Use verbose form for easier parsing. When in doubt, consider the record to be in mixed, loose form.
 
 ### concise
 Lists that have only one element and objects that have only base field can be expressed as singleton values. An object where all values are condensed to singletons can be called `concise`.
