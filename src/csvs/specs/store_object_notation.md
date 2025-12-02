@@ -75,7 +75,7 @@ NOTE: Given a field with a record, the record should have the same base as field
 
 NOTE: Keys must be unique in a record.
 
-NOTE: Discard empty list [], empty object {}, object without a base, object with base different than the field, object with a base branch but no base value.
+NOTE: Discard empty list [], empty object {}, object without a base, object with base different than the field. In a data record, discard an object without a base value.
 
 ### data record
 
