@@ -129,7 +129,7 @@ finds `1` record of base `event`
 { "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
 ```
 
-Each item of a list must be interpreted as an AND operator. Each field of a record must be interpreted as an AND operator. For OR operator, use `|` inside the regex, or make multiple queries.
+Each item of a list must be interpreted as an AND operator. Each field of a record must be interpreted as an AND operator. For an OR operator, use `|` inside the regex, or make multiple queries.
 
 ## Form
 
