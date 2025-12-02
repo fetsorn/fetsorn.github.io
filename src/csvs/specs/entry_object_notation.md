@@ -11,7 +11,7 @@ Dataset object notation is a JSON object, and thus a subset of [RFC 8259](https:
 
     base = underscore name-separator string
 
-    underscore = quotation-mark _ quotation-mark
+    underscore = quotation-mark %x5F quotation-mark
 
     link = string name-separator data
 
