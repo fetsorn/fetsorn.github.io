@@ -6,8 +6,6 @@ This document describes the Store Object Notation format.
 
 Dataset object notation is a JSON object, and thus a subset of [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259).  It is defined by the following ABNF grammar:
 
-    QON-text = ws record ws
-
     record = begin-object [ base member *( value-separator member ) ]
              end-object
 
