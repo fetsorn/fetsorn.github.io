@@ -29,15 +29,7 @@ As you can see, SON is stricter than JSON in several regards:
 
 ## dataset format
 
-A SON dataset is a set of SON records. Together, records comprise a database based on the relational model of data. Some records are special and describe a dataset structure. Other records describe data.
-
-NOTE: Given a field with a list, all items of a list must have the same base as field.
-
-NOTE: Given a field with a record, the record should have the same base as field.
-
-NOTE: Keys must be unique in a record.
-
-NOTE: Discard empty list [], empty object {}, object without a base, object with base different than the field, object with a base branch but no base value.
+A SON dataset is a set of SON records. Together, records comprise a database based on the relational model of data. The schema record describes the dataset structure. Other records describe data.
 
 For example, this record represents that John is 35 years old: `{ "_": "name", "name": "John", "age": "35" }`.
 
@@ -72,6 +64,18 @@ NOTE: A relation between collections can be recursive. For example, in this data
 "event": "date",
 "date: "event"
 ``` 
+and even
+```
+"event: "event"
+```
+
+NOTE: Given a field with a list, all items of a list must have the same base as field.
+
+NOTE: Given a field with a record, the record should have the same base as field.
+
+NOTE: Keys must be unique in a record.
+
+NOTE: Discard empty list [], empty object {}, object without a base, object with base different than the field, object with a base branch but no base value.
 
 ### data record
 
