@@ -104,29 +104,13 @@ characters reserved by the regular expression dialect MUST be escaped when store
 
 The following dataset with the files `.csvs-csv`, `_-_.csv` and `event-date.csv` describes two events.
 
-> `.csvs.csv`
-``` csv
-csvs,0.0.2
+```
+{ "_": "_", "event": [ "date", "filepath" ], "filepath": [ "filehash", "filesize" ]}
+{ "_": "event", "event": "cooked-lasagna", "date": "2002-02-02" }
+{ "_": "event", "event": "visited-japan", "date": "2001-01-01" }
+{ "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filehash": "photo-everest" }
 ```
 
-> `_-_.csv`
-``` csv
-event, date
-event, filepath
-filepath, filehash
-filepath, filesize
-```
-
-> `event-date.csv`
-``` csv
-cooked-lasagna,2002-02-02
-visited-japan,2001-01-01
-climbed-everest,2003-03-03
-```
-
-> - `event-filepath.csv`
-``` csv
-climbed-everest,photo-everest
 ```
 
 query with the base name "_" MUST query dataset schema
