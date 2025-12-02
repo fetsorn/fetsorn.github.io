@@ -130,6 +130,12 @@ name-city.csv
 john,Bath
 ```
 
+NOTE: a duplicate relationship means a list a values. The following example means John lives in two cities: Bath and London.
+   ```
+   john,Bath
+   john,London
+   ```
+
 CSVS can fully represent objects specified by the Query Object Notation. For example, the dataset above represents a record 
 `{ "_": "name", "name": "john", "age": "35", "city": "Bath" }`. For more complex examples see QON specification.
 
