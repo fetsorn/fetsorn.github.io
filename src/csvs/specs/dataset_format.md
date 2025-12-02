@@ -8,27 +8,27 @@ This document specifies the CSVS dataset format.
 
 A CSVS file, also called "tablet", is a CSV file, and thus a subset of RFC 4180. It is defined by the following ABNF grammar:
 
- file = record *(CRLF record) [CRLF]
+      file = record *(CRLF record) [CRLF]
 
- record = field COMMA field
+      record = field COMMA field
 
- field = (escaped / non-escaped)
+      field = (escaped / non-escaped)
 
- escaped = DQUOTE *(TEXTDATA / COMMA / CR / LF / 2DQUOTE) DQUOTE
+      escaped = DQUOTE *(TEXTDATA / COMMA / CR / LF / 2DQUOTE) DQUOTE
 
- non-escaped = *TEXTDATA
+      non-escaped = *TEXTDATA
 
- COMMA = %x2C
+      COMMA = %x2C
 
- CR = %x0D ;as per section 6.1 of RFC 2234 [2]
+      CR = %x0D ;as per section 6.1 of RFC 2234 [2]
 
- DQUOTE =  %x22 ;as per section 6.1 of RFC 2234 [2]
+      DQUOTE =  %x22 ;as per section 6.1 of RFC 2234 [2]
 
- LF = %x0A ;as per section 6.1 of RFC 2234 [2]
+      LF = %x0A ;as per section 6.1 of RFC 2234 [2]
 
- CRLF = CR LF ;as per section 6.1 of RFC 2234 [2]
+      CRLF = CR LF ;as per section 6.1 of RFC 2234 [2]
 
- TEXTDATA = *UTF-8
+      TEXTDATA = *UTF-8
 
 For example, this tablet represents that John is 35 years old, and Jane is 36:
   `john,35
