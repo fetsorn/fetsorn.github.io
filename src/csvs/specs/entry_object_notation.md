@@ -2,7 +2,7 @@
 
 This document describes the Store Object Notation format. 
 
-## format
+## text format
 
 Dataset object notation is a JSON object, and thus a subset of [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259).  It is defined by the following ABNF grammar:
 
@@ -36,7 +36,7 @@ As you can see, DON is stricter than JSON in several regards:
 2. Arrays must not contain other arrays - the only alowed items are records or strings. 
 3. Objects must have a base field with a fixed key "_". The base represents a group of values as described below. 
 
-## dataset
+## dataset format
 
 A DON dataset is a set of DON records. Together, records comprise a database based on the relational model of data. Some records are special and describe a dataset structure. Other records describe data.
 
