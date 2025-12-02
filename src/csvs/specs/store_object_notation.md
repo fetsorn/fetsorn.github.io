@@ -152,7 +152,7 @@ A field value is always a list of records. A string is expanded to a record with
 
 ### mixed
 
-Record can contain both expanded records and concise strings. 
+Record can contain both verbose records and concise strings. 
 ```
 { "_": "event", "event": "visited-japan", "date": [ "2001-01-01", { "_": "date", "date": "2005-01-01" } ]}
 ```
