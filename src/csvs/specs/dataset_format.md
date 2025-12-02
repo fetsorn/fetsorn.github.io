@@ -44,14 +44,14 @@ As you can see, CSVS is stricter than CSV in several regards:
 
 A CSVS dataset is a directory with CSVS files, also called "tablets". Together, tablets comprise a database based on the relational model of data. Some tablets are special and describe the dataset structure. Other tablets describe relationships between values.
 
-### .csvs.csv
+### version tablet
 
 A dataset must contain a tablet named`.csvs.csv`, also called "version tablet", with metadata about the dataset.
 
  - `version,0.0.3`, this line is to support future breaking changes to the format.
  - `id,some-uniq-uenu-mber`, this line is uniquely identify this dataset.
 
-### _-_.csv
+### schema tablet
 
 a dataset must contain a tablet named `_-_.csv`, also called "schema tablet", which describes relationships between collections. Specifying a collection here will allow to create a tablet with collection values later.
 
@@ -59,7 +59,7 @@ examples:
  - `_-_.csv`: `event,date` - dataset has an "event" collection with an attribute collection "date".
 
 Each value in the schema is a name of a collection of values and has special naming rules:
- - a collection name must not be "_" because this name is reserved for the schema.
+ - a collection name must not be `_` because this name is reserved for the schema.
  - a collection name must not include the following characters: `[/\<>':"```|?*.,[];{}$&]` because collection names will be use for filenames, and these characters are reserved on most filesystems.
  - a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.
  - a collection name can include any of the following: `[azAZ09_%+@]`, white-space and other Unicode characters
@@ -78,7 +78,7 @@ event,date
 event,date
 ``` 
 
-### collection-collection.csv
+### data tablet
 
 For each relationship in the schema, the dataset can contain a tablet named `{collection1}-{collection2}.csv`, also called a "data tablet", which describes relationships between values of two collections.
 
