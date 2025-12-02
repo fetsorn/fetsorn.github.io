@@ -111,8 +111,6 @@ The following dataset with the files `.csvs-csv`, `_-_.csv` and `event-date.csv`
 { "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filehash": "photo-everest" }
 ```
 
-```
-
 query with the base name "_" MUST query dataset schema
 
  - "?_:_" -> { _: _, entity1: "entity2", entity2: "entity3" }
