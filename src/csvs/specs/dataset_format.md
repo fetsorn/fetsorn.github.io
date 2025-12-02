@@ -67,12 +67,16 @@ Each value in the schema is a name of a collection of values and has special nam
 NOTE: As you can see a CSVS collection only exists in a relationship with another, there can be no independent collections.
 
 NOTE: A relation between collections can be recursive. For example, in this dataset events can have dates, and dates can have events.
-  ```event,date
-  date,event``` 
+```
+event,date
+date,event
+``` 
 
 NOTE: A duplicate relationship is ignored. For example
-  ```event,date
-  event,date``` 
+```
+event,date
+event,date
+``` 
 
 ### collection-collection.csv
 
