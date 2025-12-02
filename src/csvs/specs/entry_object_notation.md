@@ -98,15 +98,6 @@ NOTE: A record that has only one relation is called a "grain"
 
 To find data records in the dataset, one can use query records. In a query record, the string can be a regular expression. And a record can have no base value, just a base field.
 
-#### grammar
-query literal MUST have exactly the same semantics as record object notation with every value treated as literal constraints
-
-query regex MUST be a subset of record object notation that interprets string values as regular expression constraints
-
-the regular expression dialect CAN be specific to client implementation
-
-characters reserved by the regular expression dialect MUST be escaped when stored in the dataset as literal values
-
 The following dataset with the files `.csvs-csv`, `_-_.csv` and `event-date.csv` describes three events.
 
 ```
@@ -123,8 +114,6 @@ finds `1` schema record
 ```
 { "_": "_", "event": [ "date", "filepath" ]}
 ```
-
-query with the base name "a" MUST match all records of base branch "a" that match constraints specified in the query
 
 The following query looks for all events in the dataset
 ```
