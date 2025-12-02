@@ -85,7 +85,7 @@ For example, this tablet is called `name-age.csv` and represents that John is 35
   `john,35
    jane,36`
 
-Multiple data tablets can represent a set of connected values from multiple branches, also called a "record".
+Multiple data tablets can represent a set of connected values from multiple collections, also called a "record".
 
 For example, let's represent that John is 35 years old and lives in Bath
 
