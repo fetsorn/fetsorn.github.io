@@ -30,10 +30,6 @@ A CSVS file, also called "tablet", is a CSV file, and thus a subset of RFC 4180.
 
       TEXTDATA = *UTF-8
 
-For example, this tablet represents that John is 35 years old, and Jane is 36:
-  `john,35
-   jane,36`
-
 As you can see, CSVS is stricter than CSV in several regards:
 
 1. There are only two columns, and other columns are discarded. 
