@@ -138,140 +138,26 @@ Each item of a list must be interpreted as an AND operator. Each field of a reco
 
 ## Form
 
-SON is meant to be both machine- and human- readable, so it can have several equivalent forms. Use concise form for human readability and less repetition. Use verbose form for easier parsing. When in doubt, consider the record to be in mixed form, i.e. containing both concise and verbose values.
+SON is meant to be both machine- and human- readable. Use concise form for less repetition. Use verbose form for easier parsing. When in doubt, consider the record to be in mixed form, i.e. containing both concise and verbose values.
 
 ### concise
-Lists that have only one element and objects that have only base field can be expressed as singleton values. An object where all values are condensed to singletons can be called `concise`.
+Lists with one element are reduced to that element. Object with a single base value is reduced to the string of that value.
 
- - treat as "value" when the field is object with value
-   - { _: { _: "value" } }
-   - { _: "value" }
- - treat as "value" when the field is array with one item
-   - { _: [ { _: "value" } ] }
-   - { _: "value" }
-
-A singleton value can represent a list that has one element.
 ```
-{
-  _: "event",
-  event: "visited-japan",
-  date: [ "2001-01-01" ]
-}
-```
-is equivalent to concise form
-```
-{
-  _: "event",
-  event: "visited-japan",
-  date: "2001-01-01"
-}
-```
-
-A singleton value can represent an object that has only base field.
-```
-{
-  _: "event",
-  event: "visited-japan",
-  date: { _: "date", date: "2001-01-01" }
-}
-```
-is equivalent to consise form
-```
-{
-  _: "event",
-  event: "visited-japan",
-  date: "2001-01-01"
-}
-```
-
-When all elements in a list have identical fields except base branch of base value, they must be merged to a single object with schema list and base list.
-
-A schema list can represent a list of objects with identical fields
-```
-[
-  { _: "event", event: "visited-japan", image: "IMG_0890.jpeg" },
-  { _: "image", event: "visited-japan", image: "IMG_0890.jpeg" }
-]
-```
-is equivalent to concise form
-```
-`{ _: [ "event", "image" ], event: "visited-japan", image: "IMG_0890.jpeg" }`
-```
-
-A base value list can represent a list of objects with identical fields
-```
-[
-  { _: "event", event: "visited-japan", image: "IMG_0890.jpeg" },
-  { _: "event", event: "cooked-lasagna", image: "IMG_0890.jpeg" }
-]
-```
-is equivalent to concise form
-```
-`{ _: "event", event: [ "visited-japan", "cooked-lasagna" ], image: "IMG_0890.jpeg" }`
-```
-
-Elements in a list that have different fields can't be expressed in a more concise form.
-```
-[
-  { _: "event", event: "visited-japan", image: "IMG_0890.jpeg" },
-  { _: "image", event: "visited-japan", image: "IMG_1324.jpeg" }
-]
+{ "_": "name", "name": "john" } -> "john"
+{ "_": "name", "name": "john", "age": [ "35" ] } -> { "_": "name", "name": "john", "age": "35" }
 ```
 
 ### verbose
-
-An object where all values are expanded to lists of objects, and the schema brach and base value are expanded to a singleton string can be called `verbose`.
-
- - each leaf value is a list of objects
- - base value is a singleton value, a list would be recursive
- - treat single value as list with single element
- - treat string as object with a _ field and a base field
-
+A field value is always a list of records. A string is expanded to a record with a single base value. base name and base value is always a single value.
 ```
-{
-  _: "event",
-  event: "visited-japan",
-  date: "2001-01-01"
-}
-```
-is equivalent to verbose form
-```
-{
-  _: "event",
-  event: "visited-japan",
-  date: [ { _: "date", date: "2001-01-01" } ]
-}
-```
-
-In verbose form, the schema branch `_`must be a singleton string, and the base value `event` must be a singleton string. 
-`{ _: "event", event: "visited-japan" }`
-
-When the schema branch or the base value is a list, they must be divided into separate objects and leaf field must be common for each of the separate objects. The dataset maintainer must design the schema to define the relationships between overlapping branch values.
-
-If the schema branch is list, the object must be divided into separate objects for each item of the list. The leaf fields must be common for each of the separate objects.
-```
-`{ _: [ "event", "image" ], event: "visited-japan", image: "IMG_0890.jpeg" }`
-```
-is equivalent to verbose form
-```
-[
-  { _: "event", event: "visited-japan", image: "IMG_0890.jpeg" },
-  { _: "image", event: "visited-japan", image: "IMG_0890.jpeg" }
-]
-```
-
-If the schema branch is list, the object must be divided into separate objects for each itema of the list. The leaf fields must be common for each of the separate objects.
-```
-`{ _: "event", event: [ "visited-japan", "cooked-lasagna" ], image: "IMG_0890.jpeg" }`
-```
-is equivalent to verbose form
-```
-[
-  { _: "event", event: "visited-japan", image: "IMG_0890.jpeg" },
-  { _: "event", event: "cooked-lasagna", image: "IMG_0890.jpeg" }
-]
+"john" -> { "_": "name", "name": "john" }
+{ "_": "name", "name": "john", "age": "35" } -> { "_": "name", "name": "john", "age": [ { "_": "age", "age": "35" } ] }
 ```
 
 ### mixed
 
-Values inside a list can be both records and strings. 
+Record can contain both expanded records and concise strings. 
+```
+{ "_": "event", "event": "visited-japan", "date": [ "2001-01-01", { "_": "date", "date": "2005-01-01" } ]}
+```
