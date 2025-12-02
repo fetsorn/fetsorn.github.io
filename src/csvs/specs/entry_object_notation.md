@@ -23,13 +23,6 @@ Dataset object notation is a JSON object, and thus a subset of [RFC 8259](https:
 
     item = record / string
 
-NOTE: Given a field with a list, all items of a list must have the same base as field.
-NOTE: Given a field with a record, the record should have the same base as field.
-NOTE: Keys must be unique in a record.
-NOTE: Discard empty list [], empty object {}, object without a base, object with base different than the field, object with a base branch but no base value.
-
-For example, this record represents that John is 35 years old: `{ "_": "name", "name": "John", "age": "35" }`.
-
 As you can see, SON is stricter than JSON in several regards:
 
 1. There are no numbers, booleans, or null - the only allowed literal is a string.
@@ -39,6 +32,16 @@ As you can see, SON is stricter than JSON in several regards:
 ## dataset format
 
 A SON dataset is a set of SON records. Together, records comprise a database based on the relational model of data. Some records are special and describe a dataset structure. Other records describe data.
+
+NOTE: Given a field with a list, all items of a list must have the same base as field.
+
+NOTE: Given a field with a record, the record should have the same base as field.
+
+NOTE: Keys must be unique in a record.
+
+NOTE: Discard empty list [], empty object {}, object without a base, object with base different than the field, object with a base branch but no base value.
+
+For example, this record represents that John is 35 years old: `{ "_": "name", "name": "John", "age": "35" }`.
 
 ### schema record
 
