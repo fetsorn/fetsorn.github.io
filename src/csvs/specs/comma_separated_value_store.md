@@ -89,24 +89,24 @@ Multiple data tablets can represent a set of connected values from multiple coll
 
 For example, let's represent that John is 35 years old and lives in Bath
 
-_-_.csv
+`_-_.csv`
 ```
 name,age
 name,city
 ```
 
-name-age.csv
+`name-age.csv`
 ```
 john,35
 ```
 
-name-city.csv
+`name-city.csv`
 ```
 john,Bath
 ```
 
 NOTE: a duplicate relationship means a list a values. The following example means John lives in two cities: Bath and London.
-   name-city.csv
+   `name-city.csv`
    ```
    john,Bath
    john,London
