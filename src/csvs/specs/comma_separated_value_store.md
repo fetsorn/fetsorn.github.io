@@ -85,8 +85,14 @@ For example, this tablet is called `name-age.csv` and represents that John is 35
   `john,35
    jane,36`
 
-Multiple data tablets can represent a set of connected values from multiple collections, also called a "record".
-
+NOTE: a duplicate relationship means a list a values. The following example means John lives in two cities: Bath and London.
+   `name-city.csv`
+   ```
+   john,Bath
+   john,London
+   ```
+   
+## Example
 For example, let's represent that John is 35 years old and lives in Bath
 
 `_-_.csv`
@@ -104,10 +110,3 @@ john,35
 ```
 john,Bath
 ```
-
-NOTE: a duplicate relationship means a list a values. The following example means John lives in two cities: Bath and London.
-   `name-city.csv`
-   ```
-   john,Bath
-   john,London
-   ```
