@@ -50,7 +50,7 @@ Other names describe collections of values. For example:
  - a collection name must not be `_` because this name is reserved for the schema.
  - a collection name must not include the following characters: `[/\<>':"```|?*.,[];{}$&]` because collection names can be used for filenames, and these characters are reserved on most filesystems.
  - a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.
- - a collection name can include any of the following: `[azAZ09_%+@]`, white-space and other Unicode characters
+ - a collection name can include any of the following: `[azAZ09%+@]`, white-space and other Unicode characters
 
 NOTE: As you can see a SON collection only exists in a relationship with another, there can be no independent collections.
 
