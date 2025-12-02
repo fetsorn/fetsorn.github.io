@@ -106,6 +106,7 @@ john,Bath
 ```
 
 NOTE: a duplicate relationship means a list a values. The following example means John lives in two cities: Bath and London.
+   name-city.csv
    ```
    john,Bath
    john,London
