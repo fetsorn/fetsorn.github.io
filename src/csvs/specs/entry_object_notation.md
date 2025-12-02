@@ -1,6 +1,6 @@
-# Dataset Object Notation
+# Store Object Notation
 
-This document describes the Dataset Object Notation format. 
+This document describes the Store Object Notation format. 
 
 ## format
 
