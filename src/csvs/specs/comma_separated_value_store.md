@@ -111,9 +111,3 @@ NOTE: a duplicate relationship means a list a values. The following example mean
    john,Bath
    john,London
    ```
-
-Note: a grain is a record with a single relationship, for example.
-name-age.csv
-```
-john,35
-```
