@@ -66,7 +66,7 @@ NOTE: A relation between collections can be recursive. For example, in this data
 ``` 
 and even
 ```
-"event: "event"
+"event": "event"
 ```
 
 NOTE: Given a field with a list, all items of a list must have the same base as field.
@@ -85,13 +85,13 @@ For example, this dataset represents that John is 35 years old and Jane is 36:
 
 ```
 { "_": "_", "name": "age" }
-{ "_": "name", "age": "35" }
-{ "_": "name", "age": "36" }
+{ "_": "name", "name": "john", "age": "35" }
+{ "_": "name", "name": "jane", "age": "36" }
 ```
 
 NOTE: A record that has only one relation is called a "grain"
 ```
-{ "_": "name", "age": "35" }
+{ "_": "name", "name": "john", "age": "35" }
 ```
 
 ### query record
@@ -107,18 +107,13 @@ the regular expression dialect CAN be specific to client implementation
 
 characters reserved by the regular expression dialect MUST be escaped when stored in the dataset as literal values
 
-The following dataset with the files `.csvs-csv`, `_-_.csv` and `event-date.csv` describes two events.
+The following dataset with the files `.csvs-csv`, `_-_.csv` and `event-date.csv` describes three events.
 
 ```
-{ "_": "_", "event": [ "date", "filepath" ], "filepath": [ "filehash", "filesize" ]}
-{ "_": "event", "event": "cooked-lasagna", "date": "2002-02-02" }
+{ "_": "_", "event": [ "date", "filepath" ] ]}
 { "_": "event", "event": "visited-japan", "date": "2001-01-01" }
-{ "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filehash": "photo-everest" }
+{ "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
 ```
-
-query with the base name "_" MUST query dataset schema
-
- - "?_:_" -> { _: _, entity1: "entity2", entity2: "entity3" }
 
 The following query looks for the schema of the dataset
 ```
@@ -126,11 +121,7 @@ The following query looks for the schema of the dataset
 ```
 finds `1` schema record 
 ```
-{
-  _: "_",
-  event: [ "date", "filepath" ],
-  filepath: [ "filehash", filesize" ]
-}
+{ "_": "_", "event": [ "date", "filepath" ]}
 ```
 
 query with the base name "a" MUST match all records of base branch "a" that match constraints specified in the query
@@ -141,151 +132,20 @@ The following query looks for all events in the dataset
 ```
 finds `2` records of base `event`
 ```
-[
-  {
-    _: "event",
-    event: "cooked-lasagna",
-    date: "2002-02-02"
-  },
-  {
-    _: "event",
-    event: "visited-japan",
-    date: "2001-01-01"
-  },
-  {
-    _: "event",
-    event: "climbed-everest",
-    date: "2003-03-03",
-    filepath: "photo-everest"
-  }
-]
+{ "_": "event", "event": "visited-japan", "date": "2001-01-01" }
+{ "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
 ```
 
-The following query looks for all events from January 1st, 2001
+The following query looks for all events in the dataset
 ```
-{ _: "event", date: "2001-01-01" }
+{ _: "event", filepath: "photo" }
 ```
 finds `1` record of base `event`
 ```
-[
-  {
-    _: "event",
-    event: "visited-japan",
-    date: "2001-01-01"
-  }
-]
+{ "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
 ```
 
-query that specifies only base name and base value must match all options of base branch
-  
-literal query that contains regular expression characters must be interpreted as a literal string
-
-regular expression query that contains literal constraint must be interpreted as a regular expression
-
-query with base branch "a" and leader branch "b" MUST return all records of base branch "b" connected to records of base branch "a" that match constraints specified in the query
-
-query with a base branch and no leader branch MUST assume that leader branch is the same as base 
-
-The following query looks for all filepaths that related to events from March 3rd, 2003
-```
-{ _: "event", __: "filepath", date: "2003-03-03" }
-```
-finds `1` record of base `filepath`
-```
-[
-  {
-    _: "filepath",
-    filepath: "photo-everest"
-  }
-]
-```
-
-can field name, branch name be an empty string?
-
-what's the behaviour of leader branch in a schema query with base "_"?
-
-#### query object
-algo MUST take a record where each value is a regex.
-
-each leaf of a record MUST be interpreted as an AND operator.
-
-this MUST match all records a with value a1 that have BOTH leaf1 that matches regex1 AND leaf2 that matches regex2
-`{ _: "a", a: "a1", leaf1: "regex", leaf2: "regex" }`
-
-each value in a list of values MUST be interpreted as an OR operator. FIXME
-
-this MUST match all records a with value a1 that have EITHER leaf1 that matches regex1 OR leaf1 that matches regex2 FIXME
-`{ _: "a", a: "a1", leaf1: [ "regex1", "regex2"] }`
-
-should we interpret list as AND? OR can always be done as "|" inside the regex, but AND needs to happen outside. however, OR list of query objects would match by several `__`. if list is AND a list of query object could not fallback on multiple different `__`. cannot use "|" inside `__` because each `__` requires different leaf branches. although since unrelated leaf branches are discarded, could just provide a `__` that contains "|" with leaf constraints for each possible `__` branch
-
-query by number of list elements WON'T be covered by query object notation
-
-query by number of list elements MUST be impemented as post-processing step outside this library
-
-for the OR operator, use "|" inside a regex
-
-this MUST match all records a with value a1 that have leaf1 that matches EITHER regex1 OR regex2
-`{ _: "a", a: "a1", leaf1: "regex1|regex2" }`
-
-these two query records MUST match different sets of "a" keys FIXME
-
-`{_: "a", a: "a1", b: [ { _: "b", b: "b1", c: "c1" }, { _: "b", b: "b2", c: "c2" }]}`
-
-MUST match a that has BOTH "b1 with c1" AND "b2 with c2" FIXME
-
-`{_: "a", a: "a1", b: {_: "b", b: "b1", c: ["c1", "c2"] }, {_: "b", b: "b2" }}`
-MUST match a that has BOTH "b1 with c1 OR c2", AND "any b2"
-
-- this WON'T match on exact number of values
-- this WON'T mean "a1 with exactly two values of b"
-- this MUST mean "a1 with EITHER b1 or b2"
-`{_: "a", a: "a1", b: [ "b1", "b2" ]}`
-
-#### data structure
-here entity is same as "base branch"
-
-here attribute is same as "leaf branch"
-
- - entity record MUST have a string value
- - entity record MUST have entity name
- - entity record CAN have relations to attribute entities
- - entity record MUST be an list of records
- - entity name SHOULD be described as "_"
- - entity string value SHOULD be described as a field with entity name.
-
-examples of data structure: 
- 
- - `[{ "_": "event", "event": "won in championship", date: [ { "_": "date", "event": "2024-01-01" } ], datum: [], file: [] ] }]`
- - `[{ "_": "event", "event": "won in championship", date: "2024-01-01", datum: [], file: [] ] }]`
- - `[{ "_": "event", "event": "won in championship"]`
- - `_-_.csv`: `event,date`, `event,date`: `went to groceries,2024-01-01`, JSON: `{ "_": "event", "event": "went to groceries", "date": [ { "_": "date", "date": "2024-01-01" } ] }`
- - `[{"_":"event","event":"0bac","dateact":[{"_":"dateact","dateact":"02-01-2023"}],"datum":[{"_":"datum","datum":"went to groceries"}],"file":[{"_":"file","file":"0faa","filename":[{"_":"filename","filename":"image.gif"}]}]}]`
-
-
-## schema
-
-One can use several vocabularies to describe the schema of a SON dataset. 
-
-As a relational database, the schema can be described in terms of collections and attributes. For example, all names are in a collection called "name", and all ages are in a collection called "age", which is an attribute of "name".
-
-Seen as an abstract data type, the schema can be described in terms of tree nodes. For example, all names are in a node "name", all ages are in a node "age". Nodes "name" and "age" are connected. "name" is a parent node of "age", and "age" is a child node of "name". "name" is a root node because it does not have parents. "age" is an external node, because it does not have children.
-
-We use special terminology to describe the SON dataset schema in terms of "branches". For example, all names are in the branch "name", all ages are in the branch "age". "name" is a trunk of "age", and "age" is a leaf of "name". "name" is a root because it does not have trunks. "age" is a twig because it does not have leaves. 
-
-A typical schema has several levels of nesting. For example,
-```
-{
-  "_": "_",
-  "event": ["date", "name", "text"],
-  "name": "address", 
-  "address": "city"
-}
-```
-
-Here, an event has several leaves, - "date", "name" and "text". The "name" branch also has a leaf "address" which itself is a trunk of "city".
-
-The terms are also listed below in the "Terminology" section.
+Each item of a list must be interpreted as an AND operator. Each field of a record must be interpreted as an AND operator. For OR operator, use `|` inside the regex, or make multiple queries.
 
 ## Form
 
@@ -426,6 +286,30 @@ is equivalent to verbose form
 ### loose
 
 Values inside a list can be both records and strings. 
+
+## schema
+
+One can use several vocabularies to describe the schema of a SON dataset. 
+
+As a relational database, the schema can be described in terms of collections and attributes. For example, all names are in a collection called "name", and all ages are in a collection called "age", which is an attribute of "name".
+
+Seen as an abstract data type, the schema can be described in terms of tree nodes. For example, all names are in a node "name", all ages are in a node "age". Nodes "name" and "age" are connected. "name" is a parent node of "age", and "age" is a child node of "name". "name" is a root node because it does not have parents. "age" is an external node, because it does not have children.
+
+We use special terminology to describe the SON dataset schema in terms of "branches". For example, all names are in the branch "name", all ages are in the branch "age". "name" is a trunk of "age", and "age" is a leaf of "name". "name" is a root because it does not have trunks. "age" is a twig because it does not have leaves. 
+
+A typical schema has several levels of nesting. For example,
+```
+{
+  "_": "_",
+  "event": ["date", "name", "text"],
+  "name": "address", 
+  "address": "city"
+}
+```
+
+Here, an event has several leaves, - "date", "name" and "text". The "name" branch also has a leaf "address" which itself is a trunk of "city".
+
+The terms are also listed below in the "Terminology" section.
 
 ## Terminology
 
