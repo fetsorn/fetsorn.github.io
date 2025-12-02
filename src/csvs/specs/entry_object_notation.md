@@ -84,6 +84,11 @@ For example, this dataset represents that John is 35 years old and Jane is 36:
 { "_": "name", "age": "36" }
 ```
 
+NOTE: A record that has only one relation is called a "grain"
+```
+{ "_": "name", "age": "35" }
+```
+
 ## schema
 
 One can use several vocabularies to describe the schema of a DON dataset. 
@@ -432,3 +437,20 @@ examples of data structure:
  - `_-_.csv`: `event,date`, `event,date`: `went to groceries,2024-01-01`, JSON: `{ "_": "event", "event": "went to groceries", "date": [ { "_": "date", "date": "2024-01-01" } ] }`
  - `[{"_":"event","event":"0bac","dateact":[{"_":"dateact","dateact":"02-01-2023"}],"datum":[{"_":"datum","datum":"went to groceries"}],"file":[{"_":"file","file":"0faa","filename":[{"_":"filename","filename":"image.gif"}]}]}]`
 
+## Terminology
+
+tablet - a CSVS file
+
+branch - a collection. a node.
+
+twig - a collection without attributes. an external node.
+
+trunk - a collection with attributes. a parent node. a branch can have multiple trunks. 
+
+leaf - an attribute of another collection. a child node. a branch can have multiple leaves. 
+
+root - a collection that is not an attribute of any other collection. a root node. a dataset can have multiple roots.
+
+record - a set of connected values from multiple collections.
+
+grain - a pair of connected values from two collections
