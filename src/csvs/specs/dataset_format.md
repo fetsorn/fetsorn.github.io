@@ -156,3 +156,5 @@ leaf - an attribute of another collection. a child node. a branch can have multi
 root - a collection that is not an attribute of any other collection. a root node. a dataset can have multiple roots.
 
 record - a set of connected values from multiple collections.
+
+grain - a pair of connected values from two collections
