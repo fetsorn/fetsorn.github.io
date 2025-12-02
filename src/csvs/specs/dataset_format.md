@@ -69,6 +69,11 @@ NOTE: A relation between collections can be recursive. For example, in this data
 event,date
 date,event
 ``` 
+and even
+```
+event,event
+``` 
+
 
 NOTE: A duplicate relationship is ignored. For example
 ```
