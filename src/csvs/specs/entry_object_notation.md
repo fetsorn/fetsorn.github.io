@@ -1,160 +1,118 @@
-# Entry Object Notation
+# Dataset Object Notation
 
-This document describes the object notation that represents records in a csvs dataset.
+This document describes the Dataset Object Notation format. 
 
-Entry object notation is a subset of [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259). In cases where this document contradicts the RFC, RFC takes precedence and this document should be corrected.
+## format
 
-# grammar
+Dataset object notation is a JSON object, and thus a subset of [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259).  It is defined by the following ABNF grammar:
 
-string - text value escaped according to rfc 8259
+    QON-text = ws record ws
 
-list - array of strings, or of lists according to rfc 8259
+    record = begin-object [ base value-separator member *( value-separator member ) ]
+             end-object
 
-key - string object accessor according to rfc 8259
+    base = underscore name-separator string
 
-value - a string or a list, or an object
+    underscore = quotation-mark _ quotation-mark
 
-field - a pair of key and value
+    link = string name-separator data
 
-object - a set of key-value pairs
+    data = record / list / string
 
-key MUST be unique in an object, no `{ a: 1, a: 2 }`
+    list = begin-array [ item *( value-separator item ) ] end-array
 
-object that has no keys {} CAN be called empty
+    item = record / string
 
-object MUST contain a key "_"
+NOTE: Given a field with a list, all items of a list must have the same base as field.
+NOTE: Given a field with a record, the record should have the same base as field.
+NOTE: Keys must be unique in a record.
+NOTE: Discard empty list [], empty object {}, object without a base, object with base different than the field, object with a base branch but no base value.
 
-if object does not contain a key "_", it SHOULD be considered empty
+For example, this record represents that John is 35 years old: `{ "_": "name", "name": "John", "age": "35" }`.
 
-# Examples with records and datasets
+As you can see, DON is stricter than JSON in several regards:
 
-object with field `_: "_"` MUST represent the dataset schema
+1. There are no numbers, booleans, or null - the only allowed literal is a string.
+2. Arrays must not contain other arrays - the only alowed items are records or strings. 
+3. Objects must have a base field with a fixed key "_". The base represents a group of values as described below. 
 
-key "_" MUST represent the base branch of a record
+## dataset
 
-nested relations between branches MUST be represented as nested object values
+A DON dataset is a set of DON records. Together, records comprise a database based on the relational model of data. Some records are special and describe a dataset structure. Other records describe data.
 
-The following dataset with the files `.csvs-csv`, `_-_.csv` and `event-date.csv` describes two events.
+### schema record
 
-> `.csvs.csv`
-``` csv
-csvs,0.0.2
+A dataset must contain a single schema record which describes the dataset. 
+
+Names that start with "_" are reserved and describe the metadata of the dataset.
+
+`"_": "_"` - this field is required and always has a reserved value of the underscore.
+`"_version": "0.0.3"` - this field is to support future breaking changes to the format.
+`"_id": "some-uniq-uenu-mber"` - this field is to uniquely identify this dataset.
+
+Other names describe collections of values. For example:
+ - `"event": "date"` - dataset has an "event" collection with an attribute collection "date".
+
+ The schema tablet has special naming rules:
+ - a collection name must not be `_` because this name is reserved for the schema.
+ - a collection name must not include the following characters: `[/\<>':"```|?*.,[];{}$&]` because collection names can be used for filenames, and these characters are reserved on most filesystems.
+ - a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.
+ - a collection name can include any of the following: `[azAZ09_%+@]`, white-space and other Unicode characters
+
+NOTE: As you can see a DON collection only exists in a relationship with another, there can be no independent collections.
+
+NOTE: For a field that has multiple connections, use a list
+```
+"event": ["date", "name"]
 ```
 
-> `_-_.csv`
-``` csv
-event, date
-event, filepath
-filepath, filehash
-filepath, filesize
+NOTE: A relation between collections can be recursive. For example, in this dataset events can have dates, and dates can have events.
+```
+"event": "date",
+"date: "event"
+``` 
+
+### data record
+
+For relationships described in the schema, a data record describes relationships between values.
+
+For example, this dataset represents that John is 35 years old and Jane is 36:
+
+```
+{ "_": "_", "name": "age" }
+{ "_": "name", "age": "35" }
+{ "_": "name", "age": "36" }
 ```
 
-> `event-date.csv`
-``` csv
-cooked-lasagna,2002-02-02
-visited-japan,2001-01-01
-```
+## schema
 
-This dataset represents `1` schema record, `2` records of branch `event` and `2` records of branch `date`.
+One can use several vocabularies to describe the schema of a DON dataset. 
 
-The schema record
+As a relational database, the schema can be described in terms of collections and attributes. For example, all names are in a collection called "name", and all ages are in a collection called "age", which is an attribute of "name".
+
+Seen as an abstract data type, the schema can be described in terms of tree nodes. For example, all names are in a node "name", all ages are in a node "age". Nodes "name" and "age" are connected. "name" is a parent node of "age", and "age" is a child node of "name". "name" is a root node because it does not have parents. "age" is an external node, because it does not have children.
+
+We use special terminology to describe the DON dataset schema in terms of "branches". For example, all names are in the branch "name", all ages are in the branch "age". "name" is a trunk of "age", and "age" is a leaf of "name". "name" is a root because it does not have trunks. "age" is a twig because it does not have leaves. 
+
+A typical schema has several levels of nesting. For example,
 ```
 {
-  _: "_",
-  event: [ "date", "filepath" ],
-  filepath: [ "filehash", filesize" ]
+  "_": "_",
+  "event": ["date", "name", "text"],
+  "name": "address", 
+  "address": "city"
 }
 ```
 
-Two `event` records
-```
-{
-  _: "event",
-  event: "cooked-lasagna",
-  date: "2002-02-02"
-}
-```
-```
-{
-  _: "event",
-  event: "visited-japan",
-  date: "2001-01-01"
-}
-```
+Here, an event has several leaves, - "date", "name" and "text". The "name" branch also has a leaf "address" which itself is a trunk of "city".
 
-Two `date` records
-```
-{
-  _: "date",
-  date: "2002-02-02"
-}
-```
-```
-{
-  _: "event",
-  date: "2001-01-01"
-}
-```
+The terms are also listed below in the "Terminology" section.
 
-# normal form
-requirement `neutral clutch blame`
+## Form
 
-Each value can be a list of objects. 
+DON is meant to be both machine- and human- readable, so it can have several equivalent forms. Use concise form for human readability and less repetition. Use verbose form for easier parsing. When in doubt, consider the record to be in mixed, loose form.
 
-# verbose
-An object where all values are expanded to lists of objects, and the schema brach and base value are expanded to a singleton string can be called `verbose`.
-
- - each leaf value is a list of objects
- - base value is a singleton value, a list would be recursive
- - treat single value as list with single element
- - treat string as object with a _ field and a base field
-
-```
-{
-  _: "event",
-  event: "visited-japan",
-  date: "2001-01-01"
-}
-```
-is equivalent to verbose form
-```
-{
-  _: "event",
-  event: "visited-japan",
-  date: [ { _: "date", date: "2001-01-01" } ]
-}
-```
-
-In verbose form, the schema branch `_`must be a singleton string, and the base value `event` must be a singleton string. 
-`{ _: "event", event: "visited-japan" }`
-
-When the schema branch or the base value is a list, they must be divided into separate objects and leaf field must be common for each of the separate objects. The dataset maintainer must design the schema to define the relationships between overlapping branch values.
-
-If the schema branch is list, the object must be divided into separate objects for each item of the list. The leaf fields must be common for each of the separate objects.
-```
-`{ _: [ "event", "image" ], event: "visited-japan", image: "IMG_0890.jpeg" }`
-```
-is equivalent to verbose form
-```
-[
-  { _: "event", event: "visited-japan", image: "IMG_0890.jpeg" },
-  { _: "image", event: "visited-japan", image: "IMG_0890.jpeg" }
-]
-```
-
-If the schema branch is list, the object must be divided into separate objects for each itema of the list. The leaf fields must be common for each of the separate objects.
-```
-`{ _: "event", event: [ "visited-japan", "cooked-lasagna" ], image: "IMG_0890.jpeg" }`
-```
-is equivalent to verbose form
-```
-[
-  { _: "event", event: "visited-japan", image: "IMG_0890.jpeg" },
-  { _: "event", event: "cooked-lasagna", image: "IMG_0890.jpeg" }
-]
-```
-
-## concise
+### concise
 Lists that have only one element and objects that have only base field can be expressed as singleton values. An object where all values are condensed to singletons can be called `concise`.
 
  - treat as "value" when the field is object with value
@@ -232,57 +190,60 @@ Elements in a list that have different fields can't be expressed in a more conci
 ]
 ```
 
-# schema object
+### verbose
 
-Object with base `_` must represent a flattened structure of relationships between schema branches, each field must represent a list of connections between trunk and leaves.
+An object where all values are expanded to lists of objects, and the schema brach and base value are expanded to a singleton string can be called `verbose`.
 
- - trunk branch is a key
- - field value is a list
- - leaf branch is a string
+ - each leaf value is a list of objects
+ - base value is a singleton value, a list would be recursive
+ - treat single value as list with single element
+ - treat string as object with a _ field and a base field
 
-A concise form
 ```
 {
-  _: "_",
-  event: [ "date", "filepath" ],
-  filepath: "filehash"
+  _: "event",
+  event: "visited-japan",
+  date: "2001-01-01"
+}
+```
+is equivalent to verbose form
+```
+{
+  _: "event",
+  event: "visited-japan",
+  date: [ { _: "date", date: "2001-01-01" } ]
 }
 ```
 
-A verbose form
+In verbose form, the schema branch `_`must be a singleton string, and the base value `event` must be a singleton string. 
+`{ _: "event", event: "visited-japan" }`
+
+When the schema branch or the base value is a list, they must be divided into separate objects and leaf field must be common for each of the separate objects. The dataset maintainer must design the schema to define the relationships between overlapping branch values.
+
+If the schema branch is list, the object must be divided into separate objects for each item of the list. The leaf fields must be common for each of the separate objects.
 ```
-{
-  _: "_",
-  event: [ "date", "filepath" ],
-  filepath: [ "filehash" ]
-}
+`{ _: [ "event", "image" ], event: "visited-japan", image: "IMG_0890.jpeg" }`
+```
+is equivalent to verbose form
+```
+[
+  { _: "event", event: "visited-japan", image: "IMG_0890.jpeg" },
+  { _: "image", event: "visited-japan", image: "IMG_0890.jpeg" }
+]
 ```
 
-# questions
-discard empty list
+If the schema branch is list, the object must be divided into separate objects for each itema of the list. The leaf fields must be common for each of the separate objects.
+```
+`{ _: "event", event: [ "visited-japan", "cooked-lasagna" ], image: "IMG_0890.jpeg" }`
+```
+is equivalent to verbose form
+```
+[
+  { _: "event", event: "visited-japan", image: "IMG_0890.jpeg" },
+  { _: "event", event: "cooked-lasagna", image: "IMG_0890.jpeg" }
+]
+```
 
-discard empty object
+### loose
 
-discard object without a base branch
-
-discard object with base branch different than the assigned key
-
-discard object with a base branch but no base value
-
-  - treat empty object as "" when field is. should we discard instead?
-    - { _: {} }
-  - treat empty array as "" when field is. should we discard instead?
-    - { _: [] }
-     
-do we ignore and discard empty objects?
-
-do we treat empty objects as empty string?
-
-there's reason to discard empty object cause it has no base branch and so unpredictable vague semantics
-
-but in a field value base branch is the key, so should we discard object without a base?
-
-what is the semantics of a field value with a base branch different than the key?
-
-how to differentiate names of fields between `_: amount` and `amount: "1"`? one is base branch name, another is base branch value.
-
+Values inside a list can be both records and strings. 
