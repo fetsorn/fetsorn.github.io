@@ -48,7 +48,7 @@ Names that start with "_" are reserved and describe the metadata of the dataset.
 
 `"_": "_"` - this field is required and always has a reserved value of the underscore.
 `"_version": "0.0.3"` - this field is to support future breaking changes to the format.
-`"_id": "some-uniq-uenu-mber"` - this field is to uniquely identify this dataset.
+`"_id": "some-uniq-numb-er"` - this field is to uniquely identify this dataset.
 
 Other names describe collections of values. For example:
  - `"event": "date"` - dataset has an "event" collection with an attribute collection "date".
