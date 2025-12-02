@@ -138,7 +138,7 @@ Each item of a list must be interpreted as an AND operator. Each field of a reco
 
 ## Form
 
-SON is meant to be both machine- and human- readable, so it can have several equivalent forms. Use concise form for human readability and less repetition. Use verbose form for easier parsing. When in doubt, consider the record to be in mixed, loose form.
+SON is meant to be both machine- and human- readable, so it can have several equivalent forms. Use concise form for human readability and less repetition. Use verbose form for easier parsing. When in doubt, consider the record to be in mixed form, i.e. containing both concise and verbose values.
 
 ### concise
 Lists that have only one element and objects that have only base field can be expressed as singleton values. An object where all values are condensed to singletons can be called `concise`.
@@ -272,7 +272,7 @@ is equivalent to verbose form
 ]
 ```
 
-### loose
+### mixed
 
 Values inside a list can be both records and strings. 
 
