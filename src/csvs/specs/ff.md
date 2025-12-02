@@ -29,8 +29,6 @@ The terms are also listed below in the "Terminology" section.
 
 ## Terminology
 
-tablet - a CSVS file
-
 branch - a collection. a node.
 
 twig - a collection without attributes. an external node.
