@@ -121,9 +121,6 @@ name-age.csv
 john,35
 ```
 
-CSVS can fully represent objects specified by the Query Object Notation. For example, the dataset above represents a record 
-`{ "_": "name", "name": "john", "age": "35", "city": "Bath" }`. For more complex examples see QON specification.
-
 ## schema
 
 One can use several vocabularies to describe the schema of a CSVS dataset. 
