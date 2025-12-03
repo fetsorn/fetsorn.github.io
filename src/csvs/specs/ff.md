@@ -43,4 +43,4 @@ record - a set of connected values from multiple collections.
 
 grain - a pair of connected values from two collections
 
-singleton - a single value without a relation
+option - a single value without a relation
