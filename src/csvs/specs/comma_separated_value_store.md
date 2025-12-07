@@ -34,27 +34,29 @@ As you can see, CSVS is stricter than CSV in several regards:
 
 1. There are only two columns, and other columns are discarded. 
 
-2. There are no headers inside the file. Instead, headers are in the file names as decribed below.
+2. There are no headers inside the file. Instead, headers are in the file names as described below.
 
 ## dataset
 
 A CSVS dataset is a directory with CSVS files, also called "tablets". Together, tablets comprise a database based on the relational model of data. The schema tablet is special and describes the dataset structure. Other tablets describe relationships between values.
 
+### version tablet
+
+a dataset must contain a tablet named `.csvs.csv`, also called "version tablet", which describes the dataset.
+
+ - `version,0.0.3`, this line is to support future breaking changes to the format.
+ - `id,some-uniq-uenu-mber`, this line is to uniquely identify this dataset.
+
 ### schema tablet
 
 a dataset must contain a tablet named `_-_.csv`, also called "schema tablet", which describes relationships between collections. Specifying a collection here will allow to create a tablet with collection values later.
-
-Names that start with "_" are reserved and describe the metadata of the dataset.
-
- - `_version,0.0.3`, this line is to support future breaking changes to the format.
- - `_id,some-uniq-uenu-mber`, this line is to uniquely identify this dataset.
 
 Other names describe collections of values. For example:
  - `event,date` - dataset has an "event" collection with an attribute collection "date".
 
 The schema tablet has special naming rules:
  - a collection name must not be `_` because this name is reserved for the schema.
- - a collection name must not include the following characters: `[/\<>':"```|?*.,[];{}$&]` because collection names can be used for filenames, and these characters are reserved on most filesystems.
+ - a collection name must not include the following characters: `[/\<>':"```|?*.,[];{}$&\n\r]` because collection names can be used for filenames, and these characters are reserved on most filesystems.
  - a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.
  - a collection name can include any of the following: `[azAZ09%+@]`, white-space and other Unicode characters
 
@@ -69,7 +71,6 @@ and even
 ```
 event,event
 ``` 
-
 
 NOTE: A duplicate relationship is ignored. For example
 ```
@@ -94,6 +95,12 @@ NOTE: a duplicate relationship means a list a values. The following example mean
    
 ## Example
 For example, let's represent that John is 35 years old and lives in Bath
+
+`.csvs.csv`
+```
+version,0.0.3
+id,some-uniq-numb-er
+```
 
 `_-_.csv`
 ```

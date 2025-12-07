@@ -24,7 +24,7 @@ Dataset object notation is a JSON object, and thus a subset of [RFC 8259](https:
 As you can see, SON is stricter than JSON in several regards:
 
 1. There are no numbers, booleans, or null - the only allowed literal is a string.
-2. Arrays must not contain other arrays - the only alowed items are records or strings. 
+2. Arrays must not contain other arrays - the only allowed items are records or strings. 
 3. Objects must have a base field with a fixed key "_". The base represents a group of values as described below. 
 
 ## dataset format
@@ -33,15 +33,17 @@ A SON dataset is a set of SON records. Together, records comprise a database bas
 
 For example, this record represents that John is 35 years old: `{ "_": "name", "name": "John", "age": "35" }`.
 
-### schema record
-
-A dataset must contain a single schema record which describes the dataset. 
+### version record
 
 Names that start with "_" are reserved and describe the metadata of the dataset.
 
-`"_": "_"` - this field is required and always has a reserved value of the underscore.
-`"_version": "0.0.3"` - this field is to support future breaking changes to the format.
-`"_id": "some-uniq-numb-er"` - this field is to uniquely identify this dataset.
+`"_": "."` - this field is required and always has a reserved value of the period.
+`"version": "0.0.3"` - this field is to support future breaking changes to the format.
+`"id": "some-uniq-numb-er"` - this field is to uniquely identify this dataset.
+
+### schema record
+
+A dataset must contain a single schema record which describes the dataset. 
 
 Other names describe collections of values. For example:
  - `"event": "date"` - dataset has an "event" collection with an attribute collection "date".
@@ -51,6 +53,8 @@ Other names describe collections of values. For example:
  - a collection name must not include the following characters: `[/\<>':"```|?*.,[];{}$&]` because collection names can be used for filenames, and these characters are reserved on most filesystems.
  - a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.
  - a collection name can include any of the following: `[azAZ09%+@]`, white-space and other Unicode characters
+
+`"_": "_"` - this field is required and always has a reserved value of the period.
 
 NOTE: As you can see a SON collection only exists in a relationship with another, there can be no independent collections.
 
@@ -84,6 +88,7 @@ For relationships described in the schema, a data record describes relationships
 For example, this dataset represents that John is 35 years old and Jane is 36:
 
 ```
+{ "_": ".", "version": "0.0.3", "id": "some-uniq-numb-er" }
 { "_": "_", "name": "age" }
 { "_": "name", "name": "john", "age": "35" }
 { "_": "name", "name": "jane", "age": "36" }
@@ -96,6 +101,7 @@ To find data records in the dataset, one can use query records. In a query recor
 The following dataset with the files `.csvs-csv`, `_-_.csv` and `event-date.csv` describes three events.
 
 ```
+{ "_": ".", "version": "0.0.3", "id": "some-uniq-numb-er" }
 { "_": "_", "event": [ "date", "filepath" ] ]}
 { "_": "event", "event": "visited-japan", "date": "2001-01-01" }
 { "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
