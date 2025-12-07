@@ -208,18 +208,19 @@
 <p>There are only two columns, and other columns are discarded.</p>
 </li>
 <li>
-<p>There are no headers inside the file. Instead, headers are in the file names as decribed below.</p>
+<p>There are no headers inside the file. Instead, headers are in the file names as described below.</p>
 </li>
 </ol>
 <h2 id="dataset"><a class="header" href="#dataset">dataset</a></h2>
 <p>A CSVS dataset is a directory with CSVS files, also called "tablets". Together, tablets comprise a database based on the relational model of data. The schema tablet is special and describes the dataset structure. Other tablets describe relationships between values.</p>
+<h3 id="version-tablet"><a class="header" href="#version-tablet">version tablet</a></h3>
+<p>a dataset must contain a tablet named <code>.csvs.csv</code>, also called "version tablet", which describes the dataset.</p>
+<ul>
+<li><code>version,0.0.3</code>, this line is to support future breaking changes to the format.</li>
+<li><code>id,some-uniq-uenu-mber</code>, this line is to uniquely identify this dataset.</li>
+</ul>
 <h3 id="schema-tablet"><a class="header" href="#schema-tablet">schema tablet</a></h3>
 <p>a dataset must contain a tablet named <code>_-_.csv</code>, also called "schema tablet", which describes relationships between collections. Specifying a collection here will allow to create a tablet with collection values later.</p>
-<p>Names that start with "_" are reserved and describe the metadata of the dataset.</p>
-<ul>
-<li><code>_version,0.0.3</code>, this line is to support future breaking changes to the format.</li>
-<li><code>_id,some-uniq-uenu-mber</code>, this line is to uniquely identify this dataset.</li>
-</ul>
 <p>Other names describe collections of values. For example:</p>
 <ul>
 <li><code>event,date</code> - dataset has an "event" collection with an attribute collection "date".</li>
@@ -227,7 +228,7 @@
 <p>The schema tablet has special naming rules:</p>
 <ul>
 <li>a collection name must not be <code>_</code> because this name is reserved for the schema.</li>
-<li>a collection name must not include the following characters: <code>[/\&lt;&gt;':"```|?*.,[];{}$&amp;]</code> because collection names can be used for filenames, and these characters are reserved on most filesystems.</li>
+<li>a collection name must not include the following characters: <code>[/\&lt;&gt;':"```|?*.,[];{}$&amp;\n\r]</code> because collection names can be used for filenames, and these characters are reserved on most filesystems.</li>
 <li>a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.</li>
 <li>a collection name can include any of the following: <code>[azAZ09%+@]</code>, white-space and other Unicode characters</li>
 </ul>
@@ -254,6 +255,10 @@ john,London
 </code></pre>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
 <p>For example, let's represent that John is 35 years old and lives in Bath</p>
+<p><code>.csvs.csv</code></p>
+<pre><code>version,0.0.3
+id,some-uniq-numb-er
+</code></pre>
 <p><code>_-_.csv</code></p>
 <pre><code>name,age
 name,city

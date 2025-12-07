@@ -197,18 +197,19 @@ item = record / string
 <p>As you can see, SON is stricter than JSON in several regards:</p>
 <ol>
 <li>There are no numbers, booleans, or null - the only allowed literal is a string.</li>
-<li>Arrays must not contain other arrays - the only alowed items are records or strings.</li>
+<li>Arrays must not contain other arrays - the only allowed items are records or strings.</li>
 <li>Objects must have a base field with a fixed key "_". The base represents a group of values as described below.</li>
 </ol>
 <h2 id="dataset-format"><a class="header" href="#dataset-format">dataset format</a></h2>
 <p>A SON dataset is a set of SON records. Together, records comprise a database based on the relational model of data. The schema record describes the dataset structure. Other records describe data.</p>
 <p>For example, this record represents that John is 35 years old: <code>{ "_": "name", "name": "John", "age": "35" }</code>.</p>
+<h3 id="version-record"><a class="header" href="#version-record">version record</a></h3>
+<p>Names that start with "_" are reserved and describe the metadata of the dataset.</p>
+<p><code>"_": "."</code> - this field is required and always has a reserved value of the period.
+<code>"version": "0.0.3"</code> - this field is to support future breaking changes to the format.
+<code>"id": "some-uniq-numb-er"</code> - this field is to uniquely identify this dataset.</p>
 <h3 id="schema-record"><a class="header" href="#schema-record">schema record</a></h3>
 <p>A dataset must contain a single schema record which describes the dataset.</p>
-<p>Names that start with "_" are reserved and describe the metadata of the dataset.</p>
-<p><code>"_": "_"</code> - this field is required and always has a reserved value of the underscore.
-<code>"_version": "0.0.3"</code> - this field is to support future breaking changes to the format.
-<code>"_id": "some-uniq-numb-er"</code> - this field is to uniquely identify this dataset.</p>
 <p>Other names describe collections of values. For example:</p>
 <ul>
 <li><code>"event": "date"</code> - dataset has an "event" collection with an attribute collection "date".</li>
@@ -220,6 +221,7 @@ item = record / string
 <li>a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.</li>
 <li>a collection name can include any of the following: <code>[azAZ09%+@]</code>, white-space and other Unicode characters</li>
 </ul>
+<p><code>"_": "_"</code> - this field is required and always has a reserved value of the period.</p>
 <p>NOTE: As you can see a SON collection only exists in a relationship with another, there can be no independent collections.</p>
 <p>NOTE: For a field that has multiple connections, use a list</p>
 <pre><code>"event": ["date", "name"]
@@ -238,14 +240,16 @@ item = record / string
 <h3 id="data-record"><a class="header" href="#data-record">data record</a></h3>
 <p>For relationships described in the schema, a data record describes relationships between values.</p>
 <p>For example, this dataset represents that John is 35 years old and Jane is 36:</p>
-<pre><code>{ "_": "_", "name": "age" }
+<pre><code>{ "_": ".", "version": "0.0.3", "id": "some-uniq-numb-er" }
+{ "_": "_", "name": "age" }
 { "_": "name", "name": "john", "age": "35" }
 { "_": "name", "name": "jane", "age": "36" }
 </code></pre>
 <h3 id="query-record"><a class="header" href="#query-record">query record</a></h3>
 <p>To find data records in the dataset, one can use query records. In a query record, the string can be a regular expression. And a record can have no base value, just a base field.</p>
 <p>The following dataset with the files <code>.csvs-csv</code>, <code>_-_.csv</code> and <code>event-date.csv</code> describes three events.</p>
-<pre><code>{ "_": "_", "event": [ "date", "filepath" ] ]}
+<pre><code>{ "_": ".", "version": "0.0.3", "id": "some-uniq-numb-er" }
+{ "_": "_", "event": [ "date", "filepath" ] ]}
 { "_": "event", "event": "visited-japan", "date": "2001-01-01" }
 { "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
 </code></pre>
