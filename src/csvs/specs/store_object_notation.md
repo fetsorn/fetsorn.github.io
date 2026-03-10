@@ -48,9 +48,9 @@ A dataset must contain a single schema record which describes the dataset.
 Other names describe collections of values. For example:
  - `"event": "date"` - dataset has an "event" collection with an attribute collection "date".
 
- The schema tablet has special naming rules:
+The schema tablet has special naming rules:
  - a collection name must not be `_` because this name is reserved for the schema.
- - a collection name must not include the following characters: `[/\<>':"```|?*.,[];{}$&]` because collection names can be used for filenames, and these characters are reserved on most filesystems.
+ - a collection name must not include the following characters: `[/\<>':"```|?*.,[];{}$&\n\r]` because collection names can be used for filenames, and these characters are reserved on most filesystems.
  - a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.
  - a collection name can include any of the following: `[azAZ09%+@]`, white-space and other Unicode characters
 
