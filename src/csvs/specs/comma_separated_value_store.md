@@ -8,7 +8,7 @@ This document specifies the CSVS dataset format.
 
 A CSVS file, also called "tablet", is a CSV file, and thus a subset of RFC 4180. It is defined by the following ABNF grammar:
 
-      file = record *(CRLF record) [CRLF]
+      file = record *(line-ending record) [line-ending]
 
       record = field COMMA field
 
@@ -28,11 +28,13 @@ A CSVS file, also called "tablet", is a CSV file, and thus a subset of RFC 4180.
 
       CRLF = CR LF ;as per section 6.1 of RFC 2234 [2]
 
-      TEXTDATA = *UTF-8
+      line-ending = CRLF / LF
+
+      TEXTDATA = %x20-21 / %x23-2B / %x2D-D7FF / %xE000-10FFFF
 
 As you can see, CSVS is stricter than CSV in several regards:
 
-1. There are only two columns, and other columns are discarded. 
+1. There are only two columns, and other columns are discarded. The first column is the key and the second column is the value. A key can have multiple values (multiple records with the same first field), forming a one-to-many relationship. Multiple keys can have the same value, forming a many-to-one relationship.
 
 2. There are no headers inside the file. Instead, headers are in the file names as described below.
 
@@ -59,6 +61,8 @@ The schema tablet has special naming rules:
  - a collection name must not include the following characters: `[/\<>':"```|?*.,[];{}$&\n\r]` because collection names can be used for filenames, and these characters are reserved on most filesystems.
  - a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.
  - a collection name can include any of the following: `[azAZ09%+@]`, white-space and other Unicode characters
+
+values are unconstrained UTF-8; only collection names have naming restrictions
 
 NOTE: As you can see a CSVS collection only exists in a relationship with another, there can be no independent collections.
 
