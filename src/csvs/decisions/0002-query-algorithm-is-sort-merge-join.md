@@ -11,11 +11,11 @@ The csvs query operation reconstructs records from sorted tablet files (one per 
 
 The query problem appears to map to a **multi-way join across sorted files organized by a tree-shaped schema**. The closest known algorithm is **sort-merge join**: a single coordinated pass through each sorted file.
 
-| Query type | Sort-merge (current) | With indexes |
-|---|---|---|
-| All records | O(total data) — likely optimal | Same |
-| Single key | O(total data) | O(log N) per tablet |
-| Key range | O(total data) | O(log N + matches) |
+| Query type  | Sort-merge (current)           | With indexes        |
+|-------------|--------------------------------|---------------------|
+| All records | O(total data) — likely optimal | Same                |
+| Single key  | O(total data)                  | O(log N) per tablet |
+| Key range   | O(total data)                  | O(log N + matches)  |
 
 Sort-merge appears optimal for full scans, which is the primary access pattern (load a dataset, browse it in evenor). Index-based lookup could improve selective queries but would require auxiliary files that conflict with the plain-text, git-friendly design constraint.
 
