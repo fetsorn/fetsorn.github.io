@@ -4,57 +4,43 @@ Date: 2026-05-09
 
 ## Status
 
-Proposed
+Rejected
 
 ## Context
 
 Some RDF literals (e.g. issue descriptions, prose content) are too large
-for CSV cells. They need to participate in SPARQL queries like any other
-triple, but storing multi-paragraph text in a CSV row is impractical.
+for CSV cells. Storing multi-paragraph text in a CSV row slows down
+queries because every query on that branch loads and parses the large
+cells even when the query doesn't need the text content.
+
+We considered storing large values as sidecar files in folders
+(`csvs/trunk-leaf/trunk1.md`) instead of CSV rows, with csvs managing
+the conversion via optimize/compact operations.
 
 ## Decision
 
-For a branch whose values are large text, csvs stores them as files
-in a folder instead of rows in a CSV. The folder is named after the
-relation (same as the CSV file), each file is named after the trunk,
-and the file content is the leaf value:
+Csvs does not optimize large literal storage. Large values stay in CSV
+cells. The sidecar folder approach breaks the SPARQL contract:
 
-- Normal: `csvs/trunk-leaf.csv` → `trunk1,value1`
-- Sidecar: `csvs/trunk-leaf/trunk1.md` → file content is `value1`
+- **One-to-many**: one trunk with multiple leaf values requires an
+  arbitrary file naming scheme (e.g. `trunk.1.md`, `trunk.2.md`),
+  which is fragile and leaks storage concerns into SPARQL updates.
+- **Many-to-many**: shared leaf values require duplicate files.
+- **SPARQL updates**: inserting a second value for a trunk would have
+  to fail until `csvs compact` is run, tying SPARQL operations to
+  storage format decisions.
 
-The `_-_.csv` schema declares the `trunk,leaf` relation as usual
-regardless of storage format.
-
-Priority rule: if `csvs/trunk-leaf.csv` exists, it is the source of
-truth and the folder is ignored. If there is no `.csv` file but
-`csvs/trunk-leaf/` exists as a directory, csvs reads from sidecar files.
-
-The folder's existence is the declaration. No metadata tablets or
-configuration needed. On write, csvs checks: does the folder exist?
-Write there. Does the `.csv` exist? Write there. Neither? Default to
-`.csv`.
-
-Csvs exposes operations to convert between formats:
-
-- `csvs optimize trunk-leaf` — creates `csvs/trunk-leaf/`, writes each
-  row as `csvs/trunk-leaf/{trunk}.md`, deletes `csvs/trunk-leaf.csv`
-- `csvs compact trunk-leaf` — reads folder back into a `.csv`, removes
-  the folder
-
-The SPARQL query layer treats sidecar values identically to CSV cell
-values. For leaf-keyed index lookups (searching by content), csvs does
-a naive file scan. This is slow but correct, acceptable for small datasets.
+If a consumer wants faster queries over large text, they store
+references (e.g. uuids, filenames) in csvs and manage the large files
+separately. This is what evenor does for lfs media — csvs stores the
+hash, evenor resolves it to a URL at presentation time. The same
+pattern applies to prose: csvs stores a reference, evenor reads/writes
+the actual content on describe/update.
 
 ## Consequences
 
-- Large text literals are first-class triples, queryable via SPARQL
-- No new top-level directories; everything stays inside `csvs/`
-- Hexastore indexing for the content-keyed direction is a naive scan
-- Caller controls storage format via optimize/compact operations
-- Enables issue tracking, prose content, and other rich text use cases
-  with NIP-34 aligned schema
-- Sidecar filenames derive from arbitrary trunk values in the tablet.
-  `csvs optimize` must validate trunk values as safe filenames (no path
-  traversal, no special characters, length limit). This concern already exists with
-  `_-_.csv` where branch names become tablet filenames and needs
-  consistent validation across both paths
+- Csvs stays simple — CSV cells only, full SPARQL contract preserved
+- Large text in CSV is slow but correct
+- Performance optimization for large literals is the consumer's
+  responsibility (evenor, not csvs)
+- Same pattern as lfs: csvs stores references, evenor resolves them
