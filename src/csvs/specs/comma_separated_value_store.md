@@ -48,6 +48,7 @@ a dataset must contain a tablet named `.csvs.csv`, also called "version tablet",
 
  - `version,0.0.4`, this line is to support future breaking changes to the format.
  - `id,some-uniq-uenu-mber`, this line is to uniquely identify this dataset.
+ - `hash,sha256`, this line specifies the hash algorithm for the blob store. Defaults to sha256 if omitted.
 
 ### schema tablet
 
@@ -103,9 +104,9 @@ A dataset can optionally contain a directory named `store/` for large
 text descriptions. Any value in any tablet can have descriptions,
 stored as plain text files:
 
-- `store/{sha256(value)}` -- untagged description
-- `store/{sha256(value)}.en` -- English description
-- `store/{sha256(value)}.ru` -- Russian description
+- `store/{hash(value)}` -- untagged description
+- `store/{hash(value)}.en` -- English description
+- `store/{hash(value)}.ru` -- Russian description
 
 Language suffixes follow BCP 47 tags. Each value can have at most one
 untagged description and one description per language tag.

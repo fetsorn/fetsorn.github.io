@@ -42,8 +42,10 @@ or triples to the hexastore.
 
 ### Storage
 
-Descriptions are stored as content-addressed blobs on disk. The path
-is derived from the sha256 hash of the value itself:
+Descriptions are stored as content-addressed blobs on disk. The hash
+algorithm is specified in the version tablet (`.csvs.csv`) or version
+record (`"_": "."`) via the `hash` field, defaulting to sha256 if
+omitted. The path is derived from the hash of the value itself:
 
 - `store/{sha256(value)}` -- untagged description
 - `store/{sha256(value)}.en` -- English description

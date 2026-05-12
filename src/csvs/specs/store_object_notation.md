@@ -41,6 +41,7 @@ Names that start with "_" are reserved and describe the metadata of the dataset.
 `"_": "."` - this field is required and always has a reserved value of the period.
 `"version": "0.0.4"` - this field is to support future breaking changes to the format.
 `"id": "some-uniq-numb-er"` - this field is to uniquely identify this dataset.
+`"hash": "sha256"` - this field specifies the hash algorithm for the blob store. Defaults to sha256 if omitted.
 
 ### schema record
 
