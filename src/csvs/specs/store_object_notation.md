@@ -25,7 +25,8 @@ As you can see, SON is stricter than JSON in several regards:
 
 1. There are no numbers, booleans, or null - the only allowed literal is a string.
 2. Arrays must not contain other arrays - the only allowed items are records or strings. 
-3. Objects must have a base field with a fixed key "_". The base represents a group of values as described below. 
+3. Objects must have a base field with a fixed key "_". The base represents a group of values as described below.
+4. The prefix `@` is reserved for description blobs. `"@"` stores or retrieves an untagged description; `"@en"`, `"@ru"`, etc. store or retrieve language-tagged descriptions (BCP 47). In a data record, the value is stored in the blob store at `store/{sha256(base_value)}[.lang]`. In a query record, a non-empty string filters by blob content as a regex.
 
 ## dataset format
 
@@ -38,7 +39,7 @@ For example, this record represents that John is 35 years old: `{ "_": "name", "
 Names that start with "_" are reserved and describe the metadata of the dataset.
 
 `"_": "."` - this field is required and always has a reserved value of the period.
-`"version": "0.0.3"` - this field is to support future breaking changes to the format.
+`"version": "0.0.4"` - this field is to support future breaking changes to the format.
 `"id": "some-uniq-numb-er"` - this field is to uniquely identify this dataset.
 
 ### schema record
@@ -88,11 +89,13 @@ For relationships described in the schema, a data record describes relationships
 For example, this dataset represents that John is 35 years old and Jane is 36:
 
 ```
-{ "_": ".", "version": "0.0.3", "id": "some-uniq-numb-er" }
+{ "_": ".", "version": "0.0.4", "id": "some-uniq-numb-er" }
 { "_": "_", "name": "age" }
 { "_": "name", "name": "john", "age": "35" }
 { "_": "name", "name": "jane", "age": "36" }
 ```
+
+In a data record, `"~"` stores a large text description for the record's base value in the blob store at `store/{sha256(value)}`. 
 
 ### query record
 
@@ -101,7 +104,7 @@ To find data records in the dataset, one can use query records. In a query recor
 The following dataset with the files `.csvs-csv`, `_-_.csv` and `event-date.csv` describes three events.
 
 ```
-{ "_": ".", "version": "0.0.3", "id": "some-uniq-numb-er" }
+{ "_": ".", "version": "0.0.4", "id": "some-uniq-numb-er" }
 { "_": "_", "event": [ "date", "filepath" ] ]}
 { "_": "event", "event": "visited-japan", "date": "2001-01-01" }
 { "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
@@ -136,6 +139,8 @@ finds `1` record of base `event`
 ```
 
 Each item of a list must be interpreted as an AND operator. Each field of a record must be interpreted as an AND operator. For an OR operator, use `|` inside the regex, or make multiple queries.
+
+In a query record, `"~"` retrieves the description, and a non-empty string filters by blob content as a regex.
 
 ## Form
 

@@ -46,7 +46,7 @@ A CSVS dataset is a directory with CSVS files, also called "tablets". Together, 
 
 a dataset must contain a tablet named `.csvs.csv`, also called "version tablet", which describes the dataset.
 
- - `version,0.0.3`, this line is to support future breaking changes to the format.
+ - `version,0.0.4`, this line is to support future breaking changes to the format.
  - `id,some-uniq-uenu-mber`, this line is to uniquely identify this dataset.
 
 ### schema tablet
@@ -97,12 +97,32 @@ NOTE: a duplicate relationship means a list a values. The following example mean
    john,London
    ```
    
+### blob store
+
+A dataset can optionally contain a directory named `store/` for large
+text descriptions. Any value in any tablet can have descriptions,
+stored as plain text files:
+
+- `store/{sha256(value)}` -- untagged description
+- `store/{sha256(value)}.en` -- English description
+- `store/{sha256(value)}.ru` -- Russian description
+
+Language suffixes follow BCP 47 tags. Each value can have at most one
+untagged description and one description per language tag.
+
+The blob store is a parallel layer -- it does not add collections to
+`_-_.csv` or records to data tablets. Descriptions are never indexed
+in the hexastore.
+
+For example, if the value `visited-japan` has an English description,
+it is stored at `store/{sha256("visited-japan")}.en`.
+
 ## Example
 For example, let's represent that John is 35 years old and lives in Bath
 
 `.csvs.csv`
 ```
-version,0.0.3
+version,0.0.4
 id,some-uniq-numb-er
 ```
 
