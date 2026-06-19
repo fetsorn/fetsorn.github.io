@@ -180,7 +180,7 @@
 <p>"CSVS" stands for "Comma-Separated Value Store"</p>
 <h2 id="file-format"><a class="header" href="#file-format">file format</a></h2>
 <p>A CSVS file, also called "tablet", is a CSV file, and thus a subset of RFC 4180. It is defined by the following ABNF grammar:</p>
-<pre><code>  file = record *(CRLF record) [CRLF]
+<pre><code>  file = record *(line-ending record) [line-ending]
 
   record = field COMMA field
 
@@ -200,12 +200,14 @@
 
   CRLF = CR LF ;as per section 6.1 of RFC 2234 [2]
 
-  TEXTDATA = *UTF-8
+  line-ending = CRLF / LF
+
+  TEXTDATA = %x20-21 / %x23-2B / %x2D-D7FF / %xE000-10FFFF
 </code></pre>
 <p>As you can see, CSVS is stricter than CSV in several regards:</p>
 <ol>
 <li>
-<p>There are only two columns, and other columns are discarded.</p>
+<p>There are only two columns, and other columns are discarded. The first column is the key and the second column is the value. A key can have multiple values (multiple records with the same first field), forming a one-to-many relationship. Multiple keys can have the same value, forming a many-to-one relationship.</p>
 </li>
 <li>
 <p>There are no headers inside the file. Instead, headers are in the file names as described below.</p>
@@ -216,7 +218,7 @@
 <h3 id="version-tablet"><a class="header" href="#version-tablet">version tablet</a></h3>
 <p>a dataset must contain a tablet named <code>.csvs.csv</code>, also called "version tablet", which describes the dataset.</p>
 <ul>
-<li><code>version,0.0.3</code>, this line is to support future breaking changes to the format.</li>
+<li><code>version,0.0.4</code>, this line is to support future breaking changes to the format.</li>
 <li><code>id,some-uniq-uenu-mber</code>, this line is to uniquely identify this dataset.</li>
 </ul>
 <h3 id="schema-tablet"><a class="header" href="#schema-tablet">schema tablet</a></h3>
@@ -232,6 +234,7 @@
 <li>a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.</li>
 <li>a collection name can include any of the following: <code>[azAZ09%+@]</code>, white-space and other Unicode characters</li>
 </ul>
+<p>values are unconstrained UTF-8; only collection names have naming restrictions</p>
 <p>NOTE: As you can see a CSVS collection only exists in a relationship with another, there can be no independent collections.</p>
 <p>NOTE: A relation between collections can be recursive. For example, in this dataset events can have dates, and dates can have events.</p>
 <pre><code>event,date
@@ -253,10 +256,22 @@ event,date
 <pre><code>john,Bath
 john,London
 </code></pre>
+<h3 id="prose-store"><a class="header" href="#prose-store">prose store</a></h3>
+<p>A dataset can optionally contain a prose store for large text
+descriptions. Any value in any tablet can have descriptions. Each
+value can have at most one untagged description and one description
+per language tag (BCP 47 suffixes).</p>
+<p>The prose store is addressed by CSV values -- given a value, the
+addressing scheme must be able to resolve it to a blob and back. The
+choice of addressing scheme (URI-encoded filenames, content hashes,
+etc.) is an implementation concern.</p>
+<p>The prose store is a parallel layer -- it does not add collections to
+<code>_-_.csv</code> or records to data tablets. Descriptions are never indexed
+in the hexastore.</p>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
 <p>For example, let's represent that John is 35 years old and lives in Bath</p>
 <p><code>.csvs.csv</code></p>
-<pre><code>version,0.0.3
+<pre><code>version,0.0.4
 id,some-uniq-numb-er
 </code></pre>
 <p><code>_-_.csv</code></p>

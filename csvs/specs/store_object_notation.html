@@ -199,6 +199,7 @@ item = record / string
 <li>There are no numbers, booleans, or null - the only allowed literal is a string.</li>
 <li>Arrays must not contain other arrays - the only allowed items are records or strings.</li>
 <li>Objects must have a base field with a fixed key "_". The base represents a group of values as described below.</li>
+<li>The prefix <code>@</code> is reserved for description blobs. <code>"@"</code> stores or retrieves an untagged description; <code>"@en"</code>, <code>"@ru"</code>, etc. store or retrieve language-tagged descriptions (BCP 47). In a data record, the value is stored in the prose store, addressed by the record's base value. In a query record, a non-empty string filters by blob content as a regex.</li>
 </ol>
 <h2 id="dataset-format"><a class="header" href="#dataset-format">dataset format</a></h2>
 <p>A SON dataset is a set of SON records. Together, records comprise a database based on the relational model of data. The schema record describes the dataset structure. Other records describe data.</p>
@@ -206,7 +207,7 @@ item = record / string
 <h3 id="version-record"><a class="header" href="#version-record">version record</a></h3>
 <p>Names that start with "_" are reserved and describe the metadata of the dataset.</p>
 <p><code>"_": "."</code> - this field is required and always has a reserved value of the period.
-<code>"version": "0.0.3"</code> - this field is to support future breaking changes to the format.
+<code>"version": "0.0.4"</code> - this field is to support future breaking changes to the format.
 <code>"id": "some-uniq-numb-er"</code> - this field is to uniquely identify this dataset.</p>
 <h3 id="schema-record"><a class="header" href="#schema-record">schema record</a></h3>
 <p>A dataset must contain a single schema record which describes the dataset.</p>
@@ -217,7 +218,7 @@ item = record / string
 <p>The schema tablet has special naming rules:</p>
 <ul>
 <li>a collection name must not be <code>_</code> because this name is reserved for the schema.</li>
-<li>a collection name must not include the following characters: <code>[/\&lt;&gt;':"```|?*.,[];{}$&amp;]</code> because collection names can be used for filenames, and these characters are reserved on most filesystems.</li>
+<li>a collection name must not include the following characters: <code>[/\&lt;&gt;':"```|?*.,[];{}$&amp;\n\r]</code> because collection names can be used for filenames, and these characters are reserved on most filesystems.</li>
 <li>a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.</li>
 <li>a collection name can include any of the following: <code>[azAZ09%+@]</code>, white-space and other Unicode characters</li>
 </ul>
@@ -240,15 +241,16 @@ item = record / string
 <h3 id="data-record"><a class="header" href="#data-record">data record</a></h3>
 <p>For relationships described in the schema, a data record describes relationships between values.</p>
 <p>For example, this dataset represents that John is 35 years old and Jane is 36:</p>
-<pre><code>{ "_": ".", "version": "0.0.3", "id": "some-uniq-numb-er" }
+<pre><code>{ "_": ".", "version": "0.0.4", "id": "some-uniq-numb-er" }
 { "_": "_", "name": "age" }
 { "_": "name", "name": "john", "age": "35" }
 { "_": "name", "name": "jane", "age": "36" }
 </code></pre>
+<p>In a data record, <code>"~"</code> stores a large text description for the record's base value in the prose store at <code>store/{sha256(value)}</code>.</p>
 <h3 id="query-record"><a class="header" href="#query-record">query record</a></h3>
 <p>To find data records in the dataset, one can use query records. In a query record, the string can be a regular expression. And a record can have no base value, just a base field.</p>
 <p>The following dataset with the files <code>.csvs-csv</code>, <code>_-_.csv</code> and <code>event-date.csv</code> describes three events.</p>
-<pre><code>{ "_": ".", "version": "0.0.3", "id": "some-uniq-numb-er" }
+<pre><code>{ "_": ".", "version": "0.0.4", "id": "some-uniq-numb-er" }
 { "_": "_", "event": [ "date", "filepath" ] ]}
 { "_": "event", "event": "visited-japan", "date": "2001-01-01" }
 { "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
@@ -273,6 +275,7 @@ item = record / string
 <pre><code>{ "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
 </code></pre>
 <p>Each item of a list must be interpreted as an AND operator. Each field of a record must be interpreted as an AND operator. For an OR operator, use <code>|</code> inside the regex, or make multiple queries.</p>
+<p>In a query record, <code>"~"</code> retrieves the description, and a non-empty string filters by blob content as a regex.</p>
 <h2 id="form"><a class="header" href="#form">Form</a></h2>
 <p>SON is meant to be both machine- and human- readable. Use concise form for less repetition. Use verbose form for easier parsing. When in doubt, consider the record to be in mixed form, i.e. containing both concise and verbose values.</p>
 <h3 id="concise"><a class="header" href="#concise">concise</a></h3>
