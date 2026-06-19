@@ -26,7 +26,7 @@ As you can see, SON is stricter than JSON in several regards:
 1. There are no numbers, booleans, or null - the only allowed literal is a string.
 2. Arrays must not contain other arrays - the only allowed items are records or strings. 
 3. Objects must have a base field with a fixed key "_". The base represents a group of values as described below.
-4. The prefix `@` is reserved for description blobs. `"@"` stores or retrieves an untagged description; `"@en"`, `"@ru"`, etc. store or retrieve language-tagged descriptions (BCP 47). In a data record, the value is stored in the blob store at `store/{sha256(base_value)}[.lang]`. In a query record, a non-empty string filters by blob content as a regex.
+4. The prefix `@` is reserved for description blobs. `"@"` stores or retrieves an untagged description; `"@en"`, `"@ru"`, etc. store or retrieve language-tagged descriptions (BCP 47). In a data record, the value is stored in the prose store, addressed by the record's base value. In a query record, a non-empty string filters by blob content as a regex.
 
 ## dataset format
 
@@ -41,7 +41,6 @@ Names that start with "_" are reserved and describe the metadata of the dataset.
 `"_": "."` - this field is required and always has a reserved value of the period.
 `"version": "0.0.4"` - this field is to support future breaking changes to the format.
 `"id": "some-uniq-numb-er"` - this field is to uniquely identify this dataset.
-`"hash": "sha256"` - this field specifies the hash algorithm for the blob store. Defaults to sha256 if omitted.
 
 ### schema record
 
@@ -96,7 +95,7 @@ For example, this dataset represents that John is 35 years old and Jane is 36:
 { "_": "name", "name": "jane", "age": "36" }
 ```
 
-In a data record, `"~"` stores a large text description for the record's base value in the blob store at `store/{sha256(value)}`. 
+In a data record, `"~"` stores a large text description for the record's base value in the prose store at `store/{sha256(value)}`. 
 
 ### query record
 

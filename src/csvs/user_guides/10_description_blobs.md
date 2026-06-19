@@ -1,7 +1,7 @@
 # Description blobs
 
 Any value in a CSVS dataset can have a large text description stored
-in the blob store. This lets you start with a minimal graph and grow
+in the prose store. This lets you start with a minimal graph and grow
 structure over time.
 
 ## Starting small
@@ -26,8 +26,10 @@ Add a description to any value with the `@` operator:
 { "_": "name", "name": "john", "@": "John is a software engineer from Bath, 35 years old" }
 ```
 
-This stores the text at `store/{hash("john")}`. The graph stays tiny
-and fast, but "john" now carries rich prose behind it.
+This stores the text at `prose/john`. The graph stays tiny and fast,
+but "john" now carries rich prose behind it. A person browsing the
+dataset can open the `prose/` folder, see the file `john`, open it,
+and read about John.
 
 Language-tagged descriptions work the same way:
 
