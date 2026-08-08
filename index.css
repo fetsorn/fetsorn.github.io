@@ -1,0 +1,144 @@
+/* index.css — labs minimal styles */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1rem;
+  color: #222;
+  background: #fafafa;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+nav ul a {
+  color: #456;
+  text-decoration: none;
+}
+
+nav ul a:hover {
+  text-decoration: underline;
+}
+
+article {
+  margin: 1rem 0;
+}
+
+article.hidden {
+  display: none;
+}
+
+section {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border-left: 3px solid #ccc;
+}
+
+figure {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+figcaption {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #666;
+}
+
+blockquote {
+  margin: 0;
+}
+
+blockquote p {
+  margin: 0.5em 0;
+}
+
+blockquote a {
+  color: #345;
+}
+
+footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+footer a {
+  color: #456;
+  margin-right: 1rem;
+}
+
+.lang-toggle {
+  margin: 0.5rem 0;
+}
+
+.lang-toggle button {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.lang-toggle button.active {
+  background: #345;
+  color: #fff;
+  border-color: #345;
+}
+
+.index-list {
+  list-style: none;
+}
+
+.index-list li {
+  margin: 0.3rem 0;
+}
+
+.index-list a {
+  color: #345;
+  text-decoration: none;
+}
+
+.index-list a:hover {
+  text-decoration: underline;
+}
+
+pre {
+  background: #f0f0f0;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+code {
+  font-size: 0.9em;
+}
+
+.item-link {
+  text-decoration: none;
+}
+
+.dates {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #888;
+}

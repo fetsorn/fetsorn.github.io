@@ -1,0 +1,295 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dictatum-soul</title>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./hljs.css" />
+    <script src="lang.js"></script>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <a href="./devnotes.html">
+            <span lang="en">devnotes</span>
+          </a>
+        </li>
+      </ul>
+      <div class="lang-toggle">
+        <button data-lang="en" onclick="setLang('en')">en</button>
+      </div>
+    </nav>
+    <article lang="en">
+      <section>
+        <blockquote>
+          <p>
+            FETSORN<br />
+            One of the simple thoughts is the ability of the computer to
+            understand the abstraction of the event.<br />
+            We people think in events, whether Western or Chinese, we think in
+            tales and stories, and we divide them<br />
+            into steps. Such an image of the path and steps we lay at the
+            foundation of our perception of time.
+          </p>
+          <p>
+            FETSORN<br />
+            Computers do not think in events, for them there is no time. /*Why I
+            do not know, there were real-time<br />
+            processing OS, event-based OS, but they never become mainstream.
+            <em
+              >/ I think that this is partly due to the<br />
+              fact that time is an illusion and does not exist at all, and any
+              engineer quickly notices that you can do<br />
+              without it. /</em
+            >
+            Partly this may be due to some details of the history of the
+            development of the PC. */<br />
+            In short, computers basically ignore the abstraction of an event,
+            and we live by it.
+          </p>
+          <p>
+            FETSORN<br />
+            So we still find how to push our idea of events into the computer.
+            We find any part of the computer<br />
+            in which, by chance, there are sufficient means to express the image
+            of the path and time - and we abuse<br />
+            this part.
+          </p>
+          <p>
+            FETSORN<br />
+            For example, each operating system provides the ability to make
+            folders, directories - in the hope that<br />
+            users will build thematic category trees. We name the folders ”2002”
+            and ”2003-photo” and create a<br />
+            timeline. They add a post date on Instagram in hopes of analyzing
+            our big data. We fill the tape with<br />
+            the events of life so that later we can look at it as a path.
+            Microsoft Word allows us to format texts. We<br />
+            build lists and headings with dates there, we call the files
+            ”may2023doc1”.
+          </p>
+          <p>
+            FETSORN<br />
+            I used to do all this, and searched for a tool that was originally
+            designed to work with the abstraction<br />
+            of an event. Event abstraction requires 1) event object 2) event
+            metadata 3) path image in which events<br />
+            are built by metadata.
+          </p>
+          <p>
+            FETSORN<br />
+            I’m almost sure that somewhere there was or already is a piece of
+            software that<br />
+            perfectly fulfills all these three points and allows you to build
+            paths of events - but I looked for it and did<br />
+            not find it, so I’m making prototypes.<br />
+            /**<br />
+            FETSORN<br />
+            While I’m making prototypes, I picked up an interface. The interface
+            consists of a timeline running<br />
+            vertically on the left, and an event profile arranged as a shape on
+            the right. In the panel at the top, I<br />
+            placed a filter that allows you to rebuild the path according to
+            event metadata. On a mobile phone, the<br />
+            panel is located above the time line, and below the profile.<br />
+            Probably the interface is somewhat reminiscent of a book, if you
+            could tear out the right page from<br />
+            the book, or a messenger app, where on the left side is a list of
+            dialogs, and on the right side is a form<br />
+            for messages of the selected dialog.
+          </p>
+          <p>
+            FETSORN<br />
+            Once the profile was on the left, and the event line on the right -
+            and went to the right endlessly. But<br />
+            the infinite right scroll is not supported by all browsers, so I
+            agreed with the demands to remove it. I<br />
+            also agreed with the demands to place the path on the left, and the
+            profile on the right - it is customary<br />
+            to place the elements of the general order on the left. I also
+            placed the line vertically, not horizontally,<br />
+            because our browsers scroll from top to bottom, not to the sides.<br />
+            These decisions were caused, it seemed, by the needs and
+            requirements of early users and reviewers.
+          </p>
+          <p>
+            FETSORN<br />
+            While I’m making prototypes, I also picked up the technological
+            stack. I wanted the application to<br />
+            work everywhere, use common technologies, be free, open and
+            extensible. The most common technology<br />
+            is the browser, the most popular technology for applications in it
+            is React. On the desktop, Electron<br />
+            stores files locally. But for freedom, openness and extensibility, I
+            had to come up with my own database<br />
+            solution.
+          </p>
+          <p>
+            FETSORN<br />
+            When I started working on the prototype, the market was still full
+            of Web 2.0, that is, RestAPI<br />
+            services with a PostgreSQL database on the server. I’ve seen my own
+            org-mode files become more and<br />
+            more like a vast database - with search and organization
+            capabilities surpassing the popular ”Inotes” or<br />
+            ”OneNote” enterprise note products.
+          </p>
+          <p>
+            FETSORN<br />
+            I did not use recutils for three reasons: 1) the format did not
+            support large pieces of multipage text<br />
+            well 2) the utilities returned a segfault to me more than once and
+            3) the developer stopped supporting<br />
+            and developing the project, and 4) the data was not deduplicated, so
+            the memory grew too fast.
+          </p>
+          <p>**/</p>
+          <p>
+            FETSORN<br />
+            In short, it ended up that I began to store everything in my
+            database, which stores key-value pairs in<br />
+            csv files with two columns.
+          </p>
+          <p>
+            FETSORN<br />
+            The ease and readability of plain-text files allowed me to store
+            them in the browser’s memory and<br />
+            not use a server. A simple parsing algorithm and plain-text file
+            content accessible to any schoolchild<br />
+            or senior mean extensibility - anyone can write their own algorithms
+            for working with such a database.<br />
+            The hashability and archiveability of plain-text files allowed me to
+            store them in git version control and<br />
+            exchange them via git hosting services like GitHub.
+          </p>
+          <p>
+            FETSORN<br />
+            Total freedom, openness and extensibility - the browser stores the
+            database in itself, communicates<br />
+            with other browsers through the git hosting service, and anyone who
+            doesn’t even know anything about<br />
+            my system can read the database with the naked eye, and an engineer
+            can write a parser for it in an evening.<br />
+            In sum, an interface for the path of events, made in the browser
+            with a text database and git. Any<br />
+            files and events can be entered into such a database.
+          </p>
+          <p>
+            /**<br />
+            FETSORN<br />
+            This is where the basis of the dictates of the mind ends. If four
+            years ago I had found a program<br />
+            designed for work with events in a free, open and extensible manner,
+            now I would be telling you about<br />
+            it. But I haven’t found it yet and I’m talking about my
+            achievements. Who knows, please share what I<br />
+            missed on the market.<br />
+            **/
+          </p>
+          <p>
+            FETSORN<br />
+            The following are things that can be done on the basis of a free,
+            open and extensible program designed<br />
+            to work with events.
+          </p>
+          <p>
+            FETSORN<br />
+            For example, file management. Folders with names like ”2023-Sochi”
+            lose their availability already in the<br />
+            third year of a person’s life, when there are thirty-six of them.
+            The myriad files that some of us hoard on<br />
+            our hard drives are organized in a file system where they shouldn’t
+            be organized.
+          </p>
+          <p>
+            FETSORN<br />
+            Instead, we should see that each file has metadata, and that we want
+            to have one path image consisting<br />
+            of all our files. With the ability to change metadata, and rebuild
+            the path based on them. To connect<br />
+            my prototype to your disk, it is enough to run a parser that will
+            collect data about all your files into a<br />
+            text database - name, file type, creation date and changes, folders
+            leading to it. Now you can find ”All<br />
+            university text files from May 2006” and you can find ”all photos
+            from all my birthdays”
+          </p>
+          <p>
+            FETSORN<br />
+            Another example is genealogy, family history, working with memory, a
+            database of personal files. Each of us<br />
+            knows more people than in a prehistoric village, and we can’t keep
+            everyone in mind. Our ancestors look<br />
+            at us from the sky, forgotten in the hustle and bustle. In the hope
+            of somehow saving the situation, we<br />
+            abuse the means of the computer - we hope that social networks with
+            all the Rolexes will not disappear<br />
+            in the near future, we save records of the birthdays of relatives
+            and old memories in the phone notes, we<br />
+            create secret Word documents with contacts of people important to
+            us.
+          </p>
+          <p>
+            FETSORN<br />
+            Meanwhile, a program designed to work with events allows you to
+            organize an innumerable number of<br />
+            lifelines of all kinds of people. ”all the events of the life of all
+            people on Tuesdays”, ”the events of the life<br />
+            of a great-grandfather in World War II”, ”who was at the party
+            somewhere in May 2007”. To make such<br />
+            requests, it is enough to add your ancestors to the text database of
+            events. The events of their births are<br />
+            birthdays, the events of their deaths are anniversaries, the stories
+            of their lives are incidents that subtly<br />
+            feed our lives.
+          </p>
+          <p>
+            FETSORN<br />
+            Another example is the management of creative works. Many of us have
+            the opportunity to produce daily<br />
+            works that were previously given the status of art. Messages in
+            messengers - epistolary art. Posts in social<br />
+            networks - essays and autobiography. Music and drawings began to be
+            produced so simply that some do<br />
+            not know what to do with a flurry of works.
+          </p>
+          <p>
+            FETSORN<br />
+            We push all these works into services that are poorly designed for
+            them, hard to read, and live only<br />
+            for a few years - in social networks, in phone notes, in Google
+            drives, in Word files. While each of the<br />
+            works can be seen as a significant event, with metadata that embeds
+            it in the overall path of our lives.
+          </p>
+          <p>
+            FETSORN<br />
+            But more than that, a program designed to work with such events can
+            easily publish them to dozens<br />
+            of popular platforms today. Write a text and publish it to three
+            social networks. Write a song and<br />
+            publish it to three music platforms. Record a speech, send it to a
+            friend in messages, decipher it<br />
+            with a neural network and upload it to a blog. Computers can do all
+            this, they just need a little help<br />
+            not to get confused, which is what I’m trying to do.
+          </p>
+          <p>
+            /**<br />
+            FETSORN<br />
+            Even though I keep the code open source, this is an application for
+            my community. I hope my friends<br />
+            and family find it useful and reliable.<br />
+            **/
+          </p>
+        </blockquote>
+      </section>
+    </article>
+    <footer>
+      <a href="./laboratory.html">home</a>
+      <a href="./all.html">index</a>
+    </footer>
+  </body>
+</html>
