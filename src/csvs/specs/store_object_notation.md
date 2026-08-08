@@ -95,7 +95,7 @@ For example, this dataset represents that John is 35 years old and Jane is 36:
 { "_": "name", "name": "jane", "age": "36" }
 ```
 
-In a data record, `"~"` stores a large text description for the record's base value in the prose store at `store/{sha256(value)}`. 
+In a data record, `"@"` stores a large text description for the record's base value in the prose store at `@/{sha256(value)}`. 
 
 ### query record
 
@@ -108,6 +108,7 @@ The following dataset with the files `.csvs-csv`, `_-_.csv` and `event-date.csv`
 { "_": "_", "event": [ "date", "filepath" ] ]}
 { "_": "event", "event": "visited-japan", "date": "2001-01-01" }
 { "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
+{ "_": "event", "event": "first-tokio", "date": "1999-01-01" }
 ```
 
 The following query looks for the schema of the dataset
@@ -123,13 +124,14 @@ The following query looks for all events in the dataset
 ```
 { _: "event" }
 ```
-finds `2` records of base `event`
+finds `3` records of base `event`
 ```
 { "_": "event", "event": "visited-japan", "date": "2001-01-01" }
 { "_": "event", "event": "climbed-everest", "date": "2003-03-03", "filepath": "photo-everest" }
+{ "_": "event", "event": "first-tokio", "date": "1999-01-01" }
 ```
 
-The following query looks for all events in the dataset
+The following query looks for events that have a filepath
 ```
 { _: "event", filepath: "photo" }
 ```
@@ -140,7 +142,53 @@ finds `1` record of base `event`
 
 Each item of a list must be interpreted as an AND operator. Each field of a record must be interpreted as an AND operator. For an OR operator, use `|` inside the regex, or make multiple queries.
 
-In a query record, `"~"` retrieves the description, and a non-empty string filters by blob content as a regex.
+For an IS NULL operator, use "!" like 
+```
+{ "_": "event", "!": "filepath" }
+```
+finds `1` record of base `event`
+```
+{ "_": "event", "event": "visited-japan", "date": "2001-01-01" }
+```
+
+For recursion, use `~`. In verbose form its value is a record of base `~`, whose base value names a field of the query record's base collection.
+
+The query fields select an initial set of records. For each found record, the closure also finds records whose base value appears in the named field, and records whose named field contains this record's base value. The join is two-way — the direction in which the tablet stores the relationship does not affect the result. Records reached by closure are returned regardless of whether they match the query fields.
+
+Given the following dataset, where values of `memory` are events
+```
+{ "_": ".", "version": "0.0.4", "id": "some-uniq-numb-er" }
+{ "_": "_", "event": [ "date", "memory" ] }
+{ "_": "event", "event": "visited-japan", "date": "2001-01-01", "memory": "first-tokio" }
+{ "_": "event", "event": "climbed-everest", "date": "2003-03-03", "memory": "visited-japan" }
+{ "_": "event", "event": "first-tokio", "date": "1999-01-01" }
+```
+the query
+```
+{ "_": "event", "event": "visited-japan", "~": "memory" }
+```
+finds `3` records of base `event`: the seed, `first-tokio` because the seed's `memory` points to it, and `climbed-everest` because its `memory` points to the seed
+```
+{ "_": "event", "event": "visited-japan", "date": "2001-01-01", "memory": "first-tokio" }
+{ "_": "event", "event": "climbed-everest", "date": "2003-03-03", "memory": "visited-japan" }
+{ "_": "event", "event": "first-tokio", "date": "1999-01-01" }
+```
+
+`.` is the stop field. A record whose base value equals a stop value is neither returned nor expanded, and records reachable only through it are not found. If a seed matches a stop, the stop wins.
+
+The query
+```
+{ "_": "event", "event": "visited-japan", "~": { "_": "~", "~": "memory", ".": "^climbed-everest$" } }
+```
+finds `2` records of base `event`
+```
+{ "_": "event", "event": "visited-japan", "date": "2001-01-01", "memory": "first-tokio" }
+{ "_": "event", "event": "first-tokio", "date": "1999-01-01" }
+```
+
+The base value of a `~` record is an exact field name, not a regular expression. Stop values are regular expressions like other query strings — anchor with `^...$` to stop at one exact value. A list under `~` performs several traversals, each with its own stops. Concise form applies as usual: `"~": "actname"` is short for `"~": { "_": "~", "~": "actname" }`.
+
+NOTE: Directed traversal and git-style set subtraction are deliberately not operators. A directed walk is expressible client-side by iterating one-step queries; a subtraction is expressible by diffing two closures.
 
 ## Form
 
