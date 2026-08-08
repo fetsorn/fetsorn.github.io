@@ -1,0 +1,18 @@
+{
+  "name": "labs",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Laboratory site — devnotes, dialogues, specs, archive",
+  "scripts": {
+    "build": "npx @11ty/eleventy"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  },
+  "dependencies": {
+    "wuyong": "file:../../codes/wuyong"
+  }
+}

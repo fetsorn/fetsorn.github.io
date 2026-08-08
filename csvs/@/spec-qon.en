@@ -1,0 +1,26 @@
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="rfc7991bis.rnc"?>
+
+<!DOCTYPE rfc [
+  <!ENTITY nbsp    "&#160;">
+  <!ENTITY zwsp   "&#8203;">
+  <!ENTITY nbhy   "&#8209;">
+  <!ENTITY wj     "&#8288;">
+]>
+
+<rfc>
+  <front>
+    <title></title>
+    <author></author>
+   </front>
+
+  <middle>
+    <section>
+    </section>
+  </middle>
+
+  <back>
+ </back>
+</rfc>
+```

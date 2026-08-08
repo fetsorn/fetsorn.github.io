@@ -1,0 +1,167 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nasim-xp-nodejs</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./devnotes.html">
+          <span lang="en">devnotes</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <p>NASIM<br>
+This autumn I decided to dedicate a portion of my time to an open source project. I chose to work on a NodeJS app for csvs databases because I previously participated in the project and know their stack well.</p>
+<p>NASIM<br>
+csvs is a plain text database that uses git for storage and rollbacks. The NodeJS CLI utility synchronizes csvs databases with each other and with data in other formats — JSON, filesystem directories, social media backups. I took up the task of integrating the org-mode data format and providing reports on database statistics.</p>
+<h1>Org-mode export</h1>
+<p>NASIM<br>
+Early September I picked up the org-mode export feature. Internally in csvs-nodejs each database is represented as a JSON object. So this entry</p>
+<pre><code class="language-csv">|<span class="hljs-string"> datum     </span>|<span class="hljs-string"> uuid     </span>|<span class="hljs-string">    actdate </span>|<span class="hljs-string">    saydate </span>|<span class="hljs-string"> actname </span>|<span class="hljs-string"> sayname </span>|<span class="hljs-string"> files  </span>|
+|<span class="hljs-string"> some text </span>|<span class="hljs-string"> 48c475bd </span>|<span class="hljs-string"> 1599-01-01 </span>|<span class="hljs-string"> 1599-01-01 </span>|<span class="hljs-string"> william </span>|<span class="hljs-string"> mary   </span>|<span class="hljs-string"> 7e7b8e </span>|
+</code></pre>
+<pre><code class="language-csv">|<span class="hljs-string"> files  </span>|<span class="hljs-string"> uuid     </span>|<span class="hljs-string"> filename        </span>|<span class="hljs-string"> filehash  </span>|
+|<span class="hljs-string"> 7e7b8e </span>|<span class="hljs-string"> b8c80611 </span>|<span class="hljs-string"> "firstpic.jpg"  </span>|<span class="hljs-string"> 8236ea5a0 </span>|
+|<span class="hljs-string"> 7e7b8e </span>|<span class="hljs-string"> e92071cb </span>|<span class="hljs-string"> "secondpic.jpg" </span>|<span class="hljs-string"> 0aa477f97 </span>|
+</code></pre>
+<p>NASIM<br>
+is represented as this JSON object</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"datum"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"UUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"48c475bd"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"datum"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"some text"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"actdate"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1599-01-01"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"saydate"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1599-01-01"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"actname"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"william"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"sayname"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"mary"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"files"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"files"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"UUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"7e7b8e"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"items"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"file"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"UUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"b8c80611"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"filename"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"firstpic.jpg"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"filehash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"8236ea5a0"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"file"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"UUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"e92071cb"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"filename"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"secondpic.jpg"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"filehash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"0aa477f97"</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>NASIM<br>
+Another way to represent database entries is org-mode markup format. org-mode is a more complex alternative to markdown or YAML which allows storing multiple plain text entries along with front matter metadata for each.</p>
+<p>NASIM<br>
+The same entry in org-mode looks like this</p>
+<pre><code class="language-orgmode"><span class="hljs-bullet">. </span>*
+<span class="hljs-meta">:PROPERTIES:</span>
+<span class="hljs-meta">:uuid:</span> 48c475bd
+<span class="hljs-meta">:actdate:</span> 1599-01-01
+<span class="hljs-meta">:saydate:</span> 1599-01-01
+<span class="hljs-meta">:actname:</span> william
+<span class="hljs-meta">:sayname:</span> mary
+<span class="hljs-meta">:files:</span> (:_ <span class="hljs-emphasis">'files'</span> :UUID <span class="hljs-emphasis">'7e7b8e'</span> :items ((:_ <span class="hljs-emphasis">'file'</span> :UUID <span class="hljs-emphasis">'b8c80611'</span> :filename <span class="hljs-emphasis">'firstpic.jpg'</span> :filehash <span class="hljs-emphasis">'8236ea5a0'</span>)(:_ <span class="hljs-emphasis">'file'</span> :UUID <span class="hljs-emphasis">'e92071cb'</span> :filename <span class="hljs-emphasis">'secondpic.jpg'</span> :filehash <span class="hljs-emphasis">'0aa477f97'</span>)))
+<span class="hljs-meta">:END:</span>
+some text
+</code></pre>
+<p>NASIM<br>
+According to the specification, this command has to read the database and output a valid org-mode file<br>
+csvs -i /path/to/database -t biorg</p>
+<p>NASIM<br>
+The import of a csvs database has already been handled and the cli returned a NodeJS stream of JSON entries. To support org-mode export I needed to add a WriteableStream that would turn each JSON entry into org-mode text and output that to stdout.</p>
+<h1>Org-mode import</h1>
+<p>NASIM<br>
+Now I needed to parse that org-mode file and import it back into the CLI.</p>
+<p>NASIM<br>
+the org-mode-parser library did well at converting org-mode entries into JSON, and before long the first PR the first PR was ready.</p>
+<p>NASIM<br>
+Arrays were stored as Emacs Lisp property lists so I had to parse them separately. I learned from reading around the net that parsing involves tokenization, and building an abstract syntax tree. I found functions for each step in manila/node-lisp-parser and adapted them to plists.</p>
+<p>NASIM<br>
+I submitted the second PR and proceeded to statistics reports.</p>
+<h1>Csvs stats</h1>
+<p>NASIM<br>
+In October I worked on reporting database schema and stats. The schema for each csvs database is stored in a metadir.json according to fetsorn/csvs-spec.</p>
+<p>NASIM<br>
+Each key in the schema object represents a database entity, and if entity has a parent, its name is specified in the “trunk” field.<br>
+A branch without a trunk is called a root. Multiple roots are allowed. A branch that has a trunk is called a leaf.</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"datum"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"saydate"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"trunk"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"datum"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"sayname"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"trunk"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"datum"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"files"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"trunk"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"datum"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"array"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"file"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"trunk"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"files"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"object"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"filename"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"trunk"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"file"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>NASIM<br>
+Each branch has a type — “string”, “number”, “object” or “array”. Values of type “array” have multiple leaves of type “object”.</p>
+<p>NASIM<br>
+I took up the task to add a --stats flag that would show the schema in the form of a tree.</p>
+<pre><code class="language-txt">csvs -i ./database --stats
+entries: 65
+datum
+|- actdate
+|- actname
+|- files
+  |- file
+     |- filename
+</code></pre>
+<p>NASIM<br>
+First I built a nested object representation of the schema, and then printed a tree line with indentation for each level of nesting. The PR was accepted soon after.</p>
+<h1>Biorg stats</h1>
+<p>NASIM<br>
+The org-mode format does not specify a database schema, but it can be inferred from the structure of JSON objects returned from the parser. In case entries omit metadata, I looked for the one with the largest number of properties and printed as a tree and submitted the the PR.</p>
+<pre><code class="language-txt">csvs -i ./data.bi.org --stats
+datum
+|- actdate
+|- actname
+|- files
+  |- file
+     |- filename
+</code></pre>
+<h1>Conclusion</h1>
+<p>NASIM<br>
+While working on this project I learned to interact with the filesystem, got to know how to deal with NodeJS streams, and wrote my first parser. Thanks to my team at NobleScript and @fetsorn for supporting the initiative to develop open source and for the help with finding solutions.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./laboratory.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

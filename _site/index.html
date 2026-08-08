@@ -1,0 +1,46 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>labs</title>
+  <link rel="stylesheet" href="./index.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <main>
+    <h1>labs</h1>
+    <button id="random-scene">
+      <span lang="en">en</span>
+      <span lang="ru">ru</span>
+    </button>
+  </main>
+  <div class="lang-toggle">
+    <button data-lang="en" onclick="setLang('en')">en</button>
+    <button data-lang="ru" onclick="setLang('ru')">ru</button>
+  </div>
+  <footer>
+    <a href="./all.html">index</a>
+  </footer>
+  <script>
+    var places = [
+      "./archive.html",
+      "./devnotes.html",
+      "./dialogue-mindbook.html",
+      "./dialogue-ontonomy.html",
+      "./dialogues.html",
+      "./dictatum-soul.html",
+      "./enkhe-change-of.html",
+      "./kzleks-how-to-make.html",
+      "./laboratory.html",
+      "./nasim-xp-nodejs.html",
+      "./nasim-xp-react.html",
+      "./plato.html",
+      "./specs.html",
+      "./vinona-love-story.html"
+    ];
+    document.getElementById("random-scene").addEventListener("click", function() {
+      window.location.href = places[Math.floor(Math.random() * places.length)];
+    });
+  </script>
+
+
+</body></html>

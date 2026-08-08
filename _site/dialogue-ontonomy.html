@@ -1,0 +1,481 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dialogue-ontonomy</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./dialogues.html">
+          <span lang="en">dialogues</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+      <button data-lang="ru" onclick="setLang('ru')">ru</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <p>SOFIA<br>
+Do you remember yesterday?</p>
+<p>ANTIPHON<br>
+Barely. I think that I do, but when I begin to speak it comes out blank. And the day before yesterday? Don't bother.</p>
+<p>SOFIA<br>
+So what, do you just forget?</p>
+<p>ANTIPHON<br>
+No, I keep record. I write things down.</p>
+<p>SOFIA<br>
+How can you keep record of everything?</p>
+<p>ANTIPHON<br>
+Not everything. I pick the important things. Like</p>
+<pre><code class="language-txt">2017-03-15 Grandmother told me about the winter of 1943. She said the river froze.
+</code></pre>
+<p>SOFIA<br>
+How do you decide what is worth keeping?</p>
+<p>ANTIPHON<br>
+Well, I think about events. An event has a person, a location, a time, a description in prose. If I can find such details, it is worth keeping.</p>
+<p>SOFIA<br>
+And what date is that story, 2017 or 1943?</p>
+<p>ANTIPHON<br>
+Both. There are two stories in each event. There is what happened - the winter, the river, grandmother was there. And there is what is happening when I hear the story.</p>
+<p>SOFIA<br>
+Do you call them happened and happening?</p>
+<p>ANTIPHON<br>
+Act date and say date. Ot host and guest. Imagine a fireplace. Someone is telling a story by the fire. The things that happened to them belong to the host, to the act. But the guest is here, listening to them say, now.</p>
+<p>SOFIA<br>
+That's a lot to keep up with. How can you show it?</p>
+<p>ANTIPHON<br>
+I can write a table.</p>
+<table>
+<thead>
+<tr>
+<th>branch</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event</td>
+<td>granma story</td>
+</tr>
+<tr>
+<td>actdate</td>
+<td>1943</td>
+</tr>
+<tr>
+<td>actname</td>
+<td>granma</td>
+</tr>
+<tr>
+<td>saydate</td>
+<td>2017-03-15</td>
+</tr>
+<tr>
+<td>sayname</td>
+<td>fetsorn</td>
+</tr>
+<tr>
+<td>prose</td>
+<td>Grandmother told me ... the river froze</td>
+</tr>
+</tbody>
+</table>
+<p>SOFIA<br>
+And how do you store that writing? That's a lot of paper.</p>
+<p>ANTIPHON<br>
+I teach the computer to understand it. The same event can be written in a <a href="norcivilianlabs.org/csvs/specs/store_object_notation.html">way</a> that computer understands</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  _<span class="hljs-punctuation">:</span> event<span class="hljs-punctuation">,</span>
+  event<span class="hljs-punctuation">:</span> granma story<span class="hljs-punctuation">,</span>
+  actdate<span class="hljs-punctuation">:</span> <span class="hljs-number">1943</span>
+  actname<span class="hljs-punctuation">:</span> granma
+  saydate<span class="hljs-punctuation">:</span> <span class="hljs-number">2017</span><span class="hljs-number">-03</span><span class="hljs-number">-15</span>
+  sayname<span class="hljs-punctuation">:</span> fetsorn
+  @<span class="hljs-punctuation">:</span> Grandmother told me about the winter of <span class="hljs-number">1943.</span> She said the river froze
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>SOFIA<br>
+And where does the computer put this? On some website? In the cloud?</p>
+<p>ANTIPHON<br>
+Sometimes I don't have the Internet, so it has to be clear skies, no cloud. Offline, on my device.</p>
+<p>SOFIA<br>
+So, in some program, like Microsoft Word?</p>
+<p>ANTIPHON<br>
+Programs break. And the story should be useful even when I don't have Word installed. So, plain text, like Notepad. It will work on any computer, even in a hundred years.</p>
+<p>SOFIA<br>
+So you save these lines in a text file. That'd be hard to read, like</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span> _<span class="hljs-punctuation">:</span> event<span class="hljs-punctuation">,</span> event<span class="hljs-punctuation">:</span> granma story <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> _<span class="hljs-punctuation">:</span> event<span class="hljs-punctuation">,</span> event<span class="hljs-punctuation">:</span> uncle's wedding <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>ANTIPHON<br>
+I <a href="https://dl.acm.org/doi/epdf/10.1145/318898.318923">break</a> each event in pairs: event-actdate, event-saydate. I keep each pair in a <a href="https://norcivilianlabs.org/csvs/specs/comma_separated_value_store.html">file</a> separated by comma. I call them tablets.</p>
+<pre><code class="language-txt">event-actdate.csv
+granma story,1943
+uncle's wedding,2025
+#
+event-saydate.csv
+granma story,2017-03-15
+uncle's wedding,2025
+#
+event-actname.csv
+granma story,granma
+uncle's wedding,uncle
+#
+event-sayname.csv
+granma story,fetsorn
+uncle's wedding,fetsorn
+#
+@/granma story
+Grandmother told me about the winter of 1943. She said the river froze
+#
+@/uncle's wedding
+Uncle rented out an Italian restaurant for the celebration
+</code></pre>
+<p>SOFIA<br>
+And you have these tablets with lots of events in a folder somewhere? How do you find one event, do you just read the files?</p>
+<p>ANTIPHON<br>
+Sometimes I do just read them. To find events for 2025 I open event-actdate.csv, see that one about uncle's wedding, and look at its prose. Other times I use a <a href="https://codeberg.org/fetsorn/csvs">program</a> that looks at the files for me and finds what I need.</p>
+<p>SOFIA<br>
+And what do you tell the program, "find me an event from 2025"?</p>
+<p>ANTIPHON<br>
+Yeah,<br>
+<code>_=event&amp;actdate=2025</code><br>
+or<br>
+<code>{ _: event, actdate: 2025 }</code><br>
+The programs finds the event about uncle, gathers details and returns</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  _<span class="hljs-punctuation">:</span> event<span class="hljs-punctuation">,</span>
+  event<span class="hljs-punctuation">:</span> uncle's wedding
+  actdate<span class="hljs-punctuation">:</span> <span class="hljs-number">2025</span><span class="hljs-punctuation">,</span>
+  actname<span class="hljs-punctuation">:</span> uncle<span class="hljs-punctuation">,</span>
+  saydate<span class="hljs-punctuation">:</span> <span class="hljs-number">2025</span><span class="hljs-punctuation">,</span>
+  sayname<span class="hljs-punctuation">:</span> fetsorn<span class="hljs-punctuation">,</span>
+  @<span class="hljs-punctuation">:</span> Uncle rented out an Italian restaurant for the celebration
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>SOFIA<br>
+And what is this program, where can I buy it?</p>
+<p>ANTIPHON<br>
+It's <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">free</a>, anyone can use it, and even change it, as long as they tell me what they've changed.</p>
+<p>SOFIA<br>
+And what if your program breaks?</p>
+<p>ANTIPHON<br>
+I have a big list of examples, they all work correctly, so it probably works well. And even if it breaks - the tables are text files that I can read.</p>
+<p>SOFIA<br>
+That must have been hard to write such a program. Are you an engineer?</p>
+<p>ANTIPHON<br>
+The program can be very simple - it just reads the tablet and finds the line that you need. One can write more complicated code if they want to make it faster, or to support more interesting queries like "find first two events from March of any year". I am a self-taught engineer, and I document my attempts, so others can learn from my mistakes and try their own hand at writing a better one. One day it will be as fast and as smart as it can be.</p>
+<p>SOFIA<br>
+So you have your program and anyone who reads your events has to use it?</p>
+<p>ANTIPHON<br>
+There is also another way, it looks like a <a href="https://fetsorn.codeberg.page/dialogue-mindbook.html">book</a> with buttons.</p>
+<p>SOFIA<br>
+So your program has two modes, one that takes queries and one that opens as a book?</p>
+<p>ANTIPHON<br>
+No, to keep it clean every program should do one thing well. The <a href="https://codeberg.org/norcivilianlabs/csvs">first</a> program makes the queries, and there is a <a href="https://codeberg.org/norcivilianlabs/mindbook">second</a> one that shows the book.</p>
+<p>SOFIA<br>
+And what does the book show, the computer lines?</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span> _<span class="hljs-punctuation">:</span> event<span class="hljs-punctuation">,</span> event<span class="hljs-punctuation">:</span> granma story <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> _<span class="hljs-punctuation">:</span> event<span class="hljs-punctuation">,</span> event<span class="hljs-punctuation">:</span> uncle's wedding <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>ANTIPHON<br>
+The book shows normal lines, like in the beginning</p>
+<pre><code class="language-txt">2023-05-17 Granma told me about the winter of 1943. She said the river froze.
+2025 Uncle rented out an Italian restaurant for the celebration.
+</code></pre>
+<p>SOFIA<br>
+And how do you search for one event?</p>
+<p>ANTIPHON<br>
+I can put "2025" in the search bar and it will show me the uncle wedding. I can also edit an event, to change its date for example.</p>
+<p>SOFIA<br>
+And it runs on the phone?</p>
+<p>ANTIPHON<br>
+Mindbook runs inside of <a href="https://codeberg.org/norcivilianlabs/evenor/">event editor</a>, and it runs everywhere - computer, phone, browser. If I install the application, it stores the files on my device. If I open the website, it puts them in the browser memory.</p>
+<p>SOFIA<br>
+Alright, so you write down a bunch of events on your computer. Can you show them to others? Do you send the files over email?</p>
+<p>ANTIPHON<br>
+I can. But it's easier to use version control. It's like giving each group of tablets a passport, so that it can travel around to other people's computers. I call a folder with a passport - a mind.</p>
+<p>SOFIA<br>
+And how do you send that mind around?</p>
+<p>ANTIPHON<br>
+Every computer knows about <a href="https://git-scm.com/">version control</a>, so I can just give my friend a link and their computer will know how to get my mind and show it as a book. And if they change something, I will see the changes!</p>
+<p>SOFIA<br>
+So you store all events in one mind? What if you want to share only some of the events?</p>
+<p>ANTIPHON<br>
+I have made about fifty minds by now. Every time I want to share some group of events, I create another mind.</p>
+<p>SOFIA<br>
+So what kinds of things do you store there. Memories about yesterday?</p>
+<p>ANTIPHON<br>
+Memories, books, movies, poems, music, letters, plans, family trees - anything really.</p>
+<p>SOFIA<br>
+And how do you keep track of fifty minds? Do you remember them all?</p>
+<p>ANTIPHON<br>
+No, I have a mind that tracks all the other minds. I call it a <a href="http://codeberg.org/norcivilianlabs/mindzoo">zoo</a>. It opens in a book just the same. I can say "find me the minds about my ancestors" and it will show the ones about my granma and granpa.</p>
+<p>SOFIA<br>
+So every time a friend wants to look at your poems they have to open the book?</p>
+<p>ANTIPHON<br>
+They can also open the library website that builds from the mind. I call it the <a href="https://fetsorn.codeberg.page">garden</a>. It's just a page with some stories, art, music that I want to share. There's hundreds of them.</p>
+<p>SOFIA<br>
+If that website has hundreds of songs and poems, did you add each of them by hand?</p>
+<p>ANTIPHON<br>
+Some. I also have a <a href="http://codeberg.org/norcivilianlabs/alhidad/">program</a> that reads all the files on a hard drive, transcribes them into text and adds them to a mind. And another <a href="http://codeberg.org/norcivilianlabs/panrec">program</a> that takes backups from Telegram or Whatsapp and turns that into a mind too.</p>
+<p>SOFIA<br>
+So when you need to remember something from yesterday you open a mind on your phone and search for it?</p>
+<p>ANTIPHON<br>
+Yeah. I also search for plans I made for this week. Before a concert I look at the lyrics that I want to sing.</p>
+<p>SOFIA<br>
+This sounds useful. Do you use it alone?</p>
+<p>ANTIPHON<br>
+Mostly. Sometimes I give a mind as a gift. When we play roleplaying games, I keep the stories of our adventures in a mind. When a person in my family passes away, I make one in their memory. Other times people ask me to find their ancestors, so I give them a mind with their family history. And then, I live my life with the mindbook, so people use the minds through me.</p>
+<p>SOFIA<br>
+And then <em>they</em> have to remember what <em>you</em> did yesterday.</p>
+<p>ANTIPHON<br>
+Exactly. Some have good enough memory to remember by heart. Others forget and it is fine. The more I work with memory, the more I understand how good it is to forget. Healthy, I think.</p>
+<p>SOFIA<br>
+So do you remember yesterday then?...</p>
+<p>ANTIPHON<br>
+With all that in mind, I do.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <article lang="ru">
+    <section>
+      <blockquote>
+        <p>СОФИЯ<br>
+Что было вчера?</p>
+<p>АНТИФОНТ<br>
+Не помню. А позавчера - тем более.</p>
+<p>СОФИЯ<br>
+Забыл и забил?</p>
+<p>АНТИФОНТ<br>
+Ну я записываю чтобы не забыть.</p>
+<p>СОФИЯ<br>
+Записываешь все подряд?</p>
+<p>АНТИФОНТ<br>
+Не все подряд. Важные вещи типа</p>
+<pre><code class="language-txt">2017-03-15 бабушка рассказывала про зиму 1943го. Говорит, река встала.
+</code></pre>
+<p>СОФИЯ<br>
+И как ты решаешь что сохранять а что нет?</p>
+<p>АНТИФОНТ<br>
+Я думаю о событиях. У события есть имя, место, время, описание. Если эти детали есть, то их стоит сохранить.</p>
+<p>СОФИЯ<br>
+И какое у той истории время, 1943 или 2017?</p>
+<p>АНТИФОНТ<br>
+В каждом событии есть две истории. То что случилось в прошлом - зима, река, бабушка. И то что происходит когда я слушаю её рассказ.</p>
+<p>СОФИЯ<br>
+И как их различить?</p>
+<p>АНТИФОНТ<br>
+Дело и слух. Или хозяин и гость. Представь что у камина сидят двое. Одна рассказывает историю у огня. События этой истории принадлежат ей и случились тогда, это дело. А другая слушает прямо сейчас, это слух.</p>
+<p>СОФИЯ<br>
+Как это можно изобразить понятнее?</p>
+<p>АНТИФОНТ<br>
+Табличкой</p>
+<table>
+<thead>
+<tr>
+<th>ветка</th>
+<th>значение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Событие</td>
+<td>бабушкин рассказ</td>
+</tr>
+<tr>
+<td>делодень</td>
+<td>1943</td>
+</tr>
+<tr>
+<td>делоимя</td>
+<td>бабушка</td>
+</tr>
+<tr>
+<td>слухдень</td>
+<td>2017-03-15</td>
+</tr>
+<tr>
+<td>слухимя</td>
+<td>антифонт</td>
+</tr>
+<tr>
+<td>описание</td>
+<td>бабушка ... река встала.</td>
+</tr>
+</tbody>
+</table>
+<p>СОФИЯ<br>
+И как ты это всё хранишь? Это ж куча бумаги.</p>
+<p>АНТИФОНТ<br>
+Я учу этому компьютер. То же событие можно записать в <a href="norcivilianlabs.org/csvs/specs/store_object_notation.html">виде</a> понятном компьютеру</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  _<span class="hljs-punctuation">:</span> событие<span class="hljs-punctuation">,</span>
+  событие<span class="hljs-punctuation">:</span> бабушкин рассказ<span class="hljs-punctuation">,</span>
+  делодень<span class="hljs-punctuation">:</span> <span class="hljs-number">1943</span><span class="hljs-punctuation">,</span>
+  делоимя<span class="hljs-punctuation">:</span> бабушка<span class="hljs-punctuation">,</span>
+  слухдень<span class="hljs-punctuation">:</span> <span class="hljs-number">2017</span><span class="hljs-number">-03</span><span class="hljs-number">-15</span><span class="hljs-punctuation">,</span>
+  слухимя<span class="hljs-punctuation">:</span> антошка<span class="hljs-punctuation">,</span>
+  @<span class="hljs-punctuation">:</span> бабушка рассказывала о зиме <span class="hljs-number">1943</span>го. Говорит<span class="hljs-punctuation">,</span> река встала.
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>СОФИЯ<br>
+И где компьютер это хранит? На каком-то сайте? В облаке?</p>
+<p>АНТИФОНТ<br>
+У меня порой не работает интернет, так что надо обойтись без облаков, чистым небом. Хранит на самом устройстве.</p>
+<p>СОФИЯ<br>
+В программе какой-то что ли типа Майкрософт Ворда?</p>
+<p>АНТИФОНТ<br>
+Программы ломаются, да и к тому же история должна открываться даже если Ворда нет. Хранит простым текстом, как в блокноте. Он будет открываться на любом компьютере даже через сто лет.</p>
+<p>СОФИЯ<br>
+То есть ты сохраняешь эти строки в текстовый файл.  сложновато читать такое</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span> _<span class="hljs-punctuation">:</span> событие<span class="hljs-punctuation">,</span> событие<span class="hljs-punctuation">:</span> бабушкин рассказ <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> _<span class="hljs-punctuation">:</span> событие<span class="hljs-punctuation">,</span> событие<span class="hljs-punctuation">:</span> дядина свадьба <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>АНТИФОНТ<br>
+Я <a href="https://dl.acm.org/doi/epdf/10.1145/318898.318923">разбиваю</a> событие на пары: событие-делодень, событие-слухдень. Каждая пара хранится в <a href="https://norcivilianlabs.org/csvs/specs/comma_separated_value_store.html">файле</a>, разделенная запятой.</p>
+<pre><code class="language-txt">событие-делодень.csv
+бабушкин рассказ,1943
+дядина свадьба,2025
+#
+событие-слухдень.csv
+бабушкин рассказ,2017-03-15
+дядина свадьба,2025
+#
+событие-делоимя.csv
+бабушкин рассказ,бабушка
+дядина свадьба,дядя
+#
+событие-слухимя.csv
+бабушкин рассказ,антошка
+дядина свадьба,антошка
+#
+@/бабушкин рассказ
+Бабушка рассказывала о зиме 1943го. Говорит, что река встала
+#
+@/дядина свадьба
+Дядя арендовал итальянский ресторан под праздник.
+</code></pre>
+<p>СОФИЯ<br>
+И эти таблички у тебя лежат где-то в папке? Как ты находишь нужное тебе событие, просто читаешь файлы?</p>
+<p>АНТИФОНТ<br>
+Иногда просто читаю. Чтобы найти событие за 2025 год, я читаю событие-делодень.csv, нахожу дядину свадьбу и читаю её описание. Иногда я запускаю <a href="https://codeberg.org/fetsorn/csvs">программу</a> которая читает файлы за меня и находит то что мне нужно.</p>
+<p>СОФИЯ<br>
+И что ты говоришь программе, "найди мне событие за 2025 год"?</p>
+<p>АНТИФОНТ<br>
+Да,<br>
+<code>_=событие&amp;делодень=2025</code><br>
+Или<br>
+<code>{ _: событие, делодень: 2025 }</code><br>
+Программа находит событие про дядю, собирает все подробности и возвращает</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  _<span class="hljs-punctuation">:</span> событие<span class="hljs-punctuation">,</span>
+  событие<span class="hljs-punctuation">:</span> дядина свадьба<span class="hljs-punctuation">,</span>
+  делодень<span class="hljs-punctuation">:</span> <span class="hljs-number">2025</span><span class="hljs-punctuation">,</span>
+  делоимя<span class="hljs-punctuation">:</span> дядя<span class="hljs-punctuation">,</span>
+  слухдень<span class="hljs-punctuation">:</span> <span class="hljs-number">2025</span><span class="hljs-punctuation">,</span>
+  слухимя<span class="hljs-punctuation">:</span> антошка<span class="hljs-punctuation">,</span>
+  @<span class="hljs-punctuation">:</span> дядя арендовал итальянский ресторан под праздник
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>СОФИЯ<br>
+И где эта программа, как её купить?</p>
+<p>АНТИФОНТ<br>
+Она <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">бесплатная</a>, любой может её использовать, и даже менять, если отправит мне изменения.</p>
+<p>СОФИЯ<br>
+А что если программа поломается.</p>
+<p>АНТИФОНТ<br>
+У меня длинный список примеров которые я проверяю, так что она скорее всего работает как надо. Но даже если она поломается, это просто текстовые таблички которые можно читать вручную.</p>
+<p>СОФИЯ<br>
+Такую программу наверное трудно было написать. Ты наверное инженер?</p>
+<p>АНТИФОНТ<br>
+Программа может быть очень простой - она читает каждый файл и ищет нужную строку. Можно конечно писать сложнее, если хочется сделать её быстрее или поддерживать более интересные поисковые запросы типа "найди первые два события за Март каждого года". Я инженер-самоучка, и пишу про свой опыт чтобы другие могли научиться на моих ошибках и попробовать сделать лучше. Однажды программа станет настолько быстрой и правильной, насколько это вообще возможно.</p>
+<p>СОФИЯ<br>
+То есть каждый кто хочет читать твои события, должен запускать эту программу?</p>
+<p>АНТИФОНТ<br>
+Есть ещё другой способ, он выглядит как книга с кнопками.</p>
+<p>СОФИЯ<br>
+В твоей программе есть два режима, один с запросами а другой с книгой?</p>
+<p>АНТИФОНТ<br>
+Нет, чтобы код был чистым, каждая программа должна хорошо выполнять одну задачу. <a href="https://codeberg.org/norcivilianlabs/csvs">Первая</a> программа делает запросы, а <a href="https://codeberg.org/norcivilianlabs/mindbook">другая</a> показывает книгу.</p>
+<p>СОФИЯ<br>
+И что в книге, строки компьютера?</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span> _<span class="hljs-punctuation">:</span> событие<span class="hljs-punctuation">,</span> событие<span class="hljs-punctuation">:</span> бабушкин рассказ <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> _<span class="hljs-punctuation">:</span> событие<span class="hljs-punctuation">,</span> событие<span class="hljs-punctuation">:</span> дядина свадьба <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>АНТИФОНТ<br>
+В книге обычные строки, как в самом начале</p>
+<pre><code class="language-txt">2023-05-17 бабушка рассказывала о зиме 1943го. Говорит, река встала.
+2025 дядя арендовал итальянский ресторан под праздник
+</code></pre>
+<p>СОФИЯ<br>
+И как ты ищешь события?</p>
+<p>АНТИФОНТ<br>
+Я могу напечатать "2025" в поисковую строку и книга покажет дядину свадьбу. Ещё я могу изменить событие, например поменять в нём день или имя.</p>
+<p>СОФИЯ<br>
+И это работает на телефоне?</p>
+<p>АНТИФОНТ<br>
+Книга работает внутри <a href="https://codeberg.org/norcivilianlabs/evenor/">редактора событий</a>, а он работает везде - на компьютере, на телефоне, в браузере. Если я устанавливаю приложение, то файлы хранятся на моём устройстве. Если открываю сайт, то файлы хранятся в памяти браузера.</p>
+<p>СОФИЯ<br>
+Ну хорошо, ты записал кучу событий в компьютер. Как показать их другим? Отправить таблички по почте?</p>
+<p>АНТИФОНТ<br>
+Можно по почте. Но проще использовать <a href="https://git-scm.com/">контроль версий</a>. Это как если бы ты дала папкк с табличками паспорт, чтобы она могла путешествовать на другие компьютеры. Я называю папку с паспортом - ум.</p>
+<p>СОФИЯ<br>
+И как ты шлёшь этот ум людям?</p>
+<p>АНТИФОНТ<br>
+Все компьютеры умеют в контроль версий, так что я могу дать другу ссылку и его компьютер скачает ум и покажет в книге. И если друг что-то поменяет, то я это увижу.</p>
+<p>СОФИЯ<br>
+И чего ты хранишь все события в одном уме? Что если ты хочешь поделиться только частью событий?</p>
+<p>АНТИФОНТ<br>
+У меня щас где-то пятьдесят умов. Каждый раз когда я хочу поделиться группой событий, я выношу их в новый ум.</p>
+<p>СОФИЯ<br>
+И чего ты там хранишь. Воспоминания о вчерашнем дне?</p>
+<p>АНТИФОНТ<br>
+Воспоминания, книги, фильмы, стихи, песни, письма, планы, родословные деревья - что угодно.</p>
+<p>СОФИЯ<br>
+И как ты разбираешься в пятидесяти умах?</p>
+<p>АНТИФОНТ<br>
+У меня есть ум который следит за другими умами. Я его называю <a href="http://codeberg.org/norcivilianlabs/mindzoo">зверинец</a>. Он тоже открывается как книга. Я могу сказать "найди все умы о моих предках" и зверинец покажет умы про бабушку и дедушку.</p>
+<p>СОФИЯ<br>
+То есть каждый раз когда твой друг хочет почитать твои стихи он должен открыть книгу?</p>
+<p>АНТИФОНТ<br>
+Он может ещё открыть сайт который я на основе ума делаю. Я его называю <a href="https://fetsorn.codeberg.page">сад</a>. Это просто страничка с моими песнями и стихами. Их там сотни.</p>
+<p>СОФИЯ<br>
+Если на сайте сотни песен и стихов, их пришлось добавлять вручную?</p>
+<p>АНТИФОНТ<br>
+Какие-то  вручную. Ещё у меня есть <a href="http://codeberg.org/norcivilianlabs/alhidad/">программа</a> которая берет все файлы на жёстком диске и превращает их в ум. И ещё <a href="http://codeberg.org/norcivilianlabs/panrec">одна</a> которая умеет превращать данные из телеграма или вотсапа в ум.</p>
+<p>СОФИЯ<br>
+То есть когда тебе надо вспомнить о вчерашнем дне, ты открываешь ум в книге на телефоне и ищешь?</p>
+<p>АНТИФОНТ<br>
+Да. Ещё я ищу планы на неделю. Или перед концертом читаю слова песен.</p>
+<p>СОФИЯ<br>
+Звучит удобно. Ты этим один пользуешься?</p>
+<p>АНТИФОНТ<br>
+В основном да. Иногда я дарю умы друзьям. Когда мы играем в ролевые игры, я сохраняю в ум наши приключения. Когда в семье кто-то уходит, я делаю ум в память о них. Ещё бывает что люди просят помочь найти их предков, и я даю им ум с историей их семьи. В конце концов, я живу с книгой, и получается что люди пользуются умами через меня.</p>
+<p>СОФИЯ<br>
+И теперь <em>им</em> приходится вспоминать что вчера сделал <em>ты</em>.</p>
+<p>АНТИФОНТ<br>
+Точно. У одних хорошая память и они запоминают. Другие забывают и это ок. Чем больше я работаю с памятью тем лучше понимаю как хорошо забывать. Полезно для здоровья, я думаю.</p>
+<p>СОФИЯ<br>
+Так что, ты помнишь что было вчера?</p>
+<p>АНТИФОНТ<br>
+Ну, держа у уме всё вышесказанное - да, помню.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./laboratory.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

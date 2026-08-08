@@ -1,21 +1,20 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-rm -R pages
-
-git worktree remove ./pages
+git worktree remove ./pages 2>/dev/null || true
 
 git worktree add ./pages pages
 
-mdbook build
+./build.sh
 
-cp theme/robots.txt ./pages/
-
-cp theme/.domains ./pages/
+cp -r _site/* ./pages/
 
 git --git-dir ./.git/worktrees/pages --work-tree ./pages add .
 
-git --git-dir ./.git/worktrees/pages --work-tree ./pages commit --file - < version.md
-
-git --git-dir ./.git/worktrees/pages --work-tree ./pages push origin pages
+if git --git-dir ./.git/worktrees/pages --work-tree ./pages diff --cached --quiet; then
+  echo "No changes to deploy."
+else
+  git --git-dir ./.git/worktrees/pages --work-tree ./pages commit -m "$(jq -r '.version' package.json) $(git log --pretty=format:'%h' -n 1)"
+  git --git-dir ./.git/worktrees/pages --work-tree ./pages push origin pages
+fi
 
 git worktree prune

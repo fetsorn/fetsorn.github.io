@@ -3,3 +3,8 @@
 *.log
 tmp/
 pages/
+
+*/node_modules/
+*/_site/
+/pages/
+/node_modules/
