@@ -1,4 +1,4 @@
-import wuyong from "wuyong";
+import wuyong from "@fetsorn/eleventy-plugin-wuyong";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(wuyong, {

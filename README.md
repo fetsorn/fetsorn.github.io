@@ -1,6 +1,37 @@
+<div align="center">
+
 # Norcivilian Labs
 
-Documentation built with [mdBook](https://github.com/rust-lang/mdBook) and hosted at [Codeberg Pages](https://docs.codeberg.org/codeberg-pages).
+[norcivilianlabs.org](https://norcivilianlabs.org)
 
-Norcivilian Labs Documentation © 2024 by Anton Davydov is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International 
+CC BY-NC-SA 4.0. Anton Davydov.
 
+</div>
+
+Documentation for everything.
+
+Built with [wuyong](https://codeberg.org/norcivilianlabs/wuyong)
+and [csvs](https://codeberg.org/fetsorn/csvs). 
+
+## Build
+
+```sh
+npm install
+npx @11ty/eleventy
+```
+
+## Content
+
+The csvs dataset lives in [csvs/](csvs/). Content is organized
+as places:
+
+- **specs** 
+- **dialogues** 
+- **devnotes** 
+- **brochures** 
+- **archive**
+
+## Source
+
+- Codeberg: [norcivilianlabs/pages](https://codeberg.org/norcivilianlabs/pages)
+- GitHub: [fetsorn.github.io](https://github.com/fetsorn/fetsorn.github.io)

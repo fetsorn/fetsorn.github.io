@@ -15,6 +15,7 @@ if git --git-dir ./.git/worktrees/pages --work-tree ./pages diff --cached --quie
 else
   git --git-dir ./.git/worktrees/pages --work-tree ./pages commit -m "$(jq -r '.version' package.json) $(git log --pretty=format:'%h' -n 1)"
   git --git-dir ./.git/worktrees/pages --work-tree ./pages push origin pages
+  git --git-dir ./.git/worktrees/pages --work-tree ./pages push github pages
 fi
 
 git worktree prune
