@@ -1,0 +1,252 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-csvs-requirements</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Database</h1>
+<p>plain-text relational database</p>
+<h2>Product</h2>
+<p>competes: recutils, SQL, mongodb</p>
+<p>interacts: file system, clients, text editors</p>
+<p>constitutes: a set of CSV files</p>
+<p>includes: config, schema, data</p>
+<p>resembles: recutils</p>
+<p>patterns:</p>
+<p>stakeholders: fetsorn</p>
+<h2>Technical</h2>
+<h3>宣 胞 闹</h3>
+<ul>
+<li>user must view dataset in a text editor</li>
+</ul>
+<h3>众 脱 幻</h3>
+<ul>
+<li>user must version control the dataset</li>
+</ul>
+<h3>叔 纹 岩</h3>
+<ul>
+<li>user must query with grep</li>
+</ul>
+<h3>在 赏 顶</h3>
+<ul>
+<li>user must deduplicate values</li>
+</ul>
+<h3>朗 归 娘</h3>
+<ul>
+<li>user without a client should figure out the dataset structure</li>
+</ul>
+<h3>波 精 祸</h3>
+<ul>
+<li>developer without a client should figure out how to restore data</li>
+</ul>
+<h3>据 叫 妻</h3>
+<ul>
+<li>developer must implement searches</li>
+</ul>
+<h3>关 障 讯</h3>
+<ul>
+<li>user must specify relations between entities</li>
+</ul>
+<h3>裂 捞 红</h3>
+<ul>
+<li>user must store arrays, lists</li>
+</ul>
+<h3>奥 虚 昌</h3>
+<ul>
+<li>user must store records, sets</li>
+</ul>
+<h3>良 送 辖</h3>
+<ul>
+<li>user must store identical data in efficient space</li>
+</ul>
+<h3>碱 碱 烷</h3>
+<ul>
+<li>user should specify foreign keys as sha256sum hashes of values</li>
+</ul>
+<h3>复 究 臂</h3>
+<ul>
+<li>user should specify foreign keys as multiformats hashes of values</li>
+</ul>
+<h3>卖 践 杀</h3>
+<ul>
+<li>user should store relative values</li>
+</ul>
+<h3>泡 辟 止</h3>
+<ul>
+<li>user should store escaped string</li>
+</ul>
+<h3>模 桂 红</h3>
+<ul>
+<li>user should store without duplication</li>
+</ul>
+<h3>据 归 改</h3>
+<ul>
+<li>user must store values</li>
+</ul>
+<h3>亦 龙 皱</h3>
+<ul>
+<li>developer must extend csvs format</li>
+</ul>
+<h3>敌 爬 鬼</h3>
+<ul>
+<li>user must read plain text</li>
+</ul>
+<h3>磁 西 催</h3>
+<ul>
+<li>user must read dataset files</li>
+</ul>
+<h3>差 纳 父</h3>
+<ul>
+<li>user must write dataset files</li>
+</ul>
+<h3>税 七 汽</h3>
+<ul>
+<li>developer must easily reverse engineer the dataset structure without documentation</li>
+</ul>
+<h3>决 胀 我</h3>
+<ul>
+<li>developer must easily support and maintain the dataset</li>
+</ul>
+<h1>Library</h1>
+<p>library for interacting with csvs datasets</p>
+<h2>Product</h2>
+<p>competes: libraries for SQL, MongoDB,</p>
+<p>interacts: with arbitrary dataset storage that implements FS</p>
+<p>constitutes: a library, a WASM reactor module</p>
+<p>includes: a façade interface, query controller, record update controller, record delete controller, schema controller, dataset cache</p>
+<p>patterns: façade</p>
+<p>resembles:</p>
+<p>stakeholders: fetsorn</p>
+<h2>Technical</h2>
+<h3>龄 摸 律</h3>
+<ul>
+<li>user must search records in a csvs dataset</li>
+</ul>
+<h3>馏 温 佛</h3>
+<ul>
+<li>user must specify custom read method</li>
+</ul>
+<h3>邻 津 二</h3>
+<ul>
+<li>user must specify custom write method</li>
+</ul>
+<h3>大 冶 横</h3>
+<ul>
+<li>user must specify custom grep method</li>
+</ul>
+<h3>巡 尾 造</h3>
+<ul>
+<li>user must edit record in a csvs dataset</li>
+</ul>
+<h3>沸 油 诚</h3>
+<ul>
+<li>user must delete record from a csvs dataset</li>
+</ul>
+<h3>理 双 景</h3>
+<ul>
+<li>user must add record to a csvs dataset</li>
+</ul>
+<h3>绝 项 额</h3>
+<ul>
+<li>user can optimize csvs dataset files</li>
+</ul>
+<h3>糊 变 审</h3>
+<ul>
+<li>user must stream query results</li>
+</ul>
+<h3>迹 黄 虽</h3>
+<ul>
+<li>user should find 100k records in under 1 second</li>
+</ul>
+<h3>巩 必 扎</h3>
+<ul>
+<li>user must add records in bulk</li>
+</ul>
+<h3>津 飞 妹</h3>
+<ul>
+<li>user must edit records in bulk</li>
+</ul>
+<h3>阻 愿 夫</h3>
+<ul>
+<li>user must delete records in bulk</li>
+</ul>
+<h3>黄 苯 层</h3>
+<ul>
+<li>user must search all keys</li>
+</ul>
+<h3>铅 射 写</h3>
+<ul>
+<li>user must build a record from key</li>
+</ul>
+<h3>核 舒 骨</h3>
+<ul>
+<li>user must search dataset with multiple trunks</li>
+</ul>
+<h3>似 脚 放</h3>
+<ul>
+<li>user must consistently reproduce dataset contents</li>
+</ul>
+<h1>CLI</h1>
+<p>command-line utility for interacting with csvs datasets</p>
+<h2>Product</h2>
+<p>competes: prsql, sqlite</p>
+<p>interacts: filesystem</p>
+<p>constitutes: a cli utility</p>
+<p>includes:</p>
+<p>patterns:</p>
+<p>resembles:</p>
+<p>stakeholders: fetsorn</p>
+<h2>Technical</h2>
+<h2>北 翻 蚀</h2>
+<ul>
+<li>user can create an empty csvs dataset</li>
+</ul>
+<h2>玩 矿 仓</h2>
+<ul>
+<li>user must create an empty csvs dataset</li>
+</ul>
+<h2>薄 刺 内</h2>
+<ul>
+<li>user must edit an empty csvs dataset</li>
+</ul>
+<h2>夹 轨 检</h2>
+<ul>
+<li>user must edit schema of a csvs dataset</li>
+</ul>
+<h2>升 辨 良</h2>
+<ul>
+<li>user must delete schema entry dataset</li>
+</ul>
+<h2>氯 弃 检</h2>
+<ul>
+<li>user must query entry dataset</li>
+</ul>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

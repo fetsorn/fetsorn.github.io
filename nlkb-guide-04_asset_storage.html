@@ -1,0 +1,93 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-guide-04_asset_storage</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Asset Storage</h1>
+<p>you can store media files in a folder in the dataset and address them in one of the tablets</p>
+<blockquote>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-meta"># _-_.csv</span>
+<span class="hljs-keyword">event</span>, <span class="hljs-keyword">file</span>
+</code></pre>
+<pre><code class="language-csv"># <span class="hljs-keyword">event</span>-<span class="hljs-keyword">file</span>.csv
+visited Japan,IMG_0890.jpeg
+</code></pre>
+<pre><code><span class="hljs-comment"># img/IMG_0890.jpeg</span>
+               )\         O_._._._A_._._._O         /(
+                \`--.___,'=================`.___,--'/
+                 \`--._.__                 __._,--'/
+                   \  ,. l`~~~~~~~~~~~~~~~'l ,.  /
+       __            \||<span class="hljs-string">(_)!_!_!_.-._!_!_!(_)</span>||<span class="hljs-string">/            __
+       \\`-.__        </span>||<span class="hljs-string">_</span>|<span class="hljs-string">____!!_</span>|<span class="hljs-string">;</span>|<span class="hljs-string">_!!____</span>|<span class="hljs-string">_</span>||<span class="hljs-string">        __,-'//
+        \\    `==---='-----------'='-----------`=---=='    //
+        </span>|<span class="hljs-string"> `--.                                         ,--' </span>|
+         \  ,.`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~',.  /
+           \||<span class="hljs-string">  ____,-------._,-------._,-------.____  </span>||<span class="hljs-string">/
+            </span>||<span class="hljs-string">\</span>|<span class="hljs-string">___!`======="!`======="!`======="!___</span>|<span class="hljs-string">/</span>||
+            ||<span class="hljs-string"> </span>|<span class="hljs-string">---</span>||<span class="hljs-string">--------</span>||<span class="hljs-string">-</span>|<span class="hljs-string"> </span>|<span class="hljs-string"> </span>|<span class="hljs-string">-!!--------</span>||<span class="hljs-string">---</span>|<span class="hljs-string"> </span>||
+  __O_____O_ll_lO_____O_____O||<span class="hljs-string"> </span>|<span class="hljs-string">'</span>|<span class="hljs-string">'</span>|<span class="hljs-string"> </span>||O_____O_____Ol_ll_O_____O__
+  o H o o H o o H o o H o o |<span class="hljs-string">-----------</span>|<span class="hljs-string"> o o H o o H o o H o o H o
+ ___H_____H_____H_____H____O =========== O____H_____H_____H_____H___
+                          /</span>|<span class="hljs-string">=============</span>|<span class="hljs-string">\
+()______()______()______() '==== +-+ ====' ()______()______()______()
+</span>||<span class="hljs-string">{_}{_}</span>||<span class="hljs-string">{_}{_}</span>||<span class="hljs-string">{_}{_}/</span>|<span class="hljs-string"> ===== </span>|<span class="hljs-string">_</span>|<span class="hljs-string"> ===== </span>|<span class="hljs-string">\{_}{_}</span>||<span class="hljs-string">{_}{_}</span>||<span class="hljs-string">{_}{_}</span>||
+||<span class="hljs-string">      </span>||<span class="hljs-string">      </span>||<span class="hljs-string">     / </span>|<span class="hljs-string">==== s(   )s ====</span>|<span class="hljs-string"> \     </span>||<span class="hljs-string">      </span>||<span class="hljs-string">      </span>||
+======================()  =================  ()======================
+----------------------/|<span class="hljs-string"> ------------------- </span>|<span class="hljs-string">\----------------------
+                     / </span>|<span class="hljs-string">---------------------</span>|<span class="hljs-string"> \
+-'--'--'           ()  '---------------------'  ()
+                   /</span>|<span class="hljs-string"> ------------------------- </span>|<span class="hljs-string">\    --'--'--'
+       --'--'     / </span>|<span class="hljs-string">---------------------------</span>|<span class="hljs-string"> \    '--'
+                ()  </span>|<span class="hljs-string">___________________________</span>|<span class="hljs-string">  ()           '--'-
+  --'-          /</span>|<span class="hljs-string"> _______________________________  </span>|<span class="hljs-string">\
+ --' gpyy      / </span>|<span class="hljs-string">__________________________________</span>|<span class="hljs-string"> \
+Art by Glory Moon
+</span></code></pre>
+</blockquote>
+<p>if you version control the dataset with git, you can add the asset folder to <a href="https://git-lfs.com/">Large File Storage</a></p>
+<pre><code class="language-sh">git lfs install
+
+git lfs track <span class="hljs-string">"img/**"</span>
+
+git add .gitattributes
+
+git add img/IMG_0890.jpeg
+
+git commit -m <span class="hljs-string">"add picture of Japan"</span>
+</code></pre>
+<p>binary blobs SHOULD be stored in a folder inside the dataset directory, and associate each blob with a value of collection <code>filename</code>.<br>
+In datasets version controlled by <code>git</code>, the asset directory SHOULD be filtered with git-lfs or git-index.</p>
+<p>To learn more about csvs, see other <a href="./README.md">User Guides</a> and the <a href="../requirements.md">Requirements</a>.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-ref-overview</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Reference</h1>
+<p>This reference describes a library for playing with csvs datasets. It lists data types, signatures and implementations for each function. Implementations are written in Program Design Language, or pseudocode.</p>
+<p>It currently provides four methods - select, update, insert and delete, each with the same API of a transform web stream factory asking for access to the file system and the dataset directory.</p>
+<p>Each method is currently implemented in the same style of constant memory and nested streams.</p>
+<p>A top-level record stream accepts a query record and returns a record. It builds a list of tablets from each query - a strategy, - and builds a pipeline of tablet streams.</p>
+<p>A tablet stream accepts a query record and returns a record. It streams tablet lines to a line stream. During operation multiple records are queued in the tablet stream, passed to record stream and queued there for consumption.</p>
+<ul>
+<li><a href="./00_data_types.md">Data Types</a></li>
+<li><a href="./01_sow_and_mow.md">Sow &amp; Mow</a></li>
+<li><a href="./02_schema.md">Schema</a></li>
+<li><a href="./03_insert.md">Insert</a></li>
+<li><a href="./04_update.md">Update</a></li>
+<li><a href="./05_delete.md">Delete</a></li>
+<li><a href="./06_select.md">Select</a></li>
+</ul>
+<p>To learn more about the architecture of csvs, see other <a href="../user_guides/README.md">User Guides</a>, the <a href="../specs/README.md">Specifications</a> and the <a href="../requirements.md">Requirements</a>.</p>
+<h1>Notes:</h1>
+<ul>
+<li>remove "playing" from here</li>
+<li>"library" is a term from code organization, this should talk about algorithms and data structures</li>
+<li>"transform web stream" is too language-specific</li>
+<li>there should be introductory text as to why we need to describe functions at all</li>
+<li>"function" is a term from code organization, this should use more general terms like "step" or "stage"</li>
+<li>the text about the stream pipeline should be moved elsewhere</li>
+<li>the list should have explanation and sales pitch for each item</li>
+<li>right now each page under this chapter is a design sketch, not documentation.</li>
+</ul>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

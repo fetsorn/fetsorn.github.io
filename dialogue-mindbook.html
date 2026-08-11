@@ -1,85 +1,54 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dialogue-mindbook</title>
-    <link rel="stylesheet" href="./index.css" />
-    <link rel="stylesheet" href="./hljs.css" />
-    <script src="lang.js"></script>
-  </head>
-  <body>
-    <nav>
-      <ul>
-        <li>
-          <a href="./dialogues.html">
-            <span lang="en">dialogues</span>
-          </a>
-        </li>
-      </ul>
-      <div class="lang-toggle">
-        <button data-lang="en" onclick="setLang('en')">en</button>
-        <button data-lang="ru" onclick="setLang('ru')">ru</button>
-      </div>
-    </nav>
-    <article lang="en">
-      <section>
-        <blockquote>
-          <p>
-            SOFIA<br />
-            Can you describe your world?
-          </p>
-          <p>
-            ANTIPHON<br />
-            Barely, with a lot of text. Granma was born in 1925. Father was born
-            to granma in 1950. Mother was born in 1951. My brother was born to
-            father and mother in 1987. I was born to them in 1990. I find it
-            hard to explain the larger family without an interface.
-          </p>
-          <p>
-            SOFIA<br />
-            So what, do you use social networks or genealogy software that have
-            already decided how to show this for you?
-          </p>
-          <p>
-            ANTIPHON<br />
-            Nah, I don't like that they decide for me. And when they change the
-            interface, or close down, I always end up with the short end of the
-            stick. I decide for myself what I want to speak about.
-          </p>
-          <pre><code class="language-txt">Father was born in 1950
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dialogue-mindbook</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./dialogues.html">
+          <span lang="en">dialogues</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+      <button data-lang="ru" onclick="setLang('ru')">ru</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <p>SOFIA<br>
+Can you describe your world?</p>
+<p>ANTIPHON<br>
+Barely, with a lot of text. Granma was born in 1925. Father was born to granma in 1950. Mother was born in 1951. My brother was born to father and mother in 1987. I was born to them in 1990. I find it hard to explain the larger family without an interface.</p>
+<p>SOFIA<br>
+So what, do you use social networks or genealogy software that have already decided how to show this for you?</p>
+<p>ANTIPHON<br>
+Nah, I don't like that they decide for me. And when they change the interface, or close down, I always end up with the short end of the stick. I decide for myself what I want to speak about.</p>
+<pre><code class="language-txt">Father was born in 1950
 I was born to father and mother in 1990.
 </code></pre>
-          <p>
-            SOFIA<br />
-            So what, do you just write prose, like a lot of notes?
-          </p>
-          <p>
-            ANTIPHON<br />
-            Nah, each event has prose and some details, so 1950 is a date,
-            father is a name of that event, and mother is the name of some other
-            event. I can hide prose under "is...", details under "with..." and
-            lists under "and...". It reads like a sentence. I will show the type
-            of each thing in brackets for now.
-          </p>
-          <pre><code class="language-txt">father(event) is: Father was born(prose) with: 1950(date)
+<p>SOFIA<br>
+So what, do you just write prose, like a lot of notes?</p>
+<p>ANTIPHON<br>
+Nah, each event has prose and some details, so 1950 is a date, father is a name of that event, and mother is the name of some other event. I can hide prose under "is...", details under "with..." and lists under "and...". It reads like a sentence. I will show the type of each thing in brackets for now.</p>
+<pre><code class="language-txt">father(event) is: Father was born(prose) with: 1950(date)
 me(event) is: I was born(prose) with: 1990(date) father(name) and: mother(name)
 // same hidden
 me(event) is... with...
 granma-story(event) is: Granma told me about the winter of 1943. She said the river froze.(prose) with: 2023-05-17(date) granma(name)
 </code></pre>
-          <p>
-            SOFIA<br />
-            So you have a list of these sentences.
-          </p>
-          <p>
-            ANTIPHON<br />
-            Nah, I need to connect them to each other. I put one event in the
-            center, everything it references on one side, and everything that
-            references it to the other. I can click on father and see father's
-            center instead.
-          </p>
-          <pre><code>&gt;&gt;father is<span class="hljs-params">...</span> <span class="hljs-keyword">with</span>: <span class="hljs-number">1950</span> .
+<p>SOFIA<br>
+So you have a list of these sentences.</p>
+<p>ANTIPHON<br>
+Nah, I need to connect them to each other. I put one event in the center, everything it references on one side, and everything that references it to the other. I can click on father and see father's center instead.</p>
+<pre><code>&gt;&gt;father is<span class="hljs-params">...</span> <span class="hljs-keyword">with</span>: <span class="hljs-number">1950</span> .
 &gt;&gt;mother is<span class="hljs-params">...</span> <span class="hljs-keyword">with</span>: <span class="hljs-number">1951</span> .
 me is: I was born <span class="hljs-keyword">with</span>: <span class="hljs-number">1990</span> .
 <span class="hljs-comment">// choose father</span>
@@ -88,21 +57,21 @@ father is<span class="hljs-params">...</span> <span class="hljs-keyword">with</s
 &gt;&gt;me is<span class="hljs-params">...</span> <span class="hljs-keyword">with</span><span class="hljs-params">...</span> .
 &gt;&gt;brother is<span class="hljs-params">...</span> <span class="hljs-keyword">with</span><span class="hljs-params">...</span> .
 </code></pre>
-          <p>
-            SOFIA<br />
-            So can you describe your world?
-          </p>
-          <p>
-            ANTIPHON<br />
-            With this book, I can.
-          </p>
-        </blockquote>
-      </section>
-    </article>
-    <article lang="ru"></article>
-    <footer>
-      <a href="./laboratory.html">home</a>
-      <a href="./all.html">index</a>
-    </footer>
-  </body>
-</html>
+<p>SOFIA<br>
+So can you describe your world?</p>
+<p>ANTIPHON<br>
+With this book, I can.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <article lang="ru">
+
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

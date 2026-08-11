@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-ref-03_insert</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Insert</h1>
+<p>The update function takes a record object notation and mutates the dataset to append lines.</p>
+<p>the insert record stream asks for insert strategy and pipes it through insert tablet streams. insert tablet stream writes the records as lines at the end of the tablet. at the end of the record stream the tablet content is grouped to a valid form by sorting.</p>
+<ul>
+<li><a href="#insert-in-dataset">insert in dataset</a>
+<ul>
+<li><a href="#insert-stream">insert stream</a>
+<ul>
+<li><a href="#insert-strategy">insert strategy</a></li>
+<li><a href="#insert-tablet-stream">insert tablet stream</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>To learn more about the architecture of csvs, see other <a href="./user_guides.md">User Guides</a>, the <a href="./reference.md">Reference</a> and the <a href="./requirements.md">Requirements</a>.</p>
+<h2>insert in dataset</h2>
+<p><a href="./00_data_types.md#fs">FS</a> -&gt; <a href="./00_data_types.md#dir">Dir</a> -&gt; List <a href="./00_data_types.md#entry">Entry</a> -&gt; IO List <a href="./00_data_types.md#entry">Entry</a></p>
+<pre><code class="language-pdl">pipe <span class="hljs-keyword">each</span> query 
+  <span class="hljs-keyword">to</span> <span class="hljs-keyword">insert</span> stream
+  <span class="hljs-keyword">to</span> <span class="hljs-keyword">return</span>
+</code></pre>
+<h2>insert stream</h2>
+<p><a href="./00_data_types.md#fs">FS</a> -&gt; <a href="./00_data_types.md#dir">Dir</a> -&gt; <a href="./00_data_types.md#entry">Entry</a> -&gt; IO List <a href="./00_data_types.md#entry">Entry</a></p>
+<pre><code class="language-pdl">schema = <span class="hljs-keyword">select</span> <span class="hljs-keyword">schema</span>
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> entry
+  strategy = <span class="hljs-keyword">insert</span> strategy <span class="hljs-keyword">with</span> <span class="hljs-keyword">schema</span>, query
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> tablet <span class="hljs-keyword">of</span> strategy
+    append <span class="hljs-keyword">insert</span> tablet stream
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> tablet <span class="hljs-keyword">of</span> strategy
+  sort tablet
+pipe query 
+  <span class="hljs-keyword">to</span> <span class="hljs-keyword">each</span> <span class="hljs-keyword">insert</span> tablet stream
+  <span class="hljs-keyword">to</span> <span class="hljs-keyword">return</span>
+</code></pre>
+<h3>test cases</h3>
+<ul>
+<li>duplicate
+<ul>
+<li>query: record 2001</li>
+<li>initial: default</li>
+<li>expected: duplicate</li>
+</ul>
+</li>
+<li>duplicate leaf
+<ul>
+<li>query: record 2001 edited</li>
+<li>initial: default</li>
+<li>expected: duplicate leaf</li>
+</ul>
+</li>
+<li>add
+<ul>
+<li>query: record added</li>
+<li>initial: default</li>
+<li>expected: added</li>
+</ul>
+</li>
+</ul>
+<h2>insert strategy</h2>
+<p><a href="./00_data_types.md#schema">Schema</a> -&gt; <a href="./00_data_types.md#entry">Entry</a> -&gt; List <a href="./00_data_types.md#tablet">Tablet</a></p>
+<p>This describes all tablets needed to delete an entry</p>
+<pre><code class="language-pdl"><span class="hljs-keyword">base </span>= entry._
+crown = find crown with <span class="hljs-keyword">schema, </span><span class="hljs-keyword">base
+</span>for each <span class="hljs-keyword">branch </span>of crown
+  for each trunk of <span class="hljs-keyword">schema.branch.trunks
+</span>    return {
+<span class="hljs-symbol">      filename:</span> trunk-<span class="hljs-keyword">branch.csv,
+</span><span class="hljs-symbol">      trunk:</span> trunk,
+<span class="hljs-symbol">      branch:</span> <span class="hljs-keyword">branch,
+</span>    }
+</code></pre>
+<h2>insert tablet stream</h2>
+<p><a href="./00_data_types.md#fs">FS</a> -&gt; <a href="./00_data_types.md#dir">Dir</a> -&gt; <a href="./00_data_types.md#tablet">Tablet</a> -&gt; <a href="./00_data_types.md#entry">Entry</a> -&gt; IO<br>
+<a href="./00_data_types.md#entry">Entry</a></p>
+<pre><code class="language-pdl">filepath = dir/tablet<span class="hljs-selector-class">.filename</span>
+<span class="hljs-comment">// in order to start other tablet streams</span>
+enqueue entry 
+grains = mow query with tablet<span class="hljs-selector-class">.trunk</span>, tablet<span class="hljs-selector-class">.branch</span>
+<span class="hljs-keyword">for</span> each grain
+  append grain<span class="hljs-selector-class">.key</span>,grain<span class="hljs-selector-class">.value</span> to filepath
+</code></pre>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-guanbo-reference</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Reference</h1>
+<h2>composer</h2>
+<p>resembles: sonicpi, extempore, overtone, glicol, tidalcycles</p>
+<p>constitutes: directory containing manifest and source code</p>
+<p>patterns: state machine</p>
+<p>code -&gt; osc</p>
+<p>code -&gt; audio</p>
+<p>stack</p>
+<ul>
+<li>programming language of choice</li>
+<li>midi library</li>
+<li>osc library</li>
+</ul>
+<p>src/</p>
+<ul>
+<li>accept osc port as argument</li>
+<li>generate midi</li>
+<li>send osc</li>
+<li>play sound for testing</li>
+</ul>
+<p>manifest.ttl</p>
+<ul>
+<li>execution command</li>
+<li>name</li>
+<li>license</li>
+<li>link to personal brand</li>
+<li>path to source code</li>
+</ul>
+<h2>arranger</h2>
+<p>constitutes: directory containing manifest and source code</p>
+<p>osc -&gt; osmid -&gt; dawdreamer -&gt; sound</p>
+<p>stack</p>
+<ul>
+<li>dawdreamer</li>
+<li>osmid</li>
+<li>butt</li>
+<li>icecast</li>
+<li>hls</li>
+</ul>
+<p>src/</p>
+<ul>
+<li>listen to osc</li>
+<li>listen to midi for testing</li>
+<li>pipe midi to lv2 plugins</li>
+<li>output audio</li>
+</ul>
+<p>manifest.ttl</p>
+<ul>
+<li>execution command</li>
+<li>name</li>
+<li>license</li>
+<li>link to personal brand</li>
+<li>path to source code</li>
+</ul>
+<h2>broadcaster</h2>
+<p>resembles: smart contract explorer, geek radio</p>
+<p>constitutes: website with audio stream and text</p>
+<p>liquidsoap -&gt; ( composer -&gt; arranger ) -&gt; sound -&gt; tcp/ip</p>
+<p>tcp/ip -&gt; sound -&gt; tcp/ip</p>
+<p>stack</p>
+<ul>
+<li>liquidsoap</li>
+<li>html</li>
+<li>css</li>
+<li>javascript</li>
+</ul>
+<p>composers/</p>
+<ul>
+<li>composer bundles</li>
+</ul>
+<p>arrangers/</p>
+<ul>
+<li>composer bundles</li>
+</ul>
+<p>radio.liq</p>
+<ul>
+<li>trigger on playlist</li>
+<li>read manifest.ttl of composer and arranger to annotate the stream</li>
+<li>execute composer bundle, pipe to arranger bundle</li>
+</ul>
+<p>media player</p>
+<p>editing policy</p>
+<p>broadcasting grid</p>
+<p>link to composer and arranger brands</p>
+<p>composition source code</p>
+<p>event calendar</p>
+<p>link to <a href="http://radio-browser.info">radio-browser.info</a></p>
+<p>donation button</p>
+<h2>listener</h2>
+<p>tcp/ip -&gt; sound</p>
+<p>tcp/ip -&gt; code</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

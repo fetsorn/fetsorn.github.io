@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-panrec-05_edit_csvs_schema</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Edit CSVS Schema</h1>
+<p>Each csvs dataset has a schema that describes what entry fields are allowed and how they relate to each other.<br>
+You can see the schema with a --stats flag</p>
+<pre><code class="language-shell">panrec --stats -i /path/to/csvs-dataset
+schema:
+datum
+ |---actdate
+</code></pre>
+<p>To change the schema, save it as json and open in a text editor.</p>
+<pre><code class="language-shell">panrec -i /path/to/csvs-dataset -q "?_=schema" | jq &gt; schema.json
+</code></pre>
+<p><code>schema.json</code></p>
+<pre><code class="language-json"><span class="hljs-punctuation">[</span>
+  <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"schema"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"UUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"..."</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"datum"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"schema"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"UUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"..."</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"actdate"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"task"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"date"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"trunk"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"datum"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">]</span>
+</code></pre>
+<p>Let's add another field. The "trunk" field specifies that this is an attribute of "datum".</p>
+<pre><code class="language-json">  <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"schema"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"UUID"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"..."</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"category"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"trunk"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"datum"</span>
+  <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>Save the schema back to the dataset</p>
+<pre><code class="language-shell">panrec -i schema.json -o /path/to/csvs-dataset
+schema:
+datum
+ |---actdate
+ |---category
+</code></pre>
+<p>Learn more about panrec in other <a href="./user_guides.md">User Guides</a> and the <a href="./requirements.md">Requirements</a>. For a complete list of CLI commands and flags, see <a href="./reference.md">Reference</a>.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

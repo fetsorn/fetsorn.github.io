@@ -1,0 +1,198 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-guanbo-02_extempore</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Extempore</h1>
+<p>A musician connects their text editor to an extempore process over HTTP and sends extempore commands. The extempore process is connected to digital instruments over MIDI channels. Sounds produced by the instruments are wired to a single sink that broadcasts publicly. The audio stream is broadcast via IceCast, and the video is connected to a streaming service via OBS.</p>
+<ul>
+<li>tmux</li>
+<li>Xvnc :30 -iglx -depth 24 -rfbwait 120000 -deferupdate 1 -localhost -verbose -securitytypes none</li>
+<li>obs</li>
+<li>DISPLAY=:30 xmonad</li>
+<li>DISPLAY=:30 qpwgraph</li>
+<li>DISPLAY=:30 vmpk</li>
+<li>./extempore/build --run ~/extempore-extensions/LOAD_ALL.xtm
+<ul>
+<li>echo "nix-shell -p cmake gcc python3 alsa-lib libGL libGLU libglvnd libglibutil xorg.libX11 xorg.xrandr xorg.libXrandr xorg.libXinerama xorg.libXcursor libjack2 zlib sqlite libpkgconf pkg-config" &gt; xtmshell.txt</li>
+<li>nix-shell -p cmake gcc python3 alsa-lib libGL libGLU libglvnd libglibutil xorg.libX11 xorg.xrandr xorg.libXrandr xorg.libXinerama xorg.libXcursor libjack2 zlib sqlite libpkgconf pkg-config</li>
+<li>NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix build --impure .#extempore</li>
+<li>cmake -DASSETS=ON .. &amp;&amp; make</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-diff"><span class="hljs-addition">+ # COMMAND ${CMAKE_COMMAND} -E copy librtmidi${CMAKE_SHARED_LIBRARY_SUFFIX} ${EXT_PLATFORM_SHLIBS_DIR}</span>
+<span class="hljs-addition">+ # COMMAND ${CMAKE_COMMAND} -E copy libsndfile${CMAKE_SHARED_LIBRARY_SUFFIX} ${EXT_PLATFORM_SHLIBS_DIR}</span>
+
+<span class="hljs-addition">+ # COMMAND ${CMAKE_COMMAND} -E copy libglfw${CMAKE_SHARED_LIBRARY_SUFFIX} ${EXT_PLATFORM_SHLIBS_DIR}</span>
+<span class="hljs-addition">+ # COMMAND ${CMAKE_COMMAND} -E copy libnanovg${CMAKE_SHARED_LIBRARY_SUFFIX} ${EXT_PLATFORM_SHLIBS_DIR}</span>
+
+<span class="hljs-addition">+ #ExternalProject_Add(rtmidi</span>
+<span class="hljs-addition">+ #  PREFIX rtmidi</span>
+<span class="hljs-addition">+ #  URL https://github.com/thestk/rtmidi/archive/84d130bf22d878ff1b0e224346e2e0f9e3ba8099.zip</span>
+<span class="hljs-addition">+ #  URL_MD5 d932b9fef01b859a1b8b86a3c8dc6621</span>
+<span class="hljs-addition">+ #  CMAKE_ARGS</span>
+<span class="hljs-addition">+ #  -DRTMIDI_BUILD_TESTING=OFF</span>
+<span class="hljs-addition">+ #  -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}</span>
+<span class="hljs-addition">+ #  -DCMAKE_C_FLAGS=${EXT_DEPS_C_FLAGS}</span>
+<span class="hljs-addition">+ #  -DCMAKE_CXX_FLAGS=${EXT_DEPS_CXX_FLAGS}</span>
+<span class="hljs-addition">+ #  -DBUILD_SHARED_LIBS=ON</span>
+<span class="hljs-addition">+ #  -DCMAKE_INSTALL_PREFIX=${EXT_DEPS_INSTALL_DIR}</span>
+<span class="hljs-addition">+ #      # these are necessary because RTMidi's CMake config is a law unto itself</span>
+<span class="hljs-addition">+ #  -DCMAKE_INSTALL_LIBDIR=${EXT_DEPS_INSTALL_DIR}</span>
+<span class="hljs-addition">+ #  -DCMAKE_INSTALL_BINDIR=${EXT_DEPS_INSTALL_DIR})</span>
+<span class="hljs-addition">+ #set_target_properties(rtmidi PROPERTIES FOLDER EXTERNAL_SHLIBS)</span>
+</code></pre>
+<ul>
+<li>DON'T RUN <code>make install</code></li>
+<li>mv ../libs/platform-shlibs/libnanovg.so ../libs/platform-shlibs/libnanovg.so-bk</li>
+<li>cp nanovg/src/nanovg-build/libnanovg.so ../libs/platform-shlibs/libnanovg.so</li>
+<li>mv ../libs/platform-shlibs/libglfw.so ../libs/platform-shlibs/libglfw.so-bk</li>
+<li>cp glfw3/src/glfw3-build/src/libglfw.so.3.2 ../libs/platform-shlibs/libglfw.so</li>
+<li>cp /nix/store/xfgkyzqz46jxdkrfjz2ksv9cyvaqcx8v-libGL-1.6.0/lib/libGL.so.1.7.0 extempore/libs/platform-shlibs/libGL.so</li>
+<li>cp libsndfile/src/sndfile-build/libsndfile.so.1.0.29 ../libs/platform-shlibs/libsndfile.so</li>
+<li>cp /nix/store/l61m5xc7lnqjdq53kqf1hjp38xvsk5br-rtmidi-5.0.0/lib/librtmidi.so.6.0.0 libs/platform-shlibs/librtmidi.so</li>
+<li>DISPLAY=:30 LD_LIBRARY_PATH=/nix/store/b5z55wa9s58k38s3wjap6dbamkri1ss6-pipewire-0.3.80-jack/lib nix run nixpkgs#qsynth</li>
+</ul>
+<p>Let's compose a simple piano melody.</p>
+<blockquote>
+<p>See <a href="./getting_started.md">Getting Started</a> on how to connect your editor to the antistixi instance. Once your editor is connected, follow the comments below, copy each code block to your composition and evaluate it right away.</p>
+</blockquote>
+<p>First define an instrument. The instance only has a synth on MIDI channel 1. Check exempore logs to confirm that a new instrument was defined.</p>
+<pre><code class="language-xtm">(<span class="hljs-keyword">define</span> <span class="hljs-section">piano</span> 1)
+</code></pre>
+<p>Let's play a sound to test the instrument. The sound's pitch is c, volume is <code>60</code> and duration is a second.</p>
+<pre><code class="language-xtm">(<span class="hljs-name">play-note</span> (<span class="hljs-name">now</span>) piano c <span class="hljs-number">60</span> *second*)
+</code></pre>
+<p>Define the tempo as 4/4. Every beat in the loop will pick a duration from this sequence.</p>
+<pre><code class="language-xtm">(<span class="hljs-name">define</span> *durs* (<span class="hljs-name">list</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span>))
+</code></pre>
+<p>And set the base melody as a list of notes for the C minor chord. Each loop can play a note from this list to produce arpeggio.</p>
+<pre><code class="language-xtm">(<span class="hljs-name">define</span> *melody* (<span class="hljs-name">mkchord</span> c '-))
+</code></pre>
+<p>Now let's define the main recursive loop and evaluate it. The stream should play a 1/4 c note in a loop.</p>
+<pre><code class="language-xtm">(<span class="hljs-name"><span class="hljs-built_in">define</span></span> loop
+  <span class="hljs-comment">;; each loop is an function that accepts the beat number, </span>
+  <span class="hljs-comment">;; base melody and a duration list</span>
+  (<span class="hljs-name"><span class="hljs-built_in">lambda</span></span> (beat melody durs)
+    <span class="hljs-comment">;; pick a beat duration from the list and </span>
+    <span class="hljs-comment">;; the next note in the melody</span>
+    (<span class="hljs-name"><span class="hljs-built_in">let</span></span> ((<span class="hljs-name">dur</span> (<span class="hljs-name"><span class="hljs-built_in">car</span></span> durs))
+          (<span class="hljs-name">p</span> (<span class="hljs-name"><span class="hljs-built_in">car</span></span> melody)))
+
+        <span class="hljs-comment">;; define your sounds here</span>
+        (<span class="hljs-name">play</span> piano c <span class="hljs-number">60</span> dur)
+
+      <span class="hljs-comment">;; call the loop again for recursion</span>
+      <span class="hljs-comment">;; increment the beat number according to this beat's duration</span>
+      (<span class="hljs-name">callback</span> (<span class="hljs-name">*metro*</span> (<span class="hljs-name"><span class="hljs-built_in">+</span></span> beat dur))
+        <span class="hljs-symbol">'loop</span> (<span class="hljs-name"><span class="hljs-built_in">+</span></span> beat dur)
+        <span class="hljs-comment">;; pass the rest of the melody to the next beat or start again</span>
+        (<span class="hljs-name">cdr-or-else</span> melody *melody*)
+        <span class="hljs-comment">;; pass the rest of durations to the next beat or start again</span>
+        (<span class="hljs-name">cdr-or-else</span> durs *durs*)))))
+
+(<span class="hljs-name">loop</span> (<span class="hljs-name">*metro*</span> <span class="hljs-symbol">'get-beat</span> <span class="hljs-number">1</span>) *melody* *durs*)
+</code></pre>
+<p>To change the loop, evaluate its definition once more. This should start playing an f note.</p>
+<pre><code class="language-xtm">(<span class="hljs-name"><span class="hljs-built_in">define</span></span> loop
+  (<span class="hljs-name"><span class="hljs-built_in">lambda</span></span> (beat melody durs)
+    (<span class="hljs-name"><span class="hljs-built_in">let</span></span> ((<span class="hljs-name">dur</span> (<span class="hljs-name"><span class="hljs-built_in">car</span></span> durs))
+          (<span class="hljs-name">p</span> (<span class="hljs-name"><span class="hljs-built_in">car</span></span> melody)))
+
+        <span class="hljs-comment">;; define your sounds here</span>
+        <span class="hljs-comment">;; now with a different sound</span>
+        (<span class="hljs-name">play</span> piano f <span class="hljs-number">60</span> dur)
+
+      (<span class="hljs-name">callback</span> (<span class="hljs-name">*metro*</span> (<span class="hljs-name"><span class="hljs-built_in">+</span></span> beat dur))
+        <span class="hljs-symbol">'loop</span> (<span class="hljs-name"><span class="hljs-built_in">+</span></span> beat dur)
+        (<span class="hljs-name">cdr-or-else</span> melody *melody*)
+        (<span class="hljs-name">cdr-or-else</span> durs *durs*)))))
+</code></pre>
+<blockquote>
+<p>From now on the code blocks will only show the sounds that need to go inside the loop. So instead of the last example, the code block will just say this:</p>
+</blockquote>
+<pre><code class="language-xtm">        <span class="hljs-comment">;; now with a different sound</span>
+        (play piano f <span class="hljs-number">60</span> dur)
+</code></pre>
+<p>Let's start the arpeggio.</p>
+<pre><code class="language-xtm">        (<span class="hljs-name">play</span> piano p <span class="hljs-number">60</span> dur)
+</code></pre>
+<p>And add another arpeggio an octave higher.</p>
+<pre><code class="language-xtm">        (<span class="hljs-name">play</span> piano p <span class="hljs-number">60</span> dur)
+        (<span class="hljs-name">play</span> piano (<span class="hljs-name">octave</span> (<span class="hljs-name"><span class="hljs-built_in">car</span></span> *melody*) <span class="hljs-number">5</span>) <span class="hljs-number">60</span> <span class="hljs-number">8</span>)
+</code></pre>
+<p>Now let's add a random note four beats after each arpeggio.</p>
+<pre><code class="language-xtm">        (<span class="hljs-name">at</span> <span class="hljs-number">4</span> <span class="hljs-number">0</span>
+            (<span class="hljs-name">play</span> piano (<span class="hljs-symbol">:mkint</span> p (<span class="hljs-name">oneof</span> <span class="hljs-number">12</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span>) ) <span class="hljs-number">50</span> (<span class="hljs-name"><span class="hljs-built_in">*</span></span> dur <span class="hljs-number">2</span>) ) )
+</code></pre>
+<p>Popular songs often have chords alongside lyrics published online. To carry over those tabulatures into extempore, specify the chords and play each of them in sequence according to a list of tempos.</p>
+<pre><code class="language-xtm">(<span class="hljs-name"><span class="hljs-built_in">define</span></span> *durs* (<span class="hljs-name"><span class="hljs-built_in">list</span></span> <span class="hljs-number">2</span>))
+(<span class="hljs-name"><span class="hljs-built_in">define</span></span> c (<span class="hljs-name">mkchord</span> c3 <span class="hljs-symbol">'^</span>))
+(<span class="hljs-name"><span class="hljs-built_in">define</span></span> em (<span class="hljs-name">mkchord</span> e3 <span class="hljs-symbol">'-</span>))
+(<span class="hljs-name"><span class="hljs-built_in">define</span></span> f (<span class="hljs-name">mkchord</span> f3 <span class="hljs-symbol">'^</span>))
+(<span class="hljs-name"><span class="hljs-built_in">define</span></span> g (<span class="hljs-name">mkchord</span> g3 <span class="hljs-symbol">'^</span>))
+(<span class="hljs-name"><span class="hljs-built_in">define</span></span> am (<span class="hljs-name">mkchord</span> a3 <span class="hljs-symbol">'-</span>))
+(<span class="hljs-name"><span class="hljs-built_in">define</span></span> d (<span class="hljs-name">mkchord</span> d3 <span class="hljs-symbol">'^</span>))
+(<span class="hljs-name"><span class="hljs-built_in">define</span></span> f# (<span class="hljs-name">mkchord</span> f#<span class="hljs-number">3</span> <span class="hljs-symbol">'^</span>))
+(<span class="hljs-name"><span class="hljs-built_in">define</span></span> dm (<span class="hljs-name">mkchord</span> d3 <span class="hljs-symbol">'-</span>))
+</code></pre>
+<p>this doesn't work</p>
+<pre><code class="language-xtm">(define *melody*
+  (<span class="hljs-meta">map</span> (lambda (a) (mkchord (eval a) <span class="hljs-string">'-))
+     '</span>(<span class="hljs-built_in">c3</span> <span class="hljs-built_in">c3</span> e3 e3 <span class="hljs-built_in">f3</span> g3 <span class="hljs-built_in">c3</span> <span class="hljs-built_in">c3</span>
+       <span class="hljs-built_in">c3</span> <span class="hljs-built_in">c3</span> e3 e3 <span class="hljs-built_in">f3</span> g3 <span class="hljs-built_in">c3</span> <span class="hljs-built_in">c3</span>
+       <span class="hljs-built_in">a3</span> <span class="hljs-built_in">a3</span> g3 g3 <span class="hljs-built_in">a3</span> <span class="hljs-built_in">d3</span> f<span class="hljs-number">#3</span>
+       <span class="hljs-built_in">c3</span> <span class="hljs-built_in">c3</span> <span class="hljs-built_in">d3</span> <span class="hljs-built_in">d3</span> <span class="hljs-built_in">f3</span> g3 <span class="hljs-built_in">c3</span>)))
+</code></pre>
+<p>this doesn't work either</p>
+<pre><code class="language-xtm">(<span class="hljs-keyword">define</span> *melody*
+  (map eval
+  '(<span class="hljs-keyword">c</span> <span class="hljs-keyword">c</span> em em f g <span class="hljs-keyword">c</span> <span class="hljs-keyword">c</span>
+    <span class="hljs-keyword">c</span> <span class="hljs-keyword">c</span> em em f g <span class="hljs-keyword">c</span> <span class="hljs-keyword">c</span>
+    am am g g am d f#
+    <span class="hljs-keyword">c</span> <span class="hljs-keyword">c</span> dm dm f g <span class="hljs-keyword">c</span>)))
+</code></pre>
+<p>Is this loop supposed to work?</p>
+<pre><code class="language-xtm">(<span class="hljs-name"><span class="hljs-built_in">define</span></span> loop
+  (<span class="hljs-name"><span class="hljs-built_in">lambda</span></span> (beat melody durs)
+    (<span class="hljs-name"><span class="hljs-built_in">let</span></span> ((<span class="hljs-name">dur</span> (<span class="hljs-name"><span class="hljs-built_in">car</span></span> durs))
+          (<span class="hljs-name">p</span> (<span class="hljs-name"><span class="hljs-built_in">car</span></span> melody)))
+      (<span class="hljs-name">play</span> piano (<span class="hljs-name"><span class="hljs-built_in">car</span></span> melody) <span class="hljs-number">50</span> dur)
+      (<span class="hljs-name">callback</span> (<span class="hljs-name">*metro*</span> (<span class="hljs-name"><span class="hljs-built_in">+</span></span> beat dur))
+                <span class="hljs-symbol">'loop</span> (<span class="hljs-name"><span class="hljs-built_in">+</span></span> beat dur) (<span class="hljs-name">cdr-or-else</span> melody *melody*) (<span class="hljs-name">cdr-or-else</span> durs *durs*)))))
+
+(<span class="hljs-name">loop</span> (<span class="hljs-name">*metro*</span> <span class="hljs-symbol">'get-beat</span> <span class="hljs-number">1</span>) *melody* *durs*)
+</code></pre>
+<p>For more examples of Extempore code, see <a href="https://github.com/lambdamusic">Michele Pasin</a>, <a href="https://github.com/tempos">fetsorn</a>.</p>
+<p>To learn more, see other <a href="./user_guides.md">User guides</a>, the <a href="./reference.md">Reference</a> and the <a href="./requirements.md">Requirements</a>.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

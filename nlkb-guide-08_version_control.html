@@ -1,0 +1,43 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-guide-08_version_control</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Version Control</h1>
+<p>csvs dataset SHOULD be version controlled.<br>
+credentials and other sensitive data SHOULD be stored separately from the dataset, e.g. in <code>.git/config</code> or in another csvs dataset under access control.</p>
+<h2>Concurrency</h2>
+<p>csvs is designed for <strong>single-writer access</strong>. Only one process should write to a dataset directory at a time. Running panrec and evenor against the same dataset simultaneously may corrupt tablet files, because there is no file-locking mechanism.</p>
+<p>For multi-device access, use <strong>git-based sync</strong>: each device commits its changes locally and merges via <code>git pull</code>/<code>git push</code>. Git's merge semantics handle concurrent edits at the line level, and evenor's <code>resolve</code> operation performs three-way merge when conflicts arise.</p>
+<p>If a client builds the schema once and reuses it across operations (see the <code>schema</code> option in csvs-js or <code>with_schema()</code> in csvs-rs), note that the cached schema becomes stale after any operation that modifies <code>_-_.csv</code>. Rebuild the schema after schema-modifying writes.</p>
+<p>To learn more about csvs, see other <a href="./README.md">User Guides</a> and the <a href="../requirements.md">Requirements</a>.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

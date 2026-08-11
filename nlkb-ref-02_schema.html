@@ -1,0 +1,140 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-ref-02_schema</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Schema</h1>
+<ul>
+<li><a href="#to-schema">to schema</a></li>
+<li><a href="#is-connected">is connected</a></li>
+<li><a href="#find-crown">find crown</a></li>
+</ul>
+<p>To learn more about the architecture of csvs, see other <a href="./user_guides.md">User Guides</a>, the <a href="./reference.md">Reference</a> and the <a href="./requirements.md">Requirements</a>.</p>
+<h2>to schema</h2>
+<p><a href="./00_data_types.md#entry">Entry</a> -&gt; <a href="./00_data_types.md#schema">Schema</a></p>
+<pre><code class="language-pdl"><span class="hljs-keyword">if</span> entry has <span class="hljs-keyword">no</span> `_:_` <span class="hljs-keyword">return</span> {}
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> trunk <span class="hljs-keyword">of</span> entry <span class="hljs-keyword">except</span> _
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> leaf <span class="hljs-keyword">of</span> entry.trunk
+    append trunk <span class="hljs-keyword">to</span> <span class="hljs-keyword">schema</span>.leaf.trunks
+    append leaf <span class="hljs-keyword">to</span> <span class="hljs-keyword">schema</span>.trunk.leaves
+<span class="hljs-keyword">return</span> <span class="hljs-keyword">schema</span>
+</code></pre>
+<h2>is connected</h2>
+<p><a href="./00_data_types.md#schema">Schema</a> -&gt; <a href="./00_data_types.md#base">Base</a> -&gt; <a href="./00_data_types.md#branch">Branch</a> -&gt; Boolean</p>
+<p>This tells if a branch is connected to base branch.</p>
+<pre><code class="language-pdl"><span class="hljs-keyword">if</span> branch <span class="hljs-keyword">equals</span> <span class="hljs-keyword">base</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+<span class="hljs-keyword">for</span> each trunk of branch
+  <span class="hljs-keyword">if</span> trunk <span class="hljs-keyword">equals</span> <span class="hljs-keyword">base</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">if</span> trunk <span class="hljs-keyword">is</span> connected to <span class="hljs-keyword">base</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+otherwise
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+</code></pre>
+<h2>find crown</h2>
+<p><a href="./00_data_types.md#schema">Schema</a> -&gt; <a href="./00_data_types.md#base">Base</a> -&gt; List <a href="./00_data_types.md#branch">Branch</a></p>
+<p>This finds all branches that are connected to the base branch.</p>
+<pre><code class="language-pdl"><span class="hljs-keyword">if</span> leaf <span class="hljs-keyword">is</span> connected <span class="hljs-keyword">to</span> base
+<span class="hljs-built_in">  return</span> leaf
+</code></pre>
+<h2>get nesting level</h2>
+<p><a href="./00_data_types.md#schema">Schema</a> -&gt; <a href="./00_data_types.md#branch">Branch</a></p>
+<pre><code class="language-pdl"><span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> trunk <span class="hljs-keyword">of</span> branch
+  <span class="hljs-keyword">get</span> nesting <span class="hljs-keyword">level</span> <span class="hljs-keyword">of</span> trunk
+  <span class="hljs-keyword">increment</span> level
+</code></pre>
+<h3>test cases</h3>
+<ul>
+<li>naught
+<ul>
+<li>schema: record schema array</li>
+<li>branch: datum</li>
+<li>expected: 0</li>
+</ul>
+</li>
+<li>first
+<ul>
+<li>schema: record schema array</li>
+<li>branch: export tags</li>
+<li>expected: 1</li>
+</ul>
+</li>
+<li>second
+<ul>
+<li>schema: record schema array</li>
+<li>branch: export2 tag</li>
+<li>expected: 2</li>
+</ul>
+</li>
+<li>third
+<ul>
+<li>schema: record schema array</li>
+<li>branch: export2 tag description</li>
+<li>expected: 3</li>
+</ul>
+</li>
+<li>fourth
+<ul>
+<li>schema: record schema array</li>
+<li>branch: export 2 tag description text 1</li>
+<li>expected: 4</li>
+</ul>
+</li>
+</ul>
+<h2>sort nesting ascending</h2>
+<p><a href="./00_data_types.md#schema">Schema</a> -&gt; (<a href="./00_data_types.md#branch">Branch</a> -&gt; <a href="./00_data_types.md#branch">Branch</a> -&gt; Ordering)</p>
+<p>sort by level of nesting, twigs and leaves come first</p>
+<h3>test cases</h3>
+<ul>
+<li>
+<ul>
+<li>schema: record schema array</li>
+<li>initial:</li>
+<li>expected:</li>
+</ul>
+</li>
+</ul>
+<h2>sort nesting descending</h2>
+<p><a href="./00_data_types.md#schema">Schema</a> -&gt; (<a href="./00_data_types.md#branch">Branch</a> -&gt; <a href="./00_data_types.md#branch">Branch</a> -&gt; Ordering)</p>
+<p>sort by level of nesting, trunks come first</p>
+<h3>test cases</h3>
+<ul>
+<li>
+<ul>
+<li>schema: record schema array</li>
+<li>initial:</li>
+<li>expected:</li>
+</ul>
+</li>
+</ul>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

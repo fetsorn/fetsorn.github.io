@@ -1,0 +1,49 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-panrec-getting_started</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Getting Started</h1>
+<p>To create a new <a href="https://csvs-format.docs.norcivilianlabs.org/">CSVS</a> dataset</p>
+<pre><code class="language-shell">panrec -o /path/to/csvs-dataset
+</code></pre>
+<p>To print all entries in a dataset</p>
+<pre><code class="language-shell">panrec -i /path/to/csvs-dataset
+</code></pre>
+<p>To print stats for a dataset</p>
+<pre><code class="language-shell">panrec --stats -i /path/to/csvs-dataset
+</code></pre>
+<p>To search for entries with a date that starts in 2005</p>
+<pre><code class="language-shell">panrec -i /path/to/csvs-dataset -q "?date=2005.*"
+</code></pre>
+<p>Learn more about panrec in the <a href="./tutorial.md">Tutorial</a> and <a href="./user_guides.md">User Guides</a>. For a complete list of CLI commands and flags, see <a href="./reference.md">Reference</a>.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

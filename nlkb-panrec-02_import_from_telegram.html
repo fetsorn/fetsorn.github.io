@@ -1,0 +1,44 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-panrec-02_import_from_telegram</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Import from Telegram</h1>
+<p>To export data, download the <a href="https://desktop.telegram.org">Desktop Client</a>, then click Settings &gt; Export Telegram data and choose JSON format.</p>
+<p>Point the cli to one of the chat folders with a <code>result.json</code> file and you will see a printed set of message entries in JSON format.</p>
+<pre><code class="language-shell">panrec -i "/path/to/Telegram backup/username"
+</code></pre>
+<p>Specify an output path to write the entries to csvs.</p>
+<pre><code class="language-shell">panrec -i "/path/to/Telegram backup/username" -o /path/to/target-dataset
+</code></pre>
+<p>Learn more about panrec in other <a href="./user_guides.md">User Guides</a> and the <a href="./requirements.md">Requirements</a>. For a complete list of CLI commands and flags, see <a href="./reference.md">Reference</a>.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

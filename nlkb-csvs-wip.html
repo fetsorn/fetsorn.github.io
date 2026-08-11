@@ -1,0 +1,280 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-csvs-wip</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>The Forest and The Garden</h1>
+<p>so the idea is to write a book in the style of Rust and org-mode manual use the terminology but make no reference to csvs and evenor. one can write the same with other tools, but still have leaves, queries, filters and overviews. the design of a consumer dataset is convergent.</p>
+<p>speak of security, independence and control, discuss data models for common domains and low level methods like sow and mow. discuss big notation without mention of tools. talk of motivations and aspirations but make no mentions of competitors or status quo.</p>
+<p>talk as if the future is in the present and warrants a guide for the layman of the past</p>
+<p>guide for the qualitative self</p>
+<p>talk about how we all tend to our gardens together.</p>
+<p>find analog precursors to the data models.</p>
+<p>can dogs grow trees? monkeys can with sign boards. dogs remember their men. can worms grow trees? they remember the model of their body and the directions around. can rocks grow trees? they remember air pressure, atomic structure, history of change. can elementary particles grow trees? they remember environment and forces. can mystery grow trees? it can.</p>
+<p>ultimately it is a matter of awareness, of certifying senses and building upon.</p>
+<p>you wake up… you come to your senses… a root clings, a root sprouts, a branch grows, a leaf ties to a trunk, a twig halts, for now…</p>
+<p>tending to the garden of your awareness</p>
+<p>it is about empowerment. people can remember for longer, and think about memories stronger, remember more. it is about emancipation. people can tie away from alien narrators and tell the story of their own data.<br>
+it is about guidance. people can go forth into the forest, farther, light up the mystery, further, braver, and tend to the garden longer.</p>
+<p>tend to the garden with tools</p>
+<p>we map domains into schemas, we get the garden fully formed we read, mow, and we write, sow, we tend to the trees.</p>
+<p>the forest and the garden. out there, in the wild, is great mystery. we sense it, and make a garden in its image.</p>
+<p>talk about the withers, the weaknesses of a garden.</p>
+<p>talk about the haunts, the perils of the forest.</p>
+<p>and how we find them, how we feel about them, how we fear them, and how we fight them.</p>
+<p>mapping a schema is the chief proposition of the whole thing.</p>
+<p>some time the schema will find a name in the spirit of trees.</p>
+<p>it’s like the shape, morphology, and like the gene, taxonomy, and like the kin, provenance.</p>
+<p>it’s like a simplified shape, a form in the sense of the cast or the mould.</p>
+<p>a kind of seed bed to match the seed, and a kind of cover to match the crown.</p>
+<p>it’s like the shadow and the smell.</p>
+<p>schema depends on perspective and the environment.</p>
+<p>talk about trunks and branches</p>
+<p>it stems from tools and methods</p>
+<p>don’t talk about string typed data</p>
+<p>my environment is in my awareness but i refuse to tend to that as a garden. i say tools will come just like always.</p>
+<p>almost like a treatise on gardening. first we talk about a foreword to set the tone, then we give an example to get people started, then we talk about scheming, and making schemas for domains. then we talk about crud operations on various domains and we can organize that part organically</p>
+<p>separate search from tending</p>
+<p>table of contents</p>
+<ul>
+<li>foreword</li>
+<li>introduction</li>
+<li>getting started</li>
+<li>scheming</li>
+<li>project</li>
+<li>tending</li>
+<li>project</li>
+<li>domains</li>
+<li>reference</li>
+</ul>
+<p>navigation should go to the advanced reference</p>
+<h2>do not talk</h2>
+<p>do not talk about status quo about how memories fall to oblivion, or trees without water.<br>
+do not talk about status quo how we hold that garden in mind and in speech, and objects, and habits, and society, losing it to space and time<br>
+do not talk about other tools, do not talk about the market<br>
+talk of ways, do not talk of lands. obscure talking about the great mystery, just say “mystery”.<br>
+do not talk about schema-less garden of mind<br>
+do not talk about forced schemas of corporate gardens, monoculture, rigid, narrow. but talk about keeping the garden wide and open.<br>
+do not talk about history. empower, don’t enlighten<br>
+do not talk about similarities with the method of loci</p>
+<h2>view</h2>
+<p>data inside</p>
+<h3>list of texts</h3>
+<p>have some text</p>
+<pre><code>went <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> zoo today, stayed home yesterday
+</code></pre>
+<h3>graph of tokens</h3>
+<p>separate text into tokens that are connected to each other</p>
+<pre><code>went <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> zoo-today
+stayed home-yesterday
+</code></pre>
+<h3>cluster of entities</h3>
+<p>group some tokens into clusters and name each cluster as an entity</p>
+<pre><code>| event            | day       |
+| ---------------- | --------  |
+| went to the zoo  | today     |
+| stayed home      | yesterday |
+</code></pre>
+<h3>tree of entries</h3>
+<p>choose one entity as a root and cut connections to it</p>
+<pre><code>.
+|<span class="hljs-string">
+</span>|<span class="hljs-string">-- went to the zoo
+</span>|<span class="hljs-string"> </span>|<span class="hljs-string">--- today
+</span>|<span class="hljs-string">-- stayed at home
+  </span>|<span class="hljs-string">--- yesterday
+</span></code></pre>
+<h2>dataset</h2>
+<p>shorthand data inside</p>
+<h3>list of texts</h3>
+<p>have some text</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"dataset"</span>, 
+  <span class="hljs-attr">text</span>: [<span class="hljs-string">"went to the zoo today"</span>, <span class="hljs-string">"stayed home yesterday"</span>] }
+</code></pre>
+<h3>graph of tokens</h3>
+<p>separate text into tokens that are connected to each other</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"dataset"</span>, 
+  <span class="hljs-attr">token</span>: [
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"token"</span>, 
+      <span class="hljs-attr">token</span>: <span class="hljs-string">"today"</span>, 
+      <span class="hljs-attr">relation</span>: <span class="hljs-string">"went to the zoo"</span> }
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"token"</span>, 
+      <span class="hljs-attr">token</span>: <span class="hljs-string">"went to the zoo"</span>, 
+      <span class="hljs-attr">relation</span>: <span class="hljs-string">"today"</span> }
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"token"</span>, 
+      <span class="hljs-attr">token</span>: <span class="hljs-string">"yesterday"</span>, 
+      <span class="hljs-attr">relation</span>: <span class="hljs-string">"stayed home"</span> }
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"token"</span>, 
+      <span class="hljs-attr">token</span>: <span class="hljs-string">"stayed home"</span>, 
+      <span class="hljs-attr">relation</span>: <span class="hljs-string">"yesterday"</span> }
+  ] }
+</code></pre>
+<h3>cluster of entities</h3>
+<p>group some tokens into clusters and name each cluster as an entity</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"dataset"</span>, 
+  <span class="hljs-attr">event</span>: [
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>, 
+      <span class="hljs-attr">event</span>: <span class="hljs-string">"went to the zoo"</span>, 
+      <span class="hljs-attr">day</span>: <span class="hljs-string">"today"</span> }, 
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>, 
+      <span class="hljs-attr">event</span>: <span class="hljs-string">"stayed at home"</span>, 
+      <span class="hljs-attr">day</span>: <span class="hljs-string">"yesterday"</span> }
+  ], 
+  <span class="hljs-attr">day</span>: [
+     { <span class="hljs-attr">_</span>: <span class="hljs-string">"day"</span>, 
+       <span class="hljs-attr">day</span>: <span class="hljs-string">"today"</span>, 
+       <span class="hljs-attr">event</span>: <span class="hljs-string">"went to the zoo"</span> }, 
+     { <span class="hljs-attr">_</span>: <span class="hljs-string">"day"</span>, 
+       <span class="hljs-attr">day</span>: <span class="hljs-string">"yesterday"</span>, 
+       <span class="hljs-attr">event</span>: <span class="hljs-string">"stayed at home"</span> }
+   ] }
+</code></pre>
+<h3>tree of entries</h3>
+<p>choose one entity as a root and cut connections to it</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"dataset"</span>, 
+  <span class="hljs-attr">event</span>: [ 
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>, <span class="hljs-attr">event</span>: <span class="hljs-string">"went to the zoo"</span>, <span class="hljs-attr">day</span>: <span class="hljs-string">"today"</span> }, 
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>, <span class="hljs-attr">event</span>: <span class="hljs-string">"stayed at home"</span>, <span class="hljs-attr">day</span>: <span class="hljs-string">"yesterday"</span> }
+  ], 
+  <span class="hljs-attr">day</span>: [
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"day"</span>, <span class="hljs-attr">day</span>: <span class="hljs-string">"today"</span> }, 
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"day"</span>, <span class="hljs-attr">day</span>: <span class="hljs-string">"yesterday"</span> }
+  ] }
+</code></pre>
+<h2>branch</h2>
+<p>structure of data inside</p>
+<p>describe each level as a tree where a possible entity is called "branch", it connects to "leaves" and leaves connect to "trunk".</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"_"</span>, 
+  <span class="hljs-attr">root</span>: <span class="hljs-string">"branch"</span>, 
+  <span class="hljs-attr">branch</span>: [<span class="hljs-string">"trunk"</span>, <span class="hljs-string">"leaf"</span>] }
+</code></pre>
+<h3>list of texts</h3>
+<p>have some dataset with text</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"root"</span>, 
+  <span class="hljs-attr">branch</span>: [
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>,
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"dataset"</span>,
+      <span class="hljs-attr">trunk</span>: [],
+      <span class="hljs-attr">leaf</span>: [<span class="hljs-string">"text"</span>] }
+    
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>,
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"text"</span>,
+      <span class="hljs-attr">trunk</span>: [<span class="hljs-string">"dataset"</span>],
+      <span class="hljs-attr">leaf</span>: [] }
+  ] }
+</code></pre>
+<h3>graph of tokens</h3>
+<p>separate text into tokens, each token has a relation to some other token</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"root"</span>, 
+  <span class="hljs-attr">branch</span>: [
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>,
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"dataset"</span>,
+      <span class="hljs-attr">trunk</span>: [],
+      <span class="hljs-attr">leaf</span>: [<span class="hljs-string">"token"</span>] }
+    
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>,
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"token"</span>,
+      <span class="hljs-attr">trunk</span>: [<span class="hljs-string">"dataset"</span>],
+      <span class="hljs-attr">leaf</span>: [<span class="hljs-string">"relation"</span>] }
+    
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>,
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"relation"</span>,
+      <span class="hljs-attr">trunk</span>: [<span class="hljs-string">"token"</span>],
+      <span class="hljs-attr">leaf</span>: [] }
+  ] } 
+</code></pre>
+<h3>cluster of entities</h3>
+<p>group tokens into clusters "event" and "day"</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"root"</span>, 
+  <span class="hljs-attr">branch</span>: [
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>, 
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"dataset"</span>, 
+      <span class="hljs-attr">trunk</span>: [], 
+      <span class="hljs-attr">leaf</span>: [<span class="hljs-string">"event"</span>, <span class="hljs-string">"day"</span>] }
+    
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>, 
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"event"</span>, 
+      <span class="hljs-attr">trunk</span>: [<span class="hljs-string">"dataset"</span>, <span class="hljs-string">"day"</span>], 
+      <span class="hljs-attr">leaf</span>: [<span class="hljs-string">"day"</span>] } 
+    
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>, 
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"day"</span>,
+      <span class="hljs-attr">trunk</span>: [<span class="hljs-string">"dataset"</span>, <span class="hljs-string">"event"</span>], 
+      <span class="hljs-attr">leaf</span>: [<span class="hljs-string">"event"</span>] }
+  ] }
+</code></pre>
+<h3>tree of entries</h3>
+<p>choose the "event" entity as root and cut connection to it from "day"</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"root"</span>, 
+  <span class="hljs-attr">branch</span>: [
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>,
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"dataset"</span>,
+      <span class="hljs-attr">trunk</span>: [],
+      <span class="hljs-attr">leaf</span>: [<span class="hljs-string">"event"</span>] }
+    
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>,
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"event"</span>,
+      <span class="hljs-attr">trunk</span>: [<span class="hljs-string">"dataset"</span>],
+      <span class="hljs-attr">leaf</span>: [<span class="hljs-string">"day"</span>] }
+    
+    { <span class="hljs-attr">_</span>: <span class="hljs-string">"branch"</span>,
+      <span class="hljs-attr">branch</span>: <span class="hljs-string">"day"</span>,
+      <span class="hljs-attr">trunk</span>: [<span class="hljs-string">"event"</span>],
+      <span class="hljs-attr">leaf</span>: [] }
+  ] }
+</code></pre>
+<h2>schema</h2>
+<p>shorthand structure of data inside</p>
+<p>write trunk as field name and its leaves as a list of values</p>
+<h3>list of texts</h3>
+<p>have some text</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"_"</span>, <span class="hljs-attr">dataset</span>: [<span class="hljs-string">"text"</span>], <span class="hljs-attr">text</span>: [] }
+</code></pre>
+<h3>graph of tokens</h3>
+<p>separate text into tokens that are related to each other</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"_"</span>, <span class="hljs-attr">dataset</span>: [<span class="hljs-string">"token"</span>], <span class="hljs-attr">token</span>: [<span class="hljs-string">"relation"</span>], <span class="hljs-attr">relation</span>: [] }
+</code></pre>
+<h3>cluster of entities</h3>
+<p>group tokens into clusters "event" and "day"</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"_"</span>, 
+  <span class="hljs-attr">dataset</span>: [<span class="hljs-string">"event"</span>, <span class="hljs-string">"day"</span>], 
+  <span class="hljs-attr">event</span>: [<span class="hljs-string">"day"</span>], 
+  <span class="hljs-attr">day</span>: [<span class="hljs-string">"event"</span>] }
+</code></pre>
+<h3>tree of entries</h3>
+<p>choose the "event" entity as root and cut connection to it from day</p>
+<pre><code class="language-js">{ <span class="hljs-attr">_</span>: <span class="hljs-string">"_"</span>, <span class="hljs-attr">dataset</span>: [<span class="hljs-string">"event"</span>], <span class="hljs-attr">event</span>: [<span class="hljs-string">"day"</span>], <span class="hljs-attr">day</span>: [] }
+</code></pre>
+<h2>crud api</h2>
+<p>add new branch, remove branch, remove branch and its crown, remove branch and graft its crown to trunk, rewrite entire tree, find leaves, find trunks, find roots, find cognates, find laterals, find neighbours, find twigs, graft one branch to another, download tree, upload tree, find number of branches, find crown from root, find crown from twig, find all ancestors of a branch, find all progeny of a branch, insert branch with leaves to a branch, turn one tree into another, rename branch, switch branches with each other</p>
+<p>delete, insert, create, update</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

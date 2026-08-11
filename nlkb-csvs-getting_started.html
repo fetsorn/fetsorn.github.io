@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-csvs-getting_started</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Getting Started</h1>
+<p>A csvs dataset is a directory that contains plain text files in the "comma-separated value" format, or CSV. Any directory that contains a <code>.csvs.csv</code> file is a valid csvs dataset. Each CSV file represents a table with two columns and is called a "tablet". The first column is a <code>key</code>, and the second column is a <code>value</code>. You can store records by appending lines to the tablets. To represent complex objects and connect the tablets to each other, specify the relationships between values in the schema file <code>_-_.csv</code>.</p>
+<p>Here's an example of the simplest csvs dataset that contains a record about visiting Japan in 2001.</p>
+<blockquote>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># _-_.csv</span>
+event,<span class="hljs-built_in">date</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>
+</code></pre>
+</blockquote>
+<p>To learn more about csvs, see the <a href="./tutorial.md">Tutorial</a> and the <a href="./user_guides/README.md">User guides</a>.</p>
+<h2>Note:</h2>
+<ul>
+<li>too much information for getting started</li>
+<li>the example is cryptic at this point</li>
+<li>the example is evocative of what is to come, good</li>
+<li>this text should somewhere technical-oriented</li>
+<li>this page should have text oriented at non-technical consumers</li>
+<li>this is for a curious consumer, not an engineer</li>
+</ul>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

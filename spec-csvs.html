@@ -1,0 +1,288 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>spec-csvs</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./specs.html">
+          <span lang="en">specs</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <pre><code class="language-xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"utf-8"</span>?&gt;</span>
+<span class="hljs-meta">&lt;?xml-model href=<span class="hljs-string">"rfc7991bis.rnc"</span>?&gt;</span>
+
+<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">rfc</span> [
+  <span class="hljs-meta">&lt;!ENTITY <span class="hljs-keyword">nbsp</span>    <span class="hljs-string">"&amp;#160;"</span>&gt;</span>
+  <span class="hljs-meta">&lt;!ENTITY <span class="hljs-keyword">zwsp</span>   <span class="hljs-string">"&amp;#8203;"</span>&gt;</span>
+  <span class="hljs-meta">&lt;!ENTITY <span class="hljs-keyword">nbhy</span>   <span class="hljs-string">"&amp;#8209;"</span>&gt;</span>
+  <span class="hljs-meta">&lt;!ENTITY <span class="hljs-keyword">wj</span>     <span class="hljs-string">"&amp;#8288;"</span>&gt;</span>
+]&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">rfc</span>
+  <span class="hljs-attr">xmlns:xi</span>=<span class="hljs-string">"http://www.w3.org/2001/XInclude"</span>
+  <span class="hljs-attr">category</span>=<span class="hljs-string">"info"</span>
+  <span class="hljs-attr">docName</span>=<span class="hljs-string">"draft-davydov-csvs-00"</span>
+  <span class="hljs-attr">ipr</span>=<span class="hljs-string">"trust200902"</span>
+  <span class="hljs-attr">obsoletes</span>=<span class="hljs-string">""</span>
+  <span class="hljs-attr">updates</span>=<span class="hljs-string">""</span>
+  <span class="hljs-attr">submissionType</span>=<span class="hljs-string">"IETF"</span>
+  <span class="hljs-attr">xml:lang</span>=<span class="hljs-string">"en"</span>
+  <span class="hljs-attr">version</span>=<span class="hljs-string">"3"</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">front</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span> <span class="hljs-attr">abbrev</span>=<span class="hljs-string">"Abbreviated Title"</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">seriesInfo</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Internet-Draft"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"draft-davydov-csvs-00"</span>/&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">author</span> <span class="hljs-attr">fullname</span>=<span class="hljs-string">"Anton Davydov"</span> <span class="hljs-attr">initials</span>=<span class="hljs-string">"A"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"editor"</span> <span class="hljs-attr">surname</span>=<span class="hljs-string">"Davydov"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">address</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">email</span>&gt;</span>fetsorn@gmail.com<span class="hljs-tag">&lt;/<span class="hljs-name">email</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">address</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">author</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">date</span> <span class="hljs-attr">year</span>=<span class="hljs-string">"2025"</span>/&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">area</span>&gt;</span>General<span class="hljs-tag">&lt;/<span class="hljs-name">area</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">workgroup</span>&gt;</span>Internet Engineering Task Force<span class="hljs-tag">&lt;/<span class="hljs-name">workgroup</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">keyword</span>&gt;</span>file format<span class="hljs-tag">&lt;/<span class="hljs-name">keyword</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">abstract</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>This RFC documents the format used for Comma-Separated Value Store (CSVS)
+   files.<span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">abstract</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;/<span class="hljs-name">front</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">middle</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Introduction<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>The comma separated values format has been formally defined in <span class="hljs-tag">&lt;<span class="hljs-name">xref</span> <span class="hljs-attr">target</span>=<span class="hljs-string">"RFC4180"</span>/&gt;</span>. This RFC documents a narrow subset that has only two columns, and a dataset that represents relations between values.<span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+
+      <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">anchor</span>=<span class="hljs-string">"requirements"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Requirements Language<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
+          "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT
+          RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+          interpreted as described in BCP 14 <span class="hljs-tag">&lt;<span class="hljs-name">xref</span> <span class="hljs-attr">target</span>=<span class="hljs-string">"RFC2119"</span>/&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">xref</span> <span class="hljs-attr">target</span>=<span class="hljs-string">"RFC8174"</span>/&gt;</span> when, and only when, they appear in
+          all capitals, as shown here.<span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Grammar<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>
+A csvs file MUST have UTF-8 encoding.
+
+A csvs file MUST have .csv file extension.
+    newline: either Carriage Return 0x0D \r, Line Feed 0x0A \n, or both CR LF 0x0D 0x0A \r\n
+    string: sequence of any utf8 characters, newlines MUST be escaped
+    key: string
+    value: string
+    file: [[key][,[value]]newline]
+
+each line in csvs file MUST represent a relation between values of two collections
+
+each line MUST contain zero, one, or two values separated by a comma
+
+value that contains a comma, a newline or a double quote MUST be escaped with double quotes ""
+
+omitted value MUST represent an empty string
+
+all characters between the first unescaped comma and an unescaped newline MUST be read as part of the second value
+
+multiple identical lines MUST represent multiple unique relations between identical values
+
+an exact duplicate of a line MUST represent two unique relations
+
+a line that consists only of a newline character MUST represent a relation between one empty string value "" and another empty string value ""
+
+empty lines \n MUST be ignored.
+
+what does it mean that an empty line must be "ignored"? in a sorted file I guess they are at the end and do not yield records. but in an unsorted file - are they dividers of groups of values?
+
+a trailling newline \n MUST be ignored.
+
+these are equivalent
+
+    ,\n
+    "",\n
+    "",""\n
+
+a line CAN have no comma.
+
+these are equivalent
+
+    2024-01-01\n
+    2024-01-01,""\n
+
+these are equivalent
+
+    "\n"\n
+    "\n",\n
+<span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>.csvs.csv<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>
+a dataset MUST contain a tablet named.csvs.csv which describes the dataset
+
+tablet is for metadata
+
+.csvs.csv tablet MUST have a line csvs,0.0.2
+
+this line is to support future breaking changes to the format.
+      <span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>_-_.csv<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>a dataset SHOULD contain a tablet named _-_.csv which describes relationships between collections
+
+reserved technical implementation details
+
+underscroll-dash-underscroll
+
+examples:
+
+    _-_.csv: event,date - dataset has an "event" collection with an attribute "date"
+
+if there is no _-_.csv tablet, dataset MUST be considered empty
+
+a collection name MUST NOT be "_".
+
+a collection name MUST NOT include the following characters: [/\<span class="hljs-tag">&lt;&gt;</span>':"```|?*-.,[];{}$&amp;].
+
+a collection name CAN include any of the following: [azAZ09_%+@], white-space and other Unicode characters
+
+NOTE: when there's no _-_.csv file, list directory and deduce relations from tablet names.
+      <span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>collection-collection.csv<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>underscore is like SQL table? underscore is not like SQL table? underscore is like MongoDB collection? underscore is not like MongoDB collection?
+
+a dataset CAN have a tablet named {collection1}-{collection2}.csv which describes relationships between values of two collections
+
+contains values of two collections
+
+"went to groceries" is an identifier here examples:
+
+    description-date.csv: went to groceries,2024-01-01
+
+    description-date.csv: went to groceries,2003-01-01 { _: description, description: "went to groceries", date: [2024-01-01, 2003-01-01]} { _: date, date: "2024-01-01"} { _: date, date: "2003-01-01"}
+
+    event-description: 0acab,went to groceries\n0abac,went to groceries
+
+    event-date: 0acab,2024-01-01\n0abac,2003-01-01 { _: event, event: "0acab", description: "went to groceries", date: "2024-01-01"} { _: event, event: "0abac", description: "went to groceries", date: "2003-01-01"}
+
+how to create two different values with the same text
+
+a relation between collections MUST be listed in _-_.csv
+
+a relation between collections CAN be recursive.
+
+examples:
+
+    collection "person" CAN have an attribute "person".
+    collection "product" CAN have an attribute "competitor" which has an attribute "product".
+      <span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>List Examples<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+
+      <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Simple Unordered (Bullet) List<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>Text before the list<span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">spacing</span>=<span class="hljs-string">"normal"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1,bob\n: key is 1, value is bob<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1,bob\\n\n: key is 1, value is bob\n<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>,bob\n: key is "", value is bob<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1,\n: key is 1, value is ""<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1\n: key is 1, value is ""<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>\n: key is "", value is ""<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2,bob,alice\n: key is 2, value is bob,alice<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3,apple\n3,pear\n: key is 3, values are apple and pear<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3,apple\n3,apple\n: key is 3, values are apple and apple<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>Text after the list.<span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+      <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Definition Lists<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dl</span> <span class="hljs-attr">newline</span>=<span class="hljs-string">"true"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>branch<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>a collection<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>twig<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>a collection without attributes<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>trunk<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>a collection with attributes<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>leaf<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>a collection that is an attribute of another collection<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>root<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>a collection that is not an attribute of any other collection<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>tablet<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>a file in csvs format<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>key<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>the first column<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>value<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>the second column<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">anchor</span>=<span class="hljs-string">"IANA"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>IANA Considerations<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>This memo includes no request to IANA. CSVS files use 'text/csv'.<span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">anchor</span>=<span class="hljs-string">"Security"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Security Considerations<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>This document should not affect the security of the Internet.<span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;/<span class="hljs-name">middle</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">back</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">references</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>References<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">references</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Normative References<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">xi:include</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://bib.ietf.org/public/rfc/bibxml/reference.RFC.4180.xml"</span>/&gt;</span>
+
+      <span class="hljs-tag">&lt;/<span class="hljs-name">references</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">references</span>&gt;</span>
+ <span class="hljs-tag">&lt;/<span class="hljs-name">back</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">rfc</span>&gt;</span>
+</code></pre>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

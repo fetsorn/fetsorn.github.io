@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-guide-02_lists_of_values</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Lists of Values</h1>
+<p>repeat a line with the same key to represent a list of values. For example, let's say Donell visited Japan every year for three years.</p>
+<blockquote>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span>date
+<span class="hljs-built_in">event,</span>name
+<span class="hljs-built_in">branch,</span>description
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">visited</span> Japan,<span class="hljs-number">2001</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>
+<span class="hljs-attribute">visited</span> Japan,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+<span class="hljs-attribute">visited</span> Japan,<span class="hljs-number">2003</span>-<span class="hljs-number">03</span>-<span class="hljs-number">03</span>
+<span class="hljs-attribute">climbed</span> Everest,<span class="hljs-number">2003</span>-<span class="hljs-number">03</span>-<span class="hljs-number">03</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-name.csv</span>
+visited <span class="hljs-keyword">Japan,Donell
+</span>climbed Everest,Eva
+</code></pre>
+</blockquote>
+<p>Notice that the year 2003 repeats two times - once in the list of events about Japan, and once in the list of events about Everest. Be careful when you add new branches that describe the date "2003-03-03" - they might apply to both mentions!</p>
+<p>To avoid conflicts, make sure to use unique identifiers when you want singleton values. For example, use a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">unique identifier</a> as a key.</p>
+<p>empty value is a value, one comma is empty key to an empty value</p>
+<p>empty line is not a value</p>
+<p>To learn more about csvs, see other <a href="./README.md">User Guides</a> and the <a href="../requirements.md">Requirements</a>.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

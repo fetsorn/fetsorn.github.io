@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-guide-10_description_blobs</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Description blobs</h1>
+<p>Any value in a CSVS dataset can have a large text description stored<br>
+in the prose store. This lets you start with a minimal graph and grow<br>
+structure over time.</p>
+<h2>Starting small</h2>
+<p>A single-predicate dataset is already a useful knowledge base:</p>
+<pre><code><span class="hljs-title">.csvs.csv:</span>
+<span class="hljs-built_in">version,</span><span class="hljs-number">0.0</span>.<span class="hljs-number">4</span>
+<span class="hljs-built_in">id,</span>my-dataset
+
+<span class="hljs-title">_-_.csv:</span>
+<span class="hljs-built_in">name,</span>age
+
+<span class="hljs-title">name-age.csv:</span>
+<span class="hljs-built_in">john,</span><span class="hljs-number">35</span>
+</code></pre>
+<p>Add a description to any value with the <code>@</code> operator:</p>
+<pre><code>{ <span class="hljs-comment">"_"</span>: <span class="hljs-comment">"name"</span>, <span class="hljs-comment">"name"</span>: <span class="hljs-comment">"john"</span>, <span class="hljs-comment">"@"</span>: <span class="hljs-comment">"John is a software engineer from Bath, 35 years old"</span> }
+</code></pre>
+<p>This stores the text at <code>prose/john</code>. The graph stays tiny and fast,<br>
+but "john" now carries rich prose behind it. A person browsing the<br>
+dataset can open the <code>prose/</code> folder, see the file <code>john</code>, open it,<br>
+and read about John.</p>
+<p>Language-tagged descriptions work the same way:</p>
+<pre><code>{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"john"</span>, <span class="hljs-string">"<span class="hljs-variable">@en</span>"</span>: <span class="hljs-string">"A software engineer from Bath"</span>, <span class="hljs-string">"<span class="hljs-variable">@ru</span>"</span>: <span class="hljs-string">"Инженер-программист из Бата"</span> }
+</code></pre>
+<h2>Growing structure from blobs</h2>
+<p>Over time, you notice patterns in your descriptions. "Bath" keeps<br>
+coming up. "Software engineer" is something you want to filter by.<br>
+Extract them into the graph:</p>
+<pre><code><span class="hljs-title">_-_.csv:</span>
+<span class="hljs-built_in">name,</span>age
+<span class="hljs-built_in">name,</span>city
+<span class="hljs-built_in">name,</span>occupation
+
+<span class="hljs-title">name-city.csv:</span>
+<span class="hljs-built_in">john,</span>Bath
+
+<span class="hljs-title">name-occupation.csv:</span>
+<span class="hljs-built_in">john,</span>software engineer
+</code></pre>
+<p>The blob shrinks as its content graduates into structure:</p>
+<pre><code><span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"name"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"john"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"@"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Likes cycling and tea"</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>Or disappears entirely once everything is formalized.</p>
+<h2>Blobs as a staging area</h2>
+<p>Blobs are the staging area for knowledge that isn't yet worth<br>
+formalizing. You don't need to design your schema upfront -- write<br>
+prose first, extract predicates later. The graph grows organically<br>
+from unstructured descriptions into structured relationships.</p>
+<h2>Searching blobs</h2>
+<p>Search across all descriptions with a regex:</p>
+<pre><code><span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"name"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"@"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Bath"</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>Or search within a specific language:</p>
+<pre><code>{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-string">"<span class="hljs-variable">@en</span>"</span>: <span class="hljs-string">"engineer"</span> }
+</code></pre>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-guanbo-tutorial</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Tutorial</h1>
+<p>A musical piece must send midi over OSC according to the <a href="https://github.com/llloret/osmid">osmid</a> format</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> <span class="hljs-variable constant_">OSC</span> <span class="hljs-keyword">from</span> <span class="hljs-string">"osc-js"</span>;
+
+<span class="hljs-comment">//...</span>
+
+<span class="hljs-keyword">const</span> options = { <span class="hljs-attr">send</span>: { <span class="hljs-attr">port</span>: <span class="hljs-number">57200</span> } };
+
+<span class="hljs-keyword">const</span> osc = <span class="hljs-keyword">new</span> <span class="hljs-title function_">OSC</span>({ <span class="hljs-attr">plugin</span>: <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">OSC</span>.<span class="hljs-title class_">DatagramPlugin</span>(options) });
+
+osc.<span class="hljs-title function_">open</span>({ <span class="hljs-attr">port</span>: <span class="hljs-number">9912</span> });
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">send</span>(<span class="hljs-params">midi</span>) {
+  osc.<span class="hljs-title function_">send</span>(<span class="hljs-keyword">new</span> <span class="hljs-variable constant_">OSC</span>.<span class="hljs-title class_">Message</span>(<span class="hljs-string">"/IAC Driver Bus 1/note_on"</span>, <span class="hljs-number">1</span>, midi, <span class="hljs-number">80</span>));
+}
+</code></pre>
+<p>Let's also produce a local sound for testing</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AudioContext</span>, <span class="hljs-title class_">OscillatorNode</span>, <span class="hljs-title class_">GainNode</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"node-web-audio-api"</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Midi</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"tonal"</span>;
+
+<span class="hljs-comment">//...</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">play</span>(<span class="hljs-params">midi</span>) {
+  <span class="hljs-keyword">const</span> audioContext = <span class="hljs-keyword">new</span> <span class="hljs-title class_">AudioContext</span>();
+
+  <span class="hljs-keyword">const</span> frequency = <span class="hljs-title class_">Midi</span>.<span class="hljs-title function_">midiToFreq</span>(midi);
+
+  <span class="hljs-keyword">const</span> osc = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OscillatorNode</span>(audioContext, { frequency });
+
+  osc.<span class="hljs-title function_">connect</span>(audioContext.<span class="hljs-property">destination</span>);
+
+  osc.<span class="hljs-title function_">start</span>(now);
+
+  osc.<span class="hljs-title function_">stop</span>(now + <span class="hljs-number">1</span>);
+}
+</code></pre>
+<p>To play notes in a loop, let's import a library for music theory</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Midi</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"tonal"</span>;
+
+<span class="hljs-comment">//...</span>
+
+[<span class="hljs-string">"C4"</span>, <span class="hljs-string">"G4"</span>, <span class="hljs-string">"F4"</span>, <span class="hljs-string">"G4"</span>].<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">note</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> midi = <span class="hljs-title class_">Midi</span>.<span class="hljs-title function_">toMidi</span>(tone);
+  
+  <span class="hljs-title function_">play</span>(midi);
+  
+  <span class="hljs-title function_">send</span>(midi);
+})
+
+</code></pre>
+<p>To learn about other ways to make music see the <a href="./user_guides.md">User Guides</a>.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

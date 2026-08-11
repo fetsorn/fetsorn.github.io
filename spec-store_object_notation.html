@@ -1,0 +1,186 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>spec-store_object_notation</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./specs.html">
+          <span lang="en">specs</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Store Object Notation</h1>
+<p>This document describes the Store Object Notation format.</p>
+<h2>text format</h2>
+<p>Dataset object notation is a JSON object, and thus a subset of <a href="https://www.rfc-editor.org/rfc/rfc8259">RFC 8259</a>.  It is defined by the following ABNF grammar:</p>
+<pre><code>record = begin-object [ base value-separator *( value-separator member ) ]
+         end-object
+
+base = underscore name-separator string
+
+underscore = quotation-mark %x5F quotation-mark
+
+link = string name-separator data
+
+data = record / list / string
+
+list = begin-array [ item *( value-separator item ) ] end-array
+
+item = record / string
+</code></pre>
+<p>As you can see, SON is stricter than JSON in several regards:</p>
+<ol>
+<li>There are no numbers, booleans, or null - the only allowed literal is a string.</li>
+<li>Arrays must not contain other arrays - the only allowed items are records or strings.</li>
+<li>Objects must have a base field with a fixed key "_". The base represents a group of values as described below.</li>
+<li>The prefix <code>@</code> is reserved for description blobs. <code>"@"</code> stores or retrieves an untagged description; <code>"@en"</code>, <code>"@ru"</code>, etc. store or retrieve language-tagged descriptions (BCP 47). In a data record, the value is stored in the prose store, addressed by the record's base value. In a query record, a non-empty string filters by blob content as a regex.</li>
+</ol>
+<h2>dataset format</h2>
+<p>A SON dataset is a set of SON records. Together, records comprise a database based on the relational model of data. The schema record describes the dataset structure. Other records describe data.</p>
+<p>For example, this record represents that John is 35 years old: <code>{ "_": "name", "name": "John", "age": "35" }</code>.</p>
+<h3>version record</h3>
+<p>Names that start with "_" are reserved and describe the metadata of the dataset.</p>
+<p><code>"_": "."</code> - this field is required and always has a reserved value of the period.<br>
+<code>"version": "0.0.4"</code> - this field is to support future breaking changes to the format.<br>
+<code>"id": "some-uniq-numb-er"</code> - this field is to uniquely identify this dataset.</p>
+<h3>schema record</h3>
+<p>A dataset must contain a single schema record which describes the dataset.</p>
+<p>Other names describe collections of values. For example:</p>
+<ul>
+<li><code>"event": "date"</code> - dataset has an "event" collection with an attribute collection "date".</li>
+</ul>
+<p>The schema tablet has special naming rules:</p>
+<ul>
+<li>a collection name must not be <code>_</code> because this name is reserved for the schema.</li>
+<li>a collection name must not include the following characters: <code>[/\&lt;&gt;':"```|?*.,[];{}$&amp;\n\r]</code> because collection names can be used for filenames, and these characters are reserved on most filesystems.</li>
+<li>a collection name must not include the character "-" because this character is reserved for connecting the collections in the filenames.</li>
+<li>a collection name can include any of the following: <code>[azAZ09%+@]</code>, white-space and other Unicode characters</li>
+</ul>
+<p><code>"_": "_"</code> - this field is required and always has a reserved value of the period.</p>
+<p>NOTE: As you can see a SON collection only exists in a relationship with another, there can be no independent collections.</p>
+<p>NOTE: For a field that has multiple connections, use a list</p>
+<pre><code><span class="hljs-string">"event"</span>: [<span class="hljs-string">"date"</span>, <span class="hljs-string">"name"</span>]
+</code></pre>
+<p>NOTE: A relation between collections can be recursive. For example, in this dataset events can have dates, and dates can have events.</p>
+<pre><code><span class="hljs-string">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"date"</span><span class="hljs-punctuation">,</span>
+<span class="hljs-string">"date: "</span>event<span class="hljs-string">"</span>
+</code></pre>
+<p>and even</p>
+<pre><code><span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span>
+</code></pre>
+<p>NOTE: Given a field with a list, all items of a list must have the same base as field.</p>
+<p>NOTE: Given a field with a record, the record should have the same base as field.</p>
+<p>NOTE: Keys must be unique in a record.</p>
+<p>NOTE: Discard empty list [], empty object {}, object without a base, object with base different than the field. In a data record, discard an object without a base value.</p>
+<h3>data record</h3>
+<p>For relationships described in the schema, a data record describes relationships between values.</p>
+<p>For example, this dataset represents that John is 35 years old and Jane is 36:</p>
+<pre><code><span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"."</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"0.0.4"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"some-uniq-numb-er"</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"_"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"age"</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"name"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"john"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"age"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"35"</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"name"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"jane"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"age"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"36"</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>In a data record, <code>"@"</code> stores a large text description for the record's base value in the prose store at <code>@/{sha256(value)}</code>.</p>
+<h3>query record</h3>
+<p>To find data records in the dataset, one can use query records. In a query record, the string can be a regular expression. And a record can have no base value, just a base field.</p>
+<p>The following dataset with the files <code>.csvs-csv</code>, <code>_-_.csv</code> and <code>event-date.csv</code> describes three events.</p>
+<pre><code>{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"."</span>, <span class="hljs-string">"version"</span>: <span class="hljs-string">"0.0.4"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-string">"some-uniq-numb-er"</span> }
+{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"_"</span>, <span class="hljs-string">"event"</span>: [ <span class="hljs-string">"date"</span>, <span class="hljs-string">"filepath"</span> ] ]}
+{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"event"</span>, <span class="hljs-string">"event"</span>: <span class="hljs-string">"visited-japan"</span>, <span class="hljs-string">"date"</span>: <span class="hljs-string">"2001-01-01"</span> }
+{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"event"</span>, <span class="hljs-string">"event"</span>: <span class="hljs-string">"climbed-everest"</span>, <span class="hljs-string">"date"</span>: <span class="hljs-string">"2003-03-03"</span>, <span class="hljs-string">"filepath"</span>: <span class="hljs-string">"photo-everest"</span> }
+{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"event"</span>, <span class="hljs-string">"event"</span>: <span class="hljs-string">"first-tokio"</span>, <span class="hljs-string">"date"</span>: <span class="hljs-string">"1999-01-01"</span> }
+</code></pre>
+<p>The following query looks for the schema of the dataset</p>
+<pre><code>{ _: <span class="hljs-string">"_"</span> }
+</code></pre>
+<p>finds <code>1</code> schema record</p>
+<pre><code>{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"_"</span>, <span class="hljs-string">"event"</span>: [ <span class="hljs-string">"date"</span>, <span class="hljs-string">"filepath"</span> ]}
+</code></pre>
+<p>The following query looks for all events in the dataset</p>
+<pre><code>{ _: <span class="hljs-string">"event"</span> }
+</code></pre>
+<p>finds <code>3</code> records of base <code>event</code></p>
+<pre><code><span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"visited-japan"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"date"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2001-01-01"</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"climbed-everest"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"date"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2003-03-03"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"filepath"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"photo-everest"</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"first-tokio"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"date"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1999-01-01"</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>The following query looks for events that have a filepath</p>
+<pre><code>{ <span class="hljs-params">_:</span> <span class="hljs-string">"event"</span>, <span class="hljs-params">filepath:</span> <span class="hljs-string">"photo"</span> }
+</code></pre>
+<p>finds <code>1</code> record of base <code>event</code></p>
+<pre><code><span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"climbed-everest"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"date"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2003-03-03"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"filepath"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"photo-everest"</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>Each item of a list must be interpreted as an AND operator. Each field of a record must be interpreted as an AND operator. For an OR operator, use <code>|</code> inside the regex, or make multiple queries.</p>
+<p>For an IS NULL operator, use "!" like</p>
+<pre><code><span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"!"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"filepath"</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>finds <code>1</code> record of base <code>event</code></p>
+<pre><code><span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"visited-japan"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"date"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2001-01-01"</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>For recursion, use <code>~</code>. In verbose form its value is a record of base <code>~</code>, whose base value names a field of the query record's base collection.</p>
+<p>The query fields select an initial set of records. For each found record, the closure also finds records whose base value appears in the named field, and records whose named field contains this record's base value. The join is two-way — the direction in which the tablet stores the relationship does not affect the result. Records reached by closure are returned regardless of whether they match the query fields.</p>
+<p>Given the following dataset, where values of <code>memory</code> are events</p>
+<pre><code>{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"."</span>, <span class="hljs-string">"version"</span>: <span class="hljs-string">"0.0.4"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-string">"some-uniq-numb-er"</span> }
+{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"_"</span>, <span class="hljs-string">"event"</span>: [ <span class="hljs-string">"date"</span>, <span class="hljs-string">"memory"</span> ] }
+{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"event"</span>, <span class="hljs-string">"event"</span>: <span class="hljs-string">"visited-japan"</span>, <span class="hljs-string">"date"</span>: <span class="hljs-string">"2001-01-01"</span>, <span class="hljs-string">"memory"</span>: <span class="hljs-string">"first-tokio"</span> }
+{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"event"</span>, <span class="hljs-string">"event"</span>: <span class="hljs-string">"climbed-everest"</span>, <span class="hljs-string">"date"</span>: <span class="hljs-string">"2003-03-03"</span>, <span class="hljs-string">"memory"</span>: <span class="hljs-string">"visited-japan"</span> }
+{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"event"</span>, <span class="hljs-string">"event"</span>: <span class="hljs-string">"first-tokio"</span>, <span class="hljs-string">"date"</span>: <span class="hljs-string">"1999-01-01"</span> }
+</code></pre>
+<p>the query</p>
+<pre><code><span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"visited-japan"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"~"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"memory"</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>finds <code>3</code> records of base <code>event</code>: the seed, <code>first-tokio</code> because the seed's <code>memory</code> points to it, and <code>climbed-everest</code> because its <code>memory</code> points to the seed</p>
+<pre><code><span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"visited-japan"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"date"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2001-01-01"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"memory"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"first-tokio"</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"climbed-everest"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"date"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2003-03-03"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"memory"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"visited-japan"</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"first-tokio"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"date"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1999-01-01"</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+<p><code>.</code> is the stop field. A record whose base value equals a stop value is neither returned nor expanded, and records reachable only through it are not found. If a seed matches a stop, the stop wins.</p>
+<p>The query</p>
+<pre><code>{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"event"</span>, <span class="hljs-string">"event"</span>: <span class="hljs-string">"visited-japan"</span>, <span class="hljs-string">"~"</span>: { <span class="hljs-string">"_"</span>: <span class="hljs-string">"~"</span>, <span class="hljs-string">"~"</span>: <span class="hljs-string">"memory"</span>, <span class="hljs-string">"."</span>: <span class="hljs-string">"^climbed-everest<span class="hljs-variable">$</span>"</span> } }
+</code></pre>
+<p>finds <code>2</code> records of base <code>event</code></p>
+<pre><code><span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"visited-japan"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"date"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"2001-01-01"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"memory"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"first-tokio"</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"event"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"event"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"first-tokio"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"date"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1999-01-01"</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+<p>The base value of a <code>~</code> record is an exact field name, not a regular expression. Stop values are regular expressions like other query strings — anchor with <code>^...$</code> to stop at one exact value. A list under <code>~</code> performs several traversals, each with its own stops. Concise form applies as usual: <code>"~": "actname"</code> is short for <code>"~": { "_": "~", "~": "actname" }</code>.</p>
+<p>NOTE: Directed traversal and git-style set subtraction are deliberately not operators. A directed walk is expressible client-side by iterating one-step queries; a subtraction is expressible by diffing two closures.</p>
+<h2>Form</h2>
+<p>SON is meant to be both machine- and human- readable. Use concise form for less repetition. Use verbose form for easier parsing. When in doubt, consider the record to be in mixed form, i.e. containing both concise and verbose values.</p>
+<h3>concise</h3>
+<p>Lists with one element are reduced to that element. Object with a single base value is reduced to the string of that value.</p>
+<pre><code>{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"john"</span> } -&gt; <span class="hljs-string">"john"</span>
+{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"john"</span>, <span class="hljs-string">"age"</span>: [ <span class="hljs-string">"35"</span> ] } -&gt; { <span class="hljs-string">"_"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"john"</span>, <span class="hljs-string">"age"</span>: <span class="hljs-string">"35"</span> }
+</code></pre>
+<h3>verbose</h3>
+<p>A field value is always a list of records. A string is expanded to a record with a single base value. base name and base value is always a single value.</p>
+<pre><code><span class="hljs-string">"john"</span> -&gt; { <span class="hljs-string">"_"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"john"</span> }
+{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"john"</span>, <span class="hljs-string">"age"</span>: <span class="hljs-string">"35"</span> } -&gt; { <span class="hljs-string">"_"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"john"</span>, <span class="hljs-string">"age"</span>: [ { <span class="hljs-string">"_"</span>: <span class="hljs-string">"age"</span>, <span class="hljs-string">"age"</span>: <span class="hljs-string">"35"</span> } ] }
+</code></pre>
+<h3>mixed</h3>
+<p>Record can contain both verbose records and concise strings.</p>
+<pre><code>{ <span class="hljs-string">"_"</span>: <span class="hljs-string">"event"</span>, <span class="hljs-string">"event"</span>: <span class="hljs-string">"visited-japan"</span>, <span class="hljs-string">"date"</span>: [ <span class="hljs-string">"2001-01-01"</span>, { <span class="hljs-string">"_"</span>: <span class="hljs-string">"date"</span>, <span class="hljs-string">"date"</span>: <span class="hljs-string">"2005-01-01"</span> } ]}
+</code></pre>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

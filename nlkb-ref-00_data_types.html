@@ -1,0 +1,96 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-ref-00_data_types</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Data Types</h1>
+<h2>FS</h2>
+<p>FS is input output interface to the file system</p>
+<h2>Dir</h2>
+<p>Dir is String of a path to a directory in <a href="../specs/dataset_format.md">csvs dataset format</a></p>
+<h2>Branch</h2>
+<p>Branch is a string name of a given branch</p>
+<h2>Trunk</h2>
+<p>Trunk is a String name of the trunk of Branch</p>
+<h2>Leaf</h2>
+<p>Leaf is a String name of the leaf of Branch</p>
+<h2>Schema</h2>
+<p>Schema is Map Branch Connection</p>
+<p>Connection is</p>
+<pre><code class="language-js">{ 
+  <span class="hljs-attr">trunks</span>: <span class="hljs-title class_">List</span> <span class="hljs-title class_">Trunk</span>, 
+  <span class="hljs-attr">leaves</span>: <span class="hljs-title class_">List</span> <span class="hljs-title class_">Leaf</span> 
+}
+</code></pre>
+<h2>Entry</h2>
+<p>Entry is a JSON in <a href="../specs/entry_object_notation.md">Entry Object Notation</a></p>
+<h2>Query</h2>
+<p>Query is a JSON in <a href="../specs/query_object_notation.md">Query Object Notation</a></p>
+<h2>Line</h2>
+<p>Line is a String in <a href="../specs/file_format.md">csvs file format</a></p>
+<h2>State</h2>
+<p>State is</p>
+<pre><code class="language-js">{
+  <span class="hljs-attr">query</span>: <span class="hljs-title class_">Query</span>,
+  <span class="hljs-attr">entry</span>: <span class="hljs-title class_">Entry</span>,
+  <span class="hljs-attr">fst</span>: <span class="hljs-title class_">String</span>,
+  <span class="hljs-attr">match</span>: <span class="hljs-title class_">Boolean</span>,
+  has <span class="hljs-attr">match</span>: <span class="hljs-title class_">Boolean</span>,
+  <span class="hljs-attr">map</span>: <span class="hljs-title class_">Map</span> <span class="hljs-title class_">String</span> <span class="hljs-title class_">Boolean</span>,
+  <span class="hljs-attr">thing</span>: <span class="hljs-title class_">String</span>,
+}
+</code></pre>
+<h2>Grain</h2>
+<p>Grain is a record with only _ field, base field and leaf field.</p>
+<h2>Trait</h2>
+<p>Trait is String that we look for</p>
+<h2>Thing</h2>
+<p>Thing is String we insert</p>
+<h2>Tablet</h2>
+<p>Tablet is</p>
+<pre><code class="language-js">{
+  <span class="hljs-attr">filename</span>: <span class="hljs-title class_">String</span>, 
+  <span class="hljs-attr">thing</span>: <span class="hljs-title class_">String</span>,
+  <span class="hljs-attr">trait</span>: <span class="hljs-title class_">String</span>, 
+  thing is <span class="hljs-attr">first</span>: <span class="hljs-title class_">Boolean</span>,
+  trait is <span class="hljs-attr">first</span>: <span class="hljs-title class_">Boolean</span>,
+  <span class="hljs-attr">base</span>: <span class="hljs-title class_">String</span>,
+  <span class="hljs-attr">passthrough</span>: <span class="hljs-title class_">Boolean</span>,
+  <span class="hljs-attr">eager</span>: <span class="hljs-title class_">Boolean</span>,
+  <span class="hljs-attr">accumulating</span>: <span class="hljs-title class_">Boolean</span>,
+  trait is <span class="hljs-attr">regex</span>: <span class="hljs-title class_">Boolean</span>,
+  <span class="hljs-attr">querying</span>: <span class="hljs-title class_">Boolean</span>,
+  <span class="hljs-attr">trunk</span>: <span class="hljs-title class_">String</span>, 
+  <span class="hljs-attr">branch</span>: <span class="hljs-title class_">String</span> 
+}
+</code></pre>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

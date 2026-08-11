@@ -1,0 +1,253 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-evenor-requirements</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Product</h1>
+<p>GUI client for csvs, personal information manager, note-taking manager, digital brain, database manager</p>
+<p>competes: notion, OneNote, obsidian, org-journal, iNotes, atom <a href="https://www.accesstomemory.org">https://www.accesstomemory.org</a>, perkeep <a href="https://perkeep.org">https://perkeep.org</a>, trilium</p>
+<p>interacts: with local storage, git hosting providers, social media API</p>
+<p>constitutes: local and public a web application, mobile application for iOS and Android, desktop application for Linux, MacOS and Windows</p>
+<p>includes: UI, UI state storage, overview components, import/export controllers; a class that interacts with filesystem, csvs, git</p>
+<p>patterns: MVC</p>
+<p>resembles: <a href="http://matrix.ai">matrix.ai</a>, genea.app, pgAdmin</p>
+<p>stakeholders: fetsorn</p>
+<p>target audiences: superusers, genealogy clients</p>
+<h2>adr</h2>
+<ul>
+<li>
+<p>user must store i18n description of schema entities</p>
+</li>
+<li>
+<p>user must specify arbitrary entity purpose to render values in a specific way</p>
+</li>
+<li>
+<p>all values are stored in a csvs dataset. all keys are SHA-256 hashsum of some unique value, so that keys are of common form. we hash a UUIDv4 in <code>src/api/schema.js::newUUID</code> when a new object needs a unique identifier,  and we hash file contents in <code>src/api/browser.js::uploadFile</code>, <code>src/api/electron.js::uploadFile</code> and <code>src/api/server.mjs::uploadFile</code> for content-addressable asset storage.</p>
+</li>
+<li>
+<p>support oAuth</p>
+</li>
+</ul>
+<h1>Requirements</h1>
+<h2>长 寒 项</h2>
+<ul>
+<li>user must view a collection of folders</li>
+</ul>
+<h2>遵 钙 球</h2>
+<ul>
+<li>user must create a folder</li>
+</ul>
+<h2>安 极 种</h2>
+<ul>
+<li>user must delete a folder</li>
+</ul>
+<h2>堵 朵 虾</h2>
+<ul>
+<li>user must edit the folder name</li>
+</ul>
+<h2>给 胎 政</h2>
+<ul>
+<li>user must edit the folder schema</li>
+</ul>
+<h2>务 碎 筛</h2>
+<ul>
+<li>user must view a collection of records in a folder</li>
+</ul>
+<h2>伸 薄 渗</h2>
+<ul>
+<li>user must create a record</li>
+</ul>
+<h2>晋 译 哩</h2>
+<ul>
+<li>user must change a record</li>
+</ul>
+<h2>忧 伏 治</h2>
+<ul>
+<li>user must delete a record</li>
+</ul>
+<h2>季 家 苍</h2>
+<ul>
+<li>user must search a collection</li>
+</ul>
+<h2>斤 孙 资</h2>
+<ul>
+<li>user must query a collection with fuzzy match</li>
+</ul>
+<h2>优 殊 火</h2>
+<ul>
+<li>user must query a collection with logical AND</li>
+</ul>
+<h2>念 邻 真</h2>
+<ul>
+<li>user must query a collection with logical OR</li>
+</ul>
+<h2>秘 抛 张</h2>
+<ul>
+<li>user must query a collection with regular expressions</li>
+</ul>
+<h2>力 辊 捅</h2>
+<ul>
+<li>user must sort a collection</li>
+</ul>
+<h2>府 凤 制</h2>
+<ul>
+<li>user must sort in ascending order</li>
+</ul>
+<h2>疑 课 剥</h2>
+<ul>
+<li>user must sort in descending order</li>
+</ul>
+<h2>月 盛 叔</h2>
+<ul>
+<li>user won't sort numbers in arithmetic order</li>
+</ul>
+<h2>厂 便 玻</h2>
+<ul>
+<li>user must sort numbers in alphanumeric order</li>
+</ul>
+<h2>污 纯 千</h2>
+<ul>
+<li>user must see tooltips on every button</li>
+</ul>
+<h2>淮 适 议</h2>
+<ul>
+<li>user must see a warning when deleting</li>
+</ul>
+<h2>他 塘 众</h2>
+<ul>
+<li>user must import a folder over the network</li>
+</ul>
+<h2>膜 里 刻</h2>
+<ul>
+<li>user must export a folder over the network</li>
+</ul>
+<h2>滨 先 汁</h2>
+<ul>
+<li>user must upload attached media files</li>
+</ul>
+<h2>喝 弹 扑</h2>
+<ul>
+<li>user must view attached media files</li>
+</ul>
+<h2>附 线 纶</h2>
+<ul>
+<li>user must download attached media files</li>
+</ul>
+<h2>你 所 法</h2>
+<ul>
+<li>user must rename attached media files</li>
+</ul>
+<h2>酚 百 暗</h2>
+<ul>
+<li>user must choose from a list of previously attached media files</li>
+</ul>
+<h2>十 抵 严</h2>
+<ul>
+<li>user must see the first of search results immediately after querying</li>
+</ul>
+<h2>肌 捉 乙</h2>
+<ul>
+<li>user must open URL with local folder and query</li>
+</ul>
+<h2>并 试 辑</h2>
+<ul>
+<li>user must open URL with remote folder</li>
+</ul>
+<h2>加 份 吧</h2>
+<ul>
+<li>user must open URL with record id to scroll into view</li>
+</ul>
+<h2>棋 届 瓜</h2>
+<ul>
+<li>user must see highlight of the opened record</li>
+</ul>
+<h2>舟 连 右</h2>
+<ul>
+<li>user must move subset of records specified by query from one folder to another</li>
+</ul>
+<h2>制 猛 密</h2>
+<ul>
+<li>user must close folder and see saved query</li>
+</ul>
+<h2>湿 楼 到</h2>
+<ul>
+<li>user must close folder and scroll to folder record</li>
+</ul>
+<h2>开 砍 滩</h2>
+<ul>
+<li>user must see number of records matched by query</li>
+</ul>
+<h2>坑 州 胀</h2>
+<ul>
+<li>user must change css themes</li>
+</ul>
+<h2>我 拒 葱</h2>
+<ul>
+<li>user must view rich formatted markdown text</li>
+</ul>
+<h2>司 并 哲</h2>
+<ul>
+<li>desktop user must search page with ctrl+f</li>
+</ul>
+<h2>训 滑 掘</h2>
+<ul>
+<li>desktop user must open folder locally</li>
+</ul>
+<h2>寨 溜 磷</h2>
+<ul>
+<li>desktop user must open multiple windows</li>
+</ul>
+<h2>技 仰 夜</h2>
+<ul>
+<li>browser user must see a warning that clearing cache will destroy data</li>
+</ul>
+<h2>础 炮 敲</h2>
+<ul>
+<li>user must download zip archive of the folder</li>
+</ul>
+<h2>免 织 婚</h2>
+<ul>
+<li>user must access all events that involve a name as an actor</li>
+</ul>
+<h2>妥 尚 累</h2>
+<ul>
+<li>user must see the interface in their preferred language</li>
+</ul>
+<h2>溜 赫 皱</h2>
+<ul>
+<li>user must see all names that have common events with a given name</li>
+</ul>
+<h2>部 替 易</h2>
+<ul>
+<li>user must specify a branch to query by given branch</li>
+</ul>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

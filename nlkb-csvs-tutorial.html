@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-csvs-tutorial</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Tutorial</h1>
+<p>Here's an example of the simplest csvs dataset that contains a record about visiting Japan in 2001.</p>
+<blockquote>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># _-_.csv</span>
+event,<span class="hljs-built_in">date</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">visited</span> Japan,<span class="hljs-number">2001</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>
+</code></pre>
+</blockquote>
+<p>Technically, this dataset represents three records:</p>
+<ul>
+<li><code>event</code> record that says <code>visited Japan in 2001-01-01</code></li>
+<li><code>date</code> record that says <code>2001-01-01</code></li>
+<li>a <code>_</code> record, pronounced <code>schema record</code>, that says <code>"event" has a "date"</code></li>
+</ul>
+<p>Let's add another event about climbing the Everest in 2003</p>
+<blockquote>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># _-_.csv</span>
+event,<span class="hljs-built_in">date</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">visited</span> Japan,<span class="hljs-number">2001</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>
+<span class="hljs-attribute">climbed</span> Everest,<span class="hljs-number">2003</span>-<span class="hljs-number">03</span>-<span class="hljs-number">03</span>
+</code></pre>
+</blockquote>
+<p>Now, the dataset represents five records:</p>
+<ul>
+<li><code>event</code> record that says <code>visited Japan in 2001-01-01</code></li>
+<li><code>event</code> record that says <code>climbed Everest in 2003-03-03</code></li>
+<li><code>date</code> record that says <code>2001-01-01</code></li>
+<li><code>date</code> record that says <code>2003-03-03</code></li>
+<li>a <code>_</code> record, pronounced <code>schema record</code>, that says <code>"event" has a "date"</code></li>
+</ul>
+<p>Let's add another value to the database to show that events happened to different people.</p>
+<blockquote>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-meta"># _-_.csv</span>
+<span class="hljs-keyword">event</span>,date
+<span class="hljs-keyword">event</span>,name
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">visited</span> Japan,<span class="hljs-number">2001</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>
+<span class="hljs-attribute">climbed</span> Everest,<span class="hljs-number">2003</span>-<span class="hljs-number">03</span>-<span class="hljs-number">03</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-name.csv</span>
+visited <span class="hljs-keyword">Japan,Donell
+</span>climbed Everest,Eva
+</code></pre>
+</blockquote>
+<p>Finally, the dataset represents seven records:</p>
+<ul>
+<li><code>event</code> record that says <code>Donell visited Japan in 2001-01-01</code></li>
+<li><code>event</code> record that says <code>Eva climbed Everest in 2003-03-03</code></li>
+<li><code>date</code> record that says <code>2001-01-01</code></li>
+<li><code>date</code> record that says <code>2003-03-03</code></li>
+<li><code>name</code> record that says <code>Eva</code></li>
+<li><code>name</code> record that says <code>Donell</code></li>
+<li>a <code>_</code> record, pronounced <code>schema record</code>, that says <code>"event" has a "date" and a "name"</code></li>
+</ul>
+<p>To remove records from the dataset, delete corresponding lines from the tablets.</p>
+<p>Learn more about csvs in the <a href="./user_guides.md">User guides</a>.</p>
+<h2>Note</h2>
+<ul>
+<li>this page should explain how csvs works without teaching programming</li>
+<li>should have an explanation for the "listing of files" format, saying it shows the names and the content of the files</li>
+<li>introduces the terminology of a "record" without giving the context</li>
+<li>there should be confirmation of existing knowledge</li>
+<li>there should not be references to specific database alternatives</li>
+<li>there should be real life metaphors like "folder" or "archive", and suggestions like "imagine" or "remember"</li>
+<li>the intention right now is to give data so the reader makes connections on their own, there should be confirmation of right connections and some attention to the possible incorrect presumptions</li>
+<li>the goal of the tutorial is to give some control and awareness, this text right now instead gives a quick technical summary of the csvs API</li>
+<li>this text should be moved to some technical page, perhaps to the README page of reference or user guides</li>
+</ul>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

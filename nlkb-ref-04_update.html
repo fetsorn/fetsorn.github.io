@@ -1,0 +1,263 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-ref-04_update</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Update</h1>
+<p>The update function takes a record object notation and mutates the dataset to add or overwrite lines.</p>
+<p>the update record stream asks for update strategy and pipes it through update tablet streams. update tablet stream pipes lines to the update line stream which searches the record for values that match the line, signals a match and passes novel lines to a stream that writes them to file.</p>
+<p>Each step passes a record to <code>csvs.update</code> and changes the state of the dataset.</p>
+<ul>
+<li><a href="#update-in-dataset">update in dataset</a>
+<ul>
+<li><a href="#update-stream">update stream</a>
+<ul>
+<li><a href="#update-strategy">update strategy</a></li>
+<li><a href="#update-tablet-stream">update tablet stream</a>
+<ul>
+<li><a href="#update-schema-stream">update schema stream</a></li>
+<li><a href="#update-line-stream">update line stream</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>To learn more about the architecture of csvs, see other <a href="./user_guides.md">User Guides</a>, the <a href="./reference.md">Reference</a> and the <a href="./requirements.md">Requirements</a>.</p>
+<h2>update in dataset</h2>
+<p><a href="./00_data_types.md#fs">FS</a> -&gt; <a href="./00_data_types.md#dir">Dir</a> -&gt; List<br>
+<a href="./00_data_types.md#entry">Entry</a> -&gt; List<br>
+<a href="./00_data_types.md#entry">Entry</a></p>
+<pre><code class="language-pdl">pipe <span class="hljs-keyword">each</span> query 
+  <span class="hljs-keyword">to</span> <span class="hljs-keyword">update</span> stream 
+  <span class="hljs-keyword">to</span> <span class="hljs-keyword">return</span>
+</code></pre>
+<h2>update stream</h2>
+<p><a href="./00_data_types.md#fs">FS</a> -&gt; <a href="./00_data_types.md#dir">Dir</a> -&gt;<br>
+<a href="./00_data_types.md#entry">Entry</a> -&gt; List<br>
+<a href="./00_data_types.md#entry">Entry</a></p>
+<pre><code class="language-pdl">schema = <span class="hljs-keyword">select</span> <span class="hljs-keyword">schema</span>
+strategy = <span class="hljs-keyword">update</span> strategy <span class="hljs-keyword">with</span> <span class="hljs-keyword">schema</span>, query
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> tablet <span class="hljs-keyword">of</span> strategy
+  append <span class="hljs-keyword">update</span> tablet stream
+pipe query
+  <span class="hljs-keyword">to</span> <span class="hljs-keyword">each</span> <span class="hljs-keyword">update</span> tablet stream
+  <span class="hljs-keyword">to</span> <span class="hljs-keyword">return</span>
+</code></pre>
+<h3>test cases</h3>
+<ul>
+<li>
+<ul>
+<li>initial: default</li>
+<li>query: record 2001</li>
+<li>expected: default</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: default</li>
+<li>query: record 2003 edited</li>
+<li>expected: edited</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: default</li>
+<li>query: record added</li>
+<li>expected: added</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: array</li>
+<li>query: record array added</li>
+<li>expected: array added</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: array empty</li>
+<li>query: record array</li>
+<li>expected: array</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: array</li>
+<li>query: record added array item</li>
+<li>expected: added array item</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: array</li>
+<li>query: record edited array item</li>
+<li>expected: edited array item</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: array</li>
+<li>query: record deleted array item</li>
+<li>expected: deleted array item</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: array</li>
+<li>query: record edited array item object</li>
+<li>expected: edited array item object</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: schema none</li>
+<li>query: record schema</li>
+<li>expected: schema</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: schema none</li>
+<li>query: record schema literal</li>
+<li>expected: schema literal</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: default</li>
+<li>query: record array literal</li>
+<li>expected: array literal</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: quotes</li>
+<li>query: record quotes</li>
+<li>expected: quotes</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: newline</li>
+<li>query: record newline</li>
+<li>expected: newline</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: pipe</li>
+<li>query: record pipe</li>
+<li>expected: pipe</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>initial: empty</li>
+<li>query: record 2001, record 2002, record 2003 unedited</li>
+<li>expected: default</li>
+</ul>
+</li>
+</ul>
+<h2>update strategy</h2>
+<p><a href="./00_data_types.md#schema">Schema</a> -&gt;<br>
+<a href="./00_data_types.md#entry">Entry</a> -&gt; List<br>
+<a href="./00_data_types.md#tablet">Tablet</a></p>
+<p>This describes all tablets needed to update an entry</p>
+<pre><code class="language-pdl"><span class="hljs-keyword">base </span>= entry._
+crown = find crown with <span class="hljs-keyword">schema, </span><span class="hljs-keyword">base
+</span>if <span class="hljs-keyword">base </span>equals _
+  return [{
+<span class="hljs-symbol">    filename:</span> _-_.csv
+  }]
+for each <span class="hljs-keyword">branch </span>of crown
+  for each trunk of <span class="hljs-keyword">schema.branch.trunks
+</span>    return {
+<span class="hljs-symbol">      filename:</span> trunk-<span class="hljs-keyword">branch.csv,
+</span>      trunk,
+      <span class="hljs-keyword">branch,
+</span>    }
+</code></pre>
+<h2>update tablet stream</h2>
+<p><a href="./00_data_types.md#fs">FS</a> -&gt; <a href="./00_data_types.md#dir">Dir</a> -&gt;<br>
+<a href="./00_data_types.md#schema">Schema</a> -&gt;<br>
+<a href="./00_data_types.md#tablet">Tablet</a> -&gt;<br>
+<a href="./00_data_types.md#entry">Entry</a> -&gt; IO<br>
+<a href="./00_data_types.md#entry">Entry</a></p>
+<pre><code class="language-pdl">filepath = dir/tablet.filename
+// <span class="hljs-keyword">in</span> <span class="hljs-keyword">order</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">start</span> other tablet streams
+enqueue entry 
+<span class="hljs-keyword">if</span> tablet.filename equals _-_.csv
+  pipe filepath
+    <span class="hljs-keyword">to</span> <span class="hljs-keyword">update</span> <span class="hljs-keyword">schema</span> stream
+    <span class="hljs-keyword">to</span> <span class="hljs-keyword">temporary</span> file
+otherwise
+  pipe filepath
+    <span class="hljs-keyword">to</span> <span class="hljs-keyword">update</span> <span class="hljs-type">line</span> stream
+    <span class="hljs-keyword">to</span> <span class="hljs-keyword">temporary</span> file
+<span class="hljs-keyword">move</span> <span class="hljs-keyword">temporary</span> file <span class="hljs-keyword">to</span> filepath
+</code></pre>
+<h2>update schema stream</h2>
+<p><a href="./00_data_types.md#entry">Entry</a> -&gt; <a href="./00_data_types.md#line">Line</a></p>
+<pre><code class="language-pdl"><span class="hljs-symbol">for</span> each <span class="hljs-meta">field</span> of <span class="hljs-meta">entry</span>
+  for each leaf of <span class="hljs-meta">entry</span>.field
+    enqueue <span class="hljs-meta">field</span>,leaf
+</code></pre>
+<h2>update line stream</h2>
+<p><a href="./00_data_types.md#entry">Entry</a> -&gt;<br>
+<a href="./00_data_types.md#tablet">Tablet</a> -&gt; <a href="./00_data_types.md#line">Line</a> -&gt; <a href="./00_data_types.md#line">Line</a></p>
+<pre><code class="language-pdl">grains = mow query with tablet.trunk, tablet.branch
+keys = map grain <span class="hljs-keyword">to</span> grain[tablet.trunk] sorted
+values = reduce grains <span class="hljs-keyword">to</span> { grain[tablet.trunk]: grain[tablet.branch] }
+<span class="hljs-keyword">for</span> each line
+  fst, snd = parse line
+  fst is new = <span class="hljs-keyword">state</span>.fst is undefined or <span class="hljs-keyword">state</span>.fst not equal fst
+  if fst is new and <span class="hljs-keyword">state</span>.<span class="hljs-built_in">match</span>
+    <span class="hljs-keyword">for</span> each value of values[<span class="hljs-keyword">state</span>.fst]
+      enqueue <span class="hljs-keyword">state</span>.fst,value
+    keys = filter keys where key not equal <span class="hljs-keyword">state</span>.fst
+  if fst is new
+    between = filter keys where key is after <span class="hljs-keyword">state</span>.fst and before fst
+    <span class="hljs-keyword">for</span> each key of between
+      <span class="hljs-keyword">for</span> each value of values[key]
+        enqueue key,value
+      keys = filter keys where key not equal <span class="hljs-keyword">state</span>.fst
+  if keys not include fst
+    enqueue line
+  <span class="hljs-keyword">state</span> = { fst, <span class="hljs-built_in">match</span> }
+<span class="hljs-keyword">for</span> key of keys
+  <span class="hljs-keyword">for</span> each value of values[key]
+    enqueue key,value
+  keys = filter keys where key not equal <span class="hljs-keyword">state</span>.fst
+</code></pre>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

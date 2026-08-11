@@ -1,0 +1,677 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-csvs-scenarios</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Scenarios</h1>
+<ul>
+<li><a href="#insert">Insert</a></li>
+<li><a href="#update">Update</a></li>
+<li><a href="#update-2">Update</a></li>
+<li><a href="#select">Select</a></li>
+</ul>
+<h2>Insert</h2>
+<h3>step 1: beginning</h3>
+<blockquote>
+<p>empty directory</p>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-comment"># - no changes</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+# - no changes
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+</blockquote>
+<h3>step 2: add a record</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record about vising Japan in 2001</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"visited-japan"</span>,
+  <span class="hljs-attr">date</span>: <span class="hljs-string">"2001-01-01"</span>
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added <code>visited-japan,2001-01-01</code> to <code>event-date.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>
+</code></pre>
+</blockquote>
+<h3>step 3: add another record</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record about cooking a lasagna in 2002</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"cooked-lasagna"</span>,
+  <span class="hljs-attr">date</span>: <span class="hljs-string">"2002-02-02"</span>
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added <code>cooked-lasagna,2002-02-02</code> to <code>event-date.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>
+<span class="hljs-attribute">cooked</span>-lasagna,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+</code></pre>
+</blockquote>
+<h3>step 4: add attribute of a record</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record that adds another visit to Japan on December 12th 2012</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"visited-japan"</span>,
+  <span class="hljs-attr">date</span>: <span class="hljs-string">"2001-12-12"</span>
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added <code>visited-japan,2001-12-12</code> to <code>event-date.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">cooked</span>-lasagna,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">12</span>-<span class="hljs-number">12</span>
+</code></pre>
+</blockquote>
+<h2>Update</h2>
+<h3>step 1: beginning</h3>
+<blockquote>
+<p>empty directory</p>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+</blockquote>
+<h3>step 2: add a schema</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record with base `_` holds the schema</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"_"</span>,
+  <span class="hljs-attr">event</span>: [ <span class="hljs-string">"date"</span>, <span class="hljs-string">"filepath"</span> ],
+  <span class="hljs-attr">filepath</span>: [ <span class="hljs-string">"filehash"</span> ]
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added relation for each item in a value array to <code>_-_.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+</code></pre>
+</blockquote>
+<h3>step 3: add a branch to the schema</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record holds a schema with new branch `filesize`</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"_"</span>,
+  <span class="hljs-attr">event</span>: [ <span class="hljs-string">"date"</span>, <span class="hljs-string">"filepath"</span> ],
+  <span class="hljs-attr">filepath</span>: [ <span class="hljs-string">"filehash"</span>, <span class="hljs-string">"filesize"</span> ]
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added filepath, filesize to <code>_-_.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+</blockquote>
+<h3>step 4: add a record</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record about visiting Japan in 2001</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"visited-japan"</span>,
+  <span class="hljs-attr">date</span>: <span class="hljs-string">"2001-01-01"</span>
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added <code>visited-japan,2001-01-01</code> to <code>event-date.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>
+</code></pre>
+</blockquote>
+<h3>step 5: add another record</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record about cooking a lasagna in 2002</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"cooked-lasagna"</span>,
+  <span class="hljs-attr">date</span>: <span class="hljs-string">"2002-02-02"</span>
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added <code>cooked-lasagna,2002-02-02</code> to <code>event-date.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">cooked</span>-lasagna,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>
+</code></pre>
+</blockquote>
+<h3>step 6: edit attribute of a record</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record that changes the date for visiting Japan to December 2001</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"visited-japan"</span>,
+  <span class="hljs-attr">date</span>: <span class="hljs-string">"2001-12-12"</span>
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>removed <code>visited-japan,2001-01-01</code> from <code>event-date.csv</code></li>
+<li>added <code>visited-japan,2001-12-12</code> to <code>event-date.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">cooked</span>-lasagna,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">12</span>-<span class="hljs-number">12</span>
+</code></pre>
+</blockquote>
+<h3>step 7: add another record</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record about climbing Everest in 2003, with a photo</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"climbed-everest"</span>,
+  <span class="hljs-attr">date</span>: <span class="hljs-string">"2003-03-03"</span>,
+  <span class="hljs-attr">filepath</span>: <span class="hljs-string">"photo-everest"</span>
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added <code>climbed-everest,2003-03-03</code> to <code>event-date.csv</code></li>
+<li>added <code>climbed-everest,photo-everest</code> to <code>event-filepath.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">cooked</span>-lasagna,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+<span class="hljs-attribute">climbed</span>-everest,<span class="hljs-number">2003</span>-<span class="hljs-number">03</span>-<span class="hljs-number">03</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">12</span>-<span class="hljs-number">12</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-meta"># event-filepath.csv</span>
+climbed<span class="hljs-punctuation">-</span>everest<span class="hljs-punctuation">,</span>photo<span class="hljs-punctuation">-</span>everest
+</code></pre>
+</blockquote>
+<h3>step 8: add an attribute</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record with a hashsum for the photo of Everest</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"filepath"</span>,
+  <span class="hljs-attr">filepath</span>: <span class="hljs-string">"photo-everest"</span>,
+  <span class="hljs-attr">filehash</span>: <span class="hljs-string">"0x0000"</span>
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added <code>photo-everest,0x0000</code> to <code>filepath-filehash.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">cooked</span>-lasagna,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+<span class="hljs-attribute">climbed</span>-everest,<span class="hljs-number">2003</span>-<span class="hljs-number">03</span>-<span class="hljs-number">03</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">12</span>-<span class="hljs-number">12</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-meta"># event-filepath.csv</span>
+climbed<span class="hljs-punctuation">-</span>everest<span class="hljs-punctuation">,</span>photo<span class="hljs-punctuation">-</span>everest
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># filepath-filehash.csv</span>
+<span class="hljs-attribute">photo</span>-everest,<span class="hljs-number">0</span>x0000
+</code></pre>
+</blockquote>
+<h3>step 9: add a record with a nested attribute</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record about breaking a leg in 2004, with an X-ray photo</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"broke-leg"</span>,
+  <span class="hljs-attr">date</span>: <span class="hljs-string">"2004-04-04"</span>,
+  <span class="hljs-attr">filepath</span>: {
+    <span class="hljs-attr">_</span>: <span class="hljs-string">"filepath"</span>,
+    <span class="hljs-attr">filepath</span>: <span class="hljs-string">"photo-xray"</span>,
+    <span class="hljs-attr">filehash</span>: <span class="hljs-string">"0x4444"</span>
+  }
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added <code>broke-leg,2004-04-04</code> to <code>event-date.csv</code></li>
+<li>added <code>broke-leg,photo-xray</code> to <code>event-filepath.csv</code></li>
+<li>added <code>broke-leg,0x4444</code> to <code>filepath-filehash.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">broke</span>-leg,<span class="hljs-number">2004</span>-<span class="hljs-number">04</span>-<span class="hljs-number">04</span>
+<span class="hljs-attribute">cooked</span>-lasagna,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+<span class="hljs-attribute">climbed</span>-everest,<span class="hljs-number">2003</span>-<span class="hljs-number">03</span>-<span class="hljs-number">03</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">12</span>-<span class="hljs-number">12</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-filepath.csv</span>
+<span class="hljs-keyword">broke-leg,photo-xray
+</span>climbed-everest,photo-everest
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># filepath-filehash.csv</span>
+<span class="hljs-attribute">photo</span>-everest,<span class="hljs-number">0</span>x0000
+<span class="hljs-attribute">photo</span>-xray,<span class="hljs-number">0</span>x4444
+</code></pre>
+</blockquote>
+<h3>step 10: delete an attribute from a record</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record that removes the photo from the event about Everest</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"climbed-everest"</span>,
+  <span class="hljs-attr">date</span>: <span class="hljs-string">"2003-03-03"</span>
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>removed <code>climbed-everest,photo-everest</code> from <code>event-filepath.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">broke</span>-leg,<span class="hljs-number">2004</span>-<span class="hljs-number">04</span>-<span class="hljs-number">04</span>
+<span class="hljs-attribute">cooked</span>-lasagna,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+<span class="hljs-attribute">climbed</span>-everest,<span class="hljs-number">2003</span>-<span class="hljs-number">03</span>-<span class="hljs-number">03</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">12</span>-<span class="hljs-number">12</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-filepath.csv</span>
+<span class="hljs-keyword">broke-leg,photo-xray
+</span></code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># filepath-filehash.csv</span>
+<span class="hljs-attribute">photo</span>-everest,<span class="hljs-number">0</span>x0000
+<span class="hljs-attribute">photo</span>-xray,<span class="hljs-number">0</span>x4444
+</code></pre>
+</blockquote>
+<h3>step 11: add a record with an attribute list</h3>
+<pre><code class="language-javascript"># a record about a wedding, <span class="hljs-keyword">with</span> two photos
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"married"</span>,
+  <span class="hljs-attr">filepath</span>: [ <span class="hljs-string">"photo-bride"</span>, <span class="hljs-string">"photo-groom"</span> ]
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>added <code>married,photo-bride</code> to <code>event-filepath.csv</code></li>
+<li>added <code>married,photo-groom</code> to <code>event-filepath.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">12</span>-<span class="hljs-number">12</span>
+<span class="hljs-attribute">cooked</span>-lasagna,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+<span class="hljs-attribute">climbed</span>-everest,<span class="hljs-number">2003</span>-<span class="hljs-number">03</span>-<span class="hljs-number">03</span>
+<span class="hljs-attribute">broke</span>-leg,<span class="hljs-number">2004</span>-<span class="hljs-number">04</span>-<span class="hljs-number">04</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-filepath.csv</span>
+<span class="hljs-keyword">broke-leg,photo-xray
+</span>married,photo-<span class="hljs-keyword">bride
+</span>married,photo-groom
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># filepath-filehash.csv</span>
+<span class="hljs-attribute">photo</span>-everest,<span class="hljs-number">0</span>x0000
+<span class="hljs-attribute">photo</span>-xray,<span class="hljs-number">0</span>x4444
+</code></pre>
+</blockquote>
+<h3>step 12: edit an element of an attribute list</h3>
+<pre><code class="language-javascript"><span class="hljs-comment">// a record that removes the photo of the groom</span>
+<span class="hljs-comment">// and duplicates the photo of the bride</span>
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"event"</span>,
+  <span class="hljs-attr">event</span>: <span class="hljs-string">"married"</span>,
+  <span class="hljs-attr">filepath</span>: [ <span class="hljs-string">"photo-bride"</span>, <span class="hljs-string">"photo-bride"</span> ]
+}
+</code></pre>
+<blockquote>
+<ul>
+<li>removed <code>married,photo-groom</code> from <code>event-filepath.csv</code></li>
+<li>added <code>married,photo-bride</code> to <code>event-filepath.csv</code></li>
+</ul>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">event,</span> date
+<span class="hljs-built_in">event,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-date.csv</span>
+<span class="hljs-attribute">broke</span>-leg,<span class="hljs-number">2004</span>-<span class="hljs-number">04</span>-<span class="hljs-number">04</span>
+<span class="hljs-attribute">cooked</span>-lasagna,<span class="hljs-number">2002</span>-<span class="hljs-number">02</span>-<span class="hljs-number">02</span>
+<span class="hljs-attribute">climbed</span>-everest,<span class="hljs-number">2003</span>-<span class="hljs-number">03</span>-<span class="hljs-number">03</span>
+<span class="hljs-attribute">visited</span>-japan,<span class="hljs-number">2001</span>-<span class="hljs-number">12</span>-<span class="hljs-number">12</span>
+</code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># event-filepath.csv</span>
+<span class="hljs-keyword">broke-leg,photo-xray
+</span>married,photo-<span class="hljs-keyword">bride
+</span>married,photo-<span class="hljs-keyword">bride
+</span></code></pre>
+<pre><code class="language-csv"><span class="hljs-comment"># filepath-filehash.csv</span>
+<span class="hljs-attribute">photo</span>-everest,<span class="hljs-number">0</span>x0000
+<span class="hljs-attribute">photo</span>-xray,<span class="hljs-number">0</span>x4444
+</code></pre>
+</blockquote>
+<h2>Update 2</h2>
+<ul>
+<li>update()
+<ul>
+<li>add relation between two data entities
+<ul>
+<li>{ _: _, entity1: "entity2" }</li>
+<li><em>-</em>::"entity1,entity2"</li>
+</ul>
+</li>
+<li>add a bunch of relations at once
+<ul>
+<li>{ _: _, entity1: "entity2", entity2: "entity3" }</li>
+<li><em>-</em>::"entity1,entity2\nentity2,entity3"</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ignore in update()
+<ul>
+<li>ignore value without "_"
+<ul>
+<li>{ entity1: "entity2" }</li>
+</ul>
+</li>
+<li>ignore value "_" in a schema relation file
+<ul>
+<li><em>-</em>::"_,entity"</li>
+<li><em>-</em>::"entity,_"</li>
+</ul>
+</li>
+<li>writes two records for record when _ is array of two items
+<ul>
+<li>{ _: [ "entity1", "entity2" ], "entity3": "value3" }</li>
+<li>[{ _: "entity1", "entity3": "value3" }, { _: "value2", "entity3": "value3" }]</li>
+</ul>
+</li>
+<li>ignore fields that have no relation to declared base branch
+<ul>
+<li>{ _: "entity1", entity2: "value1", entity2: "value", unrelated_entity: "ignored_value" }</li>
+</ul>
+</li>
+<li>ignore array items that have _ other than declared base branch
+<ul>
+<li>{ _: "entity1", entity1: [ { _: "entity1", entity1: "value1"}, { _: "entity2", entity2: "ignored value" }] }</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Select</h2>
+<blockquote>
+<pre><code class="language-csv"><span class="hljs-comment"># .csvs.csv</span>
+<span class="hljs-attribute">csvs</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>
+</code></pre>
+<pre><code class="language-csv"># _-_.csv
+<span class="hljs-built_in">datum,</span> date
+<span class="hljs-built_in">datum,</span> filepath
+<span class="hljs-built_in">filepath,</span> filehash
+<span class="hljs-built_in">filepath,</span> filetype
+<span class="hljs-built_in">filepath,</span> filesize
+</code></pre>
+<pre><code class="language-csv"># datum-date.csv
+<span class="hljs-built_in">datum1,</span>date1Overwrite
+<span class="hljs-built_in">datum2,</span>date2
+<span class="hljs-built_in">datum3,</span>date3
+<span class="hljs-built_in">datum4,</span>date4
+</code></pre>
+<pre><code class="language-csv"># datum-filepath.csv
+<span class="hljs-built_in">datum4,</span>filepath4
+<span class="hljs-built_in">datum5,</span>filepath5a
+<span class="hljs-built_in">datum5,</span>filepath5a
+</code></pre>
+<pre><code class="language-csv"># filepath-filehash.csv
+<span class="hljs-built_in">filepath3,</span>filehash3
+<span class="hljs-built_in">filepath4,</span>filehash4
+</code></pre>
+</blockquote>
+<h3>query(queryDatum, fs)</h3>
+<pre><code class="language-javascript"># queryDatum
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+  <span class="hljs-attr">datum</span>: <span class="hljs-string">"value1"</span>
+}
+</code></pre>
+<pre><code class="language-javascript"># resultDatum
+[
+  {
+    <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+    <span class="hljs-attr">datum</span>: <span class="hljs-string">"datum1"</span>,
+    <span class="hljs-attr">date</span>: <span class="hljs-string">"date1Overwrite"</span>
+  }
+]
+</code></pre>
+<h3>query(queryRegex, fs)</h3>
+<pre><code class="language-javascript"># queryRegex
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+  <span class="hljs-attr">datum</span>: <span class="hljs-string">"value[12]"</span>
+}
+</code></pre>
+<pre><code class="language-javascript"># resultRegex
+[
+  {
+    <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+    <span class="hljs-attr">datum</span>: <span class="hljs-string">"datum1"</span>,
+    <span class="hljs-attr">date</span>: <span class="hljs-string">"date1Overwrite"</span>
+  },
+  {
+    <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+    <span class="hljs-attr">datum</span>: <span class="hljs-string">"datum2"</span>,
+    <span class="hljs-attr">date</span>: <span class="hljs-string">"date2"</span>
+  },
+]
+</code></pre>
+<h3>query(queryOptions, fs)</h3>
+<pre><code class="language-javascript"># queryOptions
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+}
+</code></pre>
+<pre><code class="language-javascript"># resultOptions
+[
+  {
+    <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+    <span class="hljs-attr">datum</span>: <span class="hljs-string">"datum1"</span>,
+    <span class="hljs-attr">date</span>: <span class="hljs-string">"date1Overwrite"</span>
+  },
+  {
+    <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+    <span class="hljs-attr">datum</span>: <span class="hljs-string">"datum2"</span>,
+    <span class="hljs-attr">date</span>: <span class="hljs-string">"date2"</span>
+  },
+  {
+    <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+    <span class="hljs-attr">datum</span>: <span class="hljs-string">"datum3"</span>,
+    <span class="hljs-attr">date</span>: <span class="hljs-string">"date3"</span>
+  },
+  {
+    <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+    <span class="hljs-attr">datum</span>: <span class="hljs-string">"datum4"</span>,
+    <span class="hljs-attr">date</span>: <span class="hljs-string">"date4"</span>
+    <span class="hljs-attr">filepath</span>: {
+      <span class="hljs-attr">_</span>: <span class="hljs-string">"filepath"</span>,
+      <span class="hljs-attr">filepath</span>: <span class="hljs-string">"filepath4"</span>,
+      <span class="hljs-attr">filehash</span>: <span class="hljs-string">"filehash4"</span>
+    }
+  },
+]
+</code></pre>
+<h3>query(queryFilter, fs)</h3>
+<pre><code class="language-javascript"># queryfilter
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+  <span class="hljs-attr">filepath</span>: <span class="hljs-string">"filepath4"</span>
+}
+</code></pre>
+<pre><code class="language-javascript"># resultFilter
+[
+  {
+    <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+    <span class="hljs-attr">datum</span>: <span class="hljs-string">"datum4"</span>,
+    <span class="hljs-attr">date</span>: <span class="hljs-string">"date4"</span>
+    <span class="hljs-attr">filepath</span>: {
+      <span class="hljs-attr">_</span>: <span class="hljs-string">"filepath"</span>,
+      <span class="hljs-attr">filepath</span>: <span class="hljs-string">"filepath4"</span>,
+      <span class="hljs-attr">filehash</span>: <span class="hljs-string">"filehash4"</span>
+    }
+  },
+]
+</code></pre>
+<h3>query(queryFilterNested, fs)</h3>
+<pre><code class="language-javascript"># queryfilterNested
+{
+  <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+  <span class="hljs-attr">filehash</span>: <span class="hljs-string">"filehash4"</span>
+}
+</code></pre>
+<h3>resultFilterNested</h3>
+<pre><code class="language-javascript">[
+  {
+    <span class="hljs-attr">_</span>: <span class="hljs-string">"datum"</span>,
+    <span class="hljs-attr">datum</span>: <span class="hljs-string">"datum4"</span>,
+    <span class="hljs-attr">date</span>: <span class="hljs-string">"date4"</span>
+    <span class="hljs-attr">filepath</span>: {
+      <span class="hljs-attr">_</span>: <span class="hljs-string">"filepath"</span>,
+      <span class="hljs-attr">filepath</span>: <span class="hljs-string">"filepath4"</span>,
+      <span class="hljs-attr">filehash</span>: <span class="hljs-string">"filehash4"</span>
+    }
+  },
+]
+</code></pre>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>

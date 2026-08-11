@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nlkb-panrec-tutorial</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <h1>Tutorial</h1>
+<p>Let's fill a CSVS dataset with entries and search for them with a query.</p>
+<p>To create a new csvs dataset</p>
+<pre><code class="language-shell">panrec -o /path/to/csvs-dataset
+</code></pre>
+<p>It's a new dataset, so if we run a search on it, it will return only one empty entry.</p>
+<pre><code class="language-shell">panrec -i /path/to/csvs-dataset
+<span class="hljs-meta prompt_"># </span><span class="language-bash">{<span class="hljs-string">"_"</span>: <span class="hljs-string">"datum"</span>, <span class="hljs-string">"UUID"</span>: <span class="hljs-string">"..."</span>, <span class="hljs-string">"datum"</span>: <span class="hljs-string">""</span>, <span class="hljs-string">"actdate"</span>: <span class="hljs-string">"2001-01-01"</span>}</span>
+</code></pre>
+<p>Let's see the stats</p>
+<pre><code class="language-shell">panrec --stats -i /path/to/csvs-dataset
+<span class="hljs-meta prompt_"># </span><span class="language-bash">number of entries: 1</span>
+</code></pre>
+<p>Let's print the dataset as text and add some entries to it.</p>
+<pre><code class="language-shell">panrec -i /path/to/csvs-dataset -t biorg -o /path/to/dataset.biorg
+</code></pre>
+<p>We specify an event for a given date.</p>
+<pre><code class="language-org-mode"><span class="hljs-bullet">* </span>.
+<span class="hljs-meta">:PROPERTIES:</span>
+<span class="hljs-meta">:actdate:</span> 2005-07-28
+<span class="hljs-meta">:END:</span>
+a walk in the park
+
+<span class="hljs-bullet">* </span>.
+<span class="hljs-meta">:PROPERTIES:</span>
+<span class="hljs-meta">:actdate:</span> 2011-03-17
+<span class="hljs-meta">:END:</span>
+won a championship
+</code></pre>
+<p>Now let's write the new entry to the dataset. The program will detect that the file is in Biorg format and copy new entries over.</p>
+<pre><code class="language-shell">panrec -i /path/to/dataset.biorg -o /path/to/csvs-dataset
+
+panrec --stats -i /path/to/csvs-dataset
+<span class="hljs-meta prompt_"># </span><span class="language-bash">number of entries: 3</span>
+
+panrec -i /path/to/csvs-dataset
+<span class="hljs-meta prompt_"># </span><span class="language-bash">{<span class="hljs-string">"_"</span>: <span class="hljs-string">"datum"</span>, <span class="hljs-string">"UUID"</span>: <span class="hljs-string">"..."</span>, <span class="hljs-string">"datum"</span>: <span class="hljs-string">""</span>, <span class="hljs-string">"actdate"</span>: <span class="hljs-string">"2001-01-01"</span>}</span>
+<span class="hljs-meta prompt_"># </span><span class="language-bash">{<span class="hljs-string">"_"</span>: <span class="hljs-string">"datum"</span>, <span class="hljs-string">"UUID"</span>: <span class="hljs-string">"..."</span>, <span class="hljs-string">"datum"</span>: <span class="hljs-string">"a walk in the park"</span>, <span class="hljs-string">"actdate"</span>: <span class="hljs-string">"2005-07-28"</span>}</span>
+<span class="hljs-meta prompt_"># </span><span class="language-bash">{<span class="hljs-string">"_"</span>: <span class="hljs-string">"datum"</span>, <span class="hljs-string">"UUID"</span>: <span class="hljs-string">"..."</span>, <span class="hljs-string">"datum"</span>: <span class="hljs-string">"won a championship"</span>, <span class="hljs-string">"actdate"</span>: <span class="hljs-string">"2011-03-17"</span>}</span>
+</code></pre>
+<p>Let's search only for the entry that happened in 2011. A wildcard <code>.*</code> means "any number of arbitrary characters"</p>
+<pre><code class="language-shell">panrec -i /path/to/csvs-dataset -q "?actdate=2011.*"
+<span class="hljs-meta prompt_"># </span><span class="language-bash">{<span class="hljs-string">"_"</span>: <span class="hljs-string">"datum"</span>, <span class="hljs-string">"UUID"</span>: <span class="hljs-string">"..."</span>, <span class="hljs-string">"datum"</span>: <span class="hljs-string">"won a championship"</span>, <span class="hljs-string">"actdate"</span>: <span class="hljs-string">"2011-03-17"</span>}</span>
+</code></pre>
+<p>Learn more about panrec in the <a href="./user_guides.md">User Guides</a>. For a complete list of CLI commands and flags, see <a href="./reference.md">Reference</a>.</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>
