@@ -24,9 +24,7 @@ function pageLangs() {
 function allLangs() {
   var btns = document.querySelectorAll(".lang-toggle button[data-lang]");
   var langs = [];
-  btns.forEach(function (b) {
-    langs.push(b.getAttribute("data-lang"));
-  });
+  btns.forEach(function (b) { langs.push(b.getAttribute("data-lang")); });
   if (langs.length > 0) return langs;
   return pageLangs();
 }
@@ -59,11 +57,9 @@ function setLang(lang, persist) {
     el.classList.toggle("hidden", el.getAttribute("lang") !== lang);
   });
   // elements with lang attribute
-  document
-    .querySelectorAll("main [lang], footer [lang], button [lang]")
-    .forEach(function (el) {
-      el.style.display = el.getAttribute("lang") === lang ? "" : "none";
-    });
+  document.querySelectorAll("main [lang], footer [lang], button [lang]").forEach(function (el) {
+    el.style.display = el.getAttribute("lang") === lang ? "" : "none";
+  });
   document.querySelectorAll("main > [lang]").forEach(function (el) {
     el.style.display = el.getAttribute("lang") === lang ? "" : "none";
   });
@@ -76,9 +72,7 @@ function setLang(lang, persist) {
     var spans = a.querySelectorAll("span[lang]");
     if (spans.length === 0) return;
     var match = a.querySelector('span[lang="' + lang + '"]');
-    spans.forEach(function (s) {
-      s.style.display = "none";
-    });
+    spans.forEach(function (s) { s.style.display = "none"; });
     if (match) {
       match.style.display = "";
     } else {
@@ -90,9 +84,7 @@ function setLang(lang, persist) {
     btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
   });
   if (persist !== false) {
-    try {
-      localStorage.setItem(KEY, lang);
-    } catch (e) {}
+    try { localStorage.setItem(KEY, lang); } catch (e) {}
   }
 }
 
