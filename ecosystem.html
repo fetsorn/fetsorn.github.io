@@ -1,0 +1,125 @@
+<!DOCTYPE html><html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ecosystem</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./hljs.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="./dialogues.html">
+          <span lang="en">dialogues</span>
+        </a>
+      </li>
+      <li>
+        <a href="./devnotes.html">
+          <span lang="en">devnotes</span>
+        </a>
+      </li>
+      <li>
+        <a href="./specs.html">
+          <span lang="en">specs</span>
+        </a>
+      </li>
+      <li>
+        <a href="./archive.html">
+          <span lang="en">archive</span>
+        </a>
+      </li>
+      <li>
+        <a href="./brochures.html">
+          <span lang="en">brochures</span>
+        </a>
+      </li>
+      <li>
+        <a href="./roadmap.html">
+          <span lang="en">roadmap</span>
+        </a>
+      </li>
+      <li>
+        <a href="./laboratory.html">
+          <span lang="en">Ontonomy
+</span>
+        </a>
+      </li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">en</button>
+    </div>
+  </nav>
+  <article lang="en">
+    <section>
+      <blockquote>
+        <p>Ecosystem</p>
+<p>csvs - comma separated value store<br>
+<a href="./spec-csvs.html">docs</a><br>
+A single standard I use to store all kinds of stories. "Alice fell in love with Bob on May 4th 1986" becomes</p>
+<p><em>-</em>.csv<br>
+event,name<br>
+event,date</p>
+<p>event-name.csv<br>
+love at first sight,alice<br>
+love at first sight,bob</p>
+<p>event-date.csv<br>
+love at first sight,1986-05-04</p>
+<p>@/love at first sight<br>
+Fell in love</p>
+<p>son - Store Object Notation<br>
+<a href="./spec-store_object_notation.html">docs</a><br>
+Another way to represent a story.<br>
+{ <em>:</em>, event: [ date, name ] }<br>
+{ _:event, event: love at first sight, @: fell in love, name: [alice, bob], date: 1986-05-04 }</p>
+<p>csvs-lib - plain text relational database<br>
+<a href="https://codeberg.org/fetsorn/csvs">codeberg</a> <a href="https://github.com/fetsorn/csvs">github</a> <a href="https://csvs.docs.norcivilianlabs.org">docs</a><br>
+Code that helps to read and write csvs. Queries thousands of entries in under a second. I ask for all names in the store<br>
+{ _: name } -&gt; [alice, bob]</p>
+<p>mind - stories that live<br>
+<a href="https://mind.docs.norcivilianlabs.org">docs</a><br>
+A mind is a csvs dataset plus everything it needs to live on its own - history of changes, docs, website, scripts.</p>
+<p>mindzoo - dataset multiplexer<br>
+<a href="https://codeberg.org/norcivilianlabs/mindzoo">codeberg</a> <a href="https://github.com/fetsorn/mindzoo">github</a> <a href="https://mindzoo.docs.norcivilianlabs.org">docs</a><br>
+A single mind that keeps record of other minds and gives access to them.<br>
+{ _: mind, category: love } -&gt; { _: mind, mind: Barries }<br>
+Barries, { _: name } -&gt; [alice, bob]</p>
+<p>mindbook - stories on a page<br>
+<a href="https://codeberg.org/norcivilianlabs/mindbook">codeberg</a> <a href="https://github.com/fetsorn/mindbook">github</a> <a href="https://mindbook.docs.norcivilianlabs.org">docs</a><br>
+Shows a story as text. Makes it easier to read  and edit many stories.<br>
+{ _:event, event: love at first sight, name: [alice, bob], date: 1986-05-04, @: fell in love } -&gt; "event fell in love with: alice, bob 1986-05-04"</p>
+<p>Evenor - event editor<br>
+<a href="https://codeberg.org/norcivilianlabs/evenor">codeberg</a> <a href="https://github.com/fetsorn/evenor">github</a> <a href="https://evenor.docs.norcivilianlabs.org">docs</a><br>
+Connects mindzoo and rihla to mindbook, runs on every device. In the browser stories are saved for a week, on desktop and mobile they live forever.<br>
+<a href="https://evenor.norcivilianlabs.org">Try it</a></p>
+<p>Wuyong - stories in a blog<br>
+<a href="https://codeberg.org/norcivilianlabs/wuyong">codeberg</a> <a href="https://github.com/fetsorn/wuyong">github</a> <a href="https://wuyong.docs.norcivilianlabs.org">docs</a><br>
+A JavaScript 11ty plugin that generates a static website from csvs.<br>
+Art - <a href="https://fetsorn.codeberg.page/">try it</a> <a href="https://codeberg.org/fetsorn/pages">source</a> <a href="https://evenor.norcivilianlabs.org">open in evenor</a><br>
+This website - <a href="https://codeberg.org/norcivilianlabs/pages">source</a> <a href="https://evenor.norcivilianlabs.org">open in evenor</a></p>
+<p>Panrec - dataset converter<br>
+<a href="https://codeberg.org/norcivilianlabs/panrec">codeberg</a> <a href="https://github.com/fetsorn/panrec">github</a> <a href="https://panrec.docs.norcivilianlabs.org">docs</a><br>
+Shows a dataset as a stream of SON records. I use it to create minds from social media, backups, gedcom, org-mode and other minds.</p>
+<p>Alhidad - turn everything to text<br>
+<a href="https://codeberg.org/norcivilianlabs/alhidad">codeberg</a> <a href="https://github.com/fetsorn/alhidad">github</a> <a href="https://alhidad.docs.norcivilianlabs.org">docs</a><br>
+Walks a hard drive, transcribes every file to text and writes into a mind. Audio with whisper ai, rich documents with pandoc.</p>
+<p>Rihla - filtered replication<br>
+<a href="https://codeberg.org/norcivilianlabs/rihla">codeberg</a> <a href="https://github.com/fetsorn/rihla">github</a> <a href="https://rihla.docs.norcivilianlabs.org">docs</a><br>
+Creates a new mind from a part of an old one. I use this to split and merge minds.</p>
+<p>Tsugiki - three trees<br>
+<a href="https://codeberg.org/norcivilianlabs/tsugiki">codeberg</a> <a href="https://github.com/fetsorn/tsugiki">github</a> <a href="https://tsugiki.docs.norcivilianlabs.org">docs</a><br>
+I use csvs to translate texts one story at a time.</p>
+<p>More:<br>
+<a href="./dialogues.html">Dialogues</a> - long reads about it all<br>
+<a href="./roadmap.html">Roadmap</a> - history and future</p>
+
+      </blockquote>
+    </section>
+  </article>
+  <footer>
+    <a href="./index.html">home</a>
+    <a href="./all.html">index</a>
+  </footer>
+
+
+</body></html>
